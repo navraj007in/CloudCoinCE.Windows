@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudCoinCE", "CloudCoinCE.csproj", "{6D03D176-E549-439D-BEAB-2D95347ADEC7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudCoinCore", "CloudCoinCore\CloudCoinCore\CloudCoinCore.csproj", "{33734D76-5EAB-4713-B2D2-409F37E92833}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{6D03D176-E549-439D-BEAB-2D95347ADEC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D03D176-E549-439D-BEAB-2D95347ADEC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D03D176-E549-439D-BEAB-2D95347ADEC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33734D76-5EAB-4713-B2D2-409F37E92833}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33734D76-5EAB-4713-B2D2-409F37E92833}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33734D76-5EAB-4713-B2D2-409F37E92833}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33734D76-5EAB-4713-B2D2-409F37E92833}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
