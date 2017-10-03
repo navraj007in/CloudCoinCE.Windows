@@ -99,5 +99,27 @@
       <Name>CloudCoinCoreFramework</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\jpeg1.png" />
+    <Resource Include="Images\jpeg100.png" />
+    <Resource Include="Images\jpeg25.png" />
+    <Resource Include="Images\jpeg250.png" />
+    <Resource Include="Images\jpeg5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Templates\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\layer_1.png" />
+    <Resource Include="Images\layer_100.png" />
+    <Resource Include="Images\layer_250.png" />
+    <Resource Include="Images\layer_25_0.png" />
+    <Resource Include="Images\layer_5.png" />
+    <Resource Include="Images\Moneyband.png" />
+    <Resource Include="Images\Moneyband_0.png" />
+    <Resource Include="Images\Moneyband_1.png" />
+    <Resource Include="Images\Moneyband_2.png" />
+    <Resource Include="Images\Moneyband_3.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
