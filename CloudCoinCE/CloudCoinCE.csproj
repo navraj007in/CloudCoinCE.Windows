@@ -85,6 +85,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="nodes.json" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -107,7 +108,7 @@
     <Resource Include="Images\jpeg5.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Templates\" />
+    <Resource Include="Images\Footer.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\layer_1.png" />
@@ -120,6 +121,25 @@
     <Resource Include="Images\Moneyband_1.png" />
     <Resource Include="Images\Moneyband_2.png" />
     <Resource Include="Images\Moneyband_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Templates\jpeg1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Templates\jpeg100.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Templates\jpeg25.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Templates\jpeg250.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Templates\jpeg5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Logopart1.png" />
+    <Resource Include="Images\Logopart1_0.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

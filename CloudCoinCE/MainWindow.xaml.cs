@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace CloudCoinCE
 {
@@ -23,6 +24,21 @@ namespace CloudCoinCE
         public MainWindow()
         {
             InitializeComponent();
+            loadJson();
+        }
+
+        private void loadJson()
+        {
+            string fileName = @"nodes.json";
+            TextRange range;
+            FileStream fStream;
+            if (File.Exists(fileName))
+            {
+                range = new TextRange(txtOutput.Document.ContentStart, txtOutput.Document.ContentEnd);
+                fStream = new FileStream(fileName, FileMode.OpenOrCreate);
+                range.Load(fStream, DataFormats.Text);
+                fStream.Close();
+            }
         }
     }
 }

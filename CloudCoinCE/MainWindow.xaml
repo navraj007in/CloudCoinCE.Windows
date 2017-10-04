@@ -4,9 +4,44 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CloudCoinCE"
-        mc:Ignorable="d" WindowState="Maximized" Background="Purple"
+        mc:Ignorable="d" WindowState="Maximized" Background="#393C7F"
         Title="CloudCoin Consumers Edition 1.0" Height="350" Width="525">
-    <Grid>
-        
+    <Grid ShowGridLines="False">
+        <Image Grid.Row="3" Stretch="Fill" Grid.RowSpan="2"  Source="Images/Footer.png" 
+               />
+        <StackPanel Orientation="Horizontal">
+            <Image Source="Images/Logopart1.png" Stretch="Fill"></Image>
+        </StackPanel>
+        <Grid  Grid.Row="1" Margin="20,10,10,10" ShowGridLines="False">
+            <Grid.RowDefinitions></Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*"></ColumnDefinition>
+                <ColumnDefinition Width="10*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <RichTextBox Grid.Column="0" 
+                         Foreground="White" x:Name="txtOutput" VerticalScrollBarVisibility="Visible" Width="350" Background="Transparent">
+                <RichTextBox.Resources>
+                    <Style TargetType="{x:Type ScrollBar}">
+                        <Setter Property="Background" Value="#393C7F"/>
+                    </Style>
+                </RichTextBox.Resources>
+            </RichTextBox>
+            <StackPanel Grid.Column="1" Orientation="Vertical">
+                <StackPanel Orientation="Horizontal"></StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="Images/jpeg1.png" Margin="20" Width="145" Stretch="Fill" StretchDirection="DownOnly"></Image>
+                    <Image Source="Images/jpeg5.png" Margin="20" Width="145"></Image>
+                    <Image Source="Images/jpeg25.png" Margin="20" Width="145"></Image>
+                    <Image Source="Images/jpeg100.png" Margin="20" Width="145"></Image>
+                    <Image Source="Images/jpeg250.png" Margin="20" Width="145"></Image>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="*" ></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions></Grid.ColumnDefinitions>
     </Grid>
 </Window>
