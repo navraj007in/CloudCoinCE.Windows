@@ -29,11 +29,11 @@
             <StackPanel Grid.Column="1" Orientation="Vertical">
                 <StackPanel Orientation="Horizontal"></StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <local:NoteUserControl  NoteCount="10" Note="Images\Jpeg1.png" Symbol="Images\Layer_1.png" Margin="20" Width="145" ></local:NoteUserControl>
-                    <local:NoteUserControl NoteCount="5" Note="Images\Jpeg5.png" Symbol="Images\Layer_5.png" Margin="20" Width="145" ></local:NoteUserControl>
-                    <local:NoteUserControl NoteCount="25" Note="Images\Jpeg25.png" Symbol="Images\Layer_25_0.png" Margin="20" Width="145" ></local:NoteUserControl>
-                    <local:NoteUserControl NoteCount="100" Note="Images\Jpeg100.png" Symbol="Images\Layer_100.png" Margin="20" Width="145" ></local:NoteUserControl>
-                    <local:NoteUserControl NoteCount="250" Note="Images\Jpeg250.png" Symbol="Images\Layer_250.png" Margin="20" Width="145" ></local:NoteUserControl>
+                    <local:NoteUserControl x:Name="noteOne" NoteCount="10" Note="Images\Jpeg1.png" Symbol="Images\Layer_1.png" Margin="20" Width="150" ></local:NoteUserControl>
+                    <local:NoteUserControl x:Name="noteFive"  NoteCount="5" Note="Images\Jpeg5.png" Symbol="Images\Layer_5.png" Margin="20" Width="150" ></local:NoteUserControl>
+                    <local:NoteUserControl x:Name="noteQtr"  NoteCount="25" Note="Images\Jpeg25.png" Symbol="Images\Layer_25_0.png" Margin="20" Width="150" ></local:NoteUserControl>
+                    <local:NoteUserControl x:Name="noteHundred"  NoteCount="100" Note="Images\Jpeg100.png" Symbol="Images\Layer_100.png" Margin="20" Width="150" ></local:NoteUserControl>
+                    <local:NoteUserControl x:Name="noteTwoFifty"   NoteCount="250" Note="Images\Jpeg250.png" Symbol="Images\Layer_250.png" Margin="20" Width="150" ></local:NoteUserControl>
                 </StackPanel>
             </StackPanel>
         </Grid>

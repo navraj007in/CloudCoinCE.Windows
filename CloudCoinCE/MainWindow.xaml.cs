@@ -25,6 +25,12 @@ namespace CloudCoinCE
         {
             InitializeComponent();
             loadJson();
+            noteOne.NoteCount = "1";
+            noteFive.NoteCount = "5";
+            noteQtr.NoteCount = "10";
+            noteHundred.NoteCount = "100";
+            noteTwoFifty.NoteCount = "250";
+
         }
 
         private void loadJson()
