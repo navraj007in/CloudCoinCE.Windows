@@ -66,8 +66,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="NoteUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NoteUserControl.xaml.cs">
+      <DependentUpon>NoteUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -140,6 +147,9 @@
   <ItemGroup>
     <Resource Include="Images\Logopart1.png" />
     <Resource Include="Images\Logopart1_0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

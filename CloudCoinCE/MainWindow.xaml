@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CloudCoinCE"
         mc:Ignorable="d" WindowState="Maximized" Background="#393C7F"
-        Title="CloudCoin Consumers Edition 1.0" Height="350" Width="525">
+        Title="CloudCoin Consumers Edition 1.0" Height="800" Width="600">
     <Grid ShowGridLines="False">
         <Image Grid.Row="3" Stretch="Fill" Grid.RowSpan="2"  Source="Images/Footer.png" 
                />
@@ -29,11 +29,11 @@
             <StackPanel Grid.Column="1" Orientation="Vertical">
                 <StackPanel Orientation="Horizontal"></StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="Images/jpeg1.png" Margin="20" Width="145" Stretch="Fill" StretchDirection="DownOnly"></Image>
-                    <Image Source="Images/jpeg5.png" Margin="20" Width="145"></Image>
-                    <Image Source="Images/jpeg25.png" Margin="20" Width="145"></Image>
-                    <Image Source="Images/jpeg100.png" Margin="20" Width="145"></Image>
-                    <Image Source="Images/jpeg250.png" Margin="20" Width="145"></Image>
+                    <local:NoteUserControl  NoteCount="10" Note="Images\Jpeg1.png" Symbol="Images\Layer_1.png" Margin="20" Width="145" ></local:NoteUserControl>
+                    <local:NoteUserControl NoteCount="5" Note="Images\Jpeg5.png" Symbol="Images\Layer_5.png" Margin="20" Width="145" ></local:NoteUserControl>
+                    <local:NoteUserControl NoteCount="25" Note="Images\Jpeg25.png" Symbol="Images\Layer_25_0.png" Margin="20" Width="145" ></local:NoteUserControl>
+                    <local:NoteUserControl NoteCount="100" Note="Images\Jpeg100.png" Symbol="Images\Layer_100.png" Margin="20" Width="145" ></local:NoteUserControl>
+                    <local:NoteUserControl NoteCount="250" Note="Images\Jpeg250.png" Symbol="Images\Layer_250.png" Margin="20" Width="145" ></local:NoteUserControl>
                 </StackPanel>
             </StackPanel>
         </Grid>
