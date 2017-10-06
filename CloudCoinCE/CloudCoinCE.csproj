@@ -54,6 +54,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="UserControls\ColorToSCBrushConverter.cs" />
+    <Compile Include="UserControls\Led.xaml.cs">
+      <DependentUpon>Led.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\WidthToBorderThickConverter.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -69,6 +74,10 @@
     <Page Include="NoteUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Led.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

@@ -51,10 +51,16 @@ namespace Founders
 
         static void createDir()
         {
-
-            if (Directory.Exists(logFolder) == false)
+            try
             {
-                Directory.CreateDirectory(logFolder);
+                if (Directory.Exists(logFolder) == false)
+                {
+                    Directory.CreateDirectory(logFolder);
+                }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
             }
 
 
@@ -64,10 +70,12 @@ namespace Founders
         public static async void Log(string message, [System.Runtime.CompilerServices.CallerFilePath] string classpath = "")
         {
             string path = logFolder + "other.log";
-            createDir();
-            string classname = Path.GetFileNameWithoutExtension(classpath).ToLower();
-            path = logFolder + classname + ".log";
-            
+            try
+            {
+                createDir();
+                string classname = Path.GetFileNameWithoutExtension(classpath).ToLower();
+                path = logFolder + classname + ".log";
+
                 TextWriter tw = File.AppendText(path);
                 using (tw)
                 {
@@ -75,7 +83,11 @@ namespace Founders
                     await tw.WriteLineAsync(message);
 
                 }
-            
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
             
             
         }
