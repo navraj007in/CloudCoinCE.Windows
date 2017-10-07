@@ -149,33 +149,33 @@ namespace CloudCoinCE
             }
         }
 
-        private void updateLEDs()
+        private void updateLEDs(bool[] failsEcho)
         {
-            raida1.ColorOn = RAIDA_Status.failsEcho[0] ? Colors.Green : Colors.Red;
-            raida2.ColorOn = RAIDA_Status.failsEcho[1] ? Colors.Green : Colors.Red;
-            raida3.ColorOn = RAIDA_Status.failsEcho[2] ? Colors.Green : Colors.Red;
-            raida4.ColorOn = RAIDA_Status.failsEcho[3] ? Colors.Green : Colors.Red;
-            raida5.ColorOn = RAIDA_Status.failsEcho[4] ? Colors.Green : Colors.Red;
-            raida6.ColorOn = RAIDA_Status.failsEcho[5] ? Colors.Green : Colors.Red;
-            raida7.ColorOn = RAIDA_Status.failsEcho[6] ? Colors.Green : Colors.Red;
-            raida8.ColorOn = RAIDA_Status.failsEcho[7] ? Colors.Green : Colors.Red;
-            raida9.ColorOn = RAIDA_Status.failsEcho[8] ? Colors.Green : Colors.Red;
-            raida10.ColorOn = RAIDA_Status.failsEcho[9] ? Colors.Green : Colors.Red;
-            raida11.ColorOn = RAIDA_Status.failsEcho[10] ? Colors.Green : Colors.Red;
-            raida12.ColorOn = RAIDA_Status.failsEcho[11] ? Colors.Green : Colors.Red;
-            raida13.ColorOn = RAIDA_Status.failsEcho[12] ? Colors.Green : Colors.Red;
-            raida14.ColorOn = RAIDA_Status.failsEcho[13] ? Colors.Green : Colors.Red;
-            raida15.ColorOn = RAIDA_Status.failsEcho[14] ? Colors.Green : Colors.Red;
-            raida16.ColorOn = RAIDA_Status.failsEcho[15] ? Colors.Green : Colors.Red;
-            raida17.ColorOn = RAIDA_Status.failsEcho[16] ? Colors.Green : Colors.Red;
-            raida18.ColorOn = RAIDA_Status.failsEcho[17] ? Colors.Green : Colors.Red;
-            raida19.ColorOn = RAIDA_Status.failsEcho[18] ? Colors.Green : Colors.Red;
-            raida20.ColorOn = RAIDA_Status.failsEcho[19] ? Colors.Green : Colors.Red;
-            raida21.ColorOn = RAIDA_Status.failsEcho[20] ? Colors.Green : Colors.Red;
-            raida22.ColorOn = RAIDA_Status.failsEcho[21] ? Colors.Green : Colors.Red;
-            raida23.ColorOn = RAIDA_Status.failsEcho[22] ? Colors.Green : Colors.Red;
-            raida24.ColorOn = RAIDA_Status.failsEcho[23] ? Colors.Green : Colors.Red;
-            raida25.ColorOn = RAIDA_Status.failsEcho[24] ? Colors.Green : Colors.Red;
+            raida1.ColorOn = !failsEcho[0] ? Colors.Green : Colors.Red;
+            raida2.ColorOn = !failsEcho[1] ? Colors.Green : Colors.Red;
+            raida3.ColorOn = !failsEcho[2] ? Colors.Green : Colors.Red;
+            raida4.ColorOn = !failsEcho[3] ? Colors.Green : Colors.Red;
+            raida5.ColorOn = !failsEcho[4] ? Colors.Green : Colors.Red;
+            raida6.ColorOn = !failsEcho[5] ? Colors.Green : Colors.Red;
+            raida7.ColorOn = !failsEcho[6] ? Colors.Green : Colors.Red;
+            raida8.ColorOn = !failsEcho[7] ? Colors.Green : Colors.Red;
+            raida9.ColorOn = !failsEcho[8] ? Colors.Green : Colors.Red;
+            raida10.ColorOn = !failsEcho[9] ? Colors.Green : Colors.Red;
+            raida11.ColorOn = !failsEcho[10] ? Colors.Green : Colors.Red;
+            raida12.ColorOn = !failsEcho[11] ? Colors.Green : Colors.Red;
+            raida13.ColorOn = !failsEcho[12] ? Colors.Green : Colors.Red;
+            raida14.ColorOn = !failsEcho[13] ? Colors.Green : Colors.Red;
+            raida15.ColorOn = !failsEcho[14] ? Colors.Green : Colors.Red;
+            raida16.ColorOn = !failsEcho[15] ? Colors.Green : Colors.Red;
+            raida17.ColorOn = !failsEcho[16] ? Colors.Green : Colors.Red;
+            raida18.ColorOn = !failsEcho[17] ? Colors.Green : Colors.Red;
+            raida19.ColorOn = !failsEcho[18] ? Colors.Green : Colors.Red;
+            raida20.ColorOn = !failsEcho[19] ? Colors.Green : Colors.Red;
+            raida21.ColorOn = !failsEcho[20] ? Colors.Green : Colors.Red;
+            raida22.ColorOn = !failsEcho[21] ? Colors.Green : Colors.Red;
+            raida23.ColorOn = !failsEcho[22] ? Colors.Green : Colors.Red;
+            raida24.ColorOn = !failsEcho[23] ? Colors.Green : Colors.Red;
+            raida25.ColorOn = !failsEcho[24] ? Colors.Green : Colors.Red;
 
 
         }
@@ -185,7 +185,7 @@ namespace CloudCoinCE
 
             RAIDA_Status.resetEcho();
             RAIDA raida1 = new RAIDA(15000);
-            Response[] results = raida1.echoAll(15000);
+            Response[] results = raida1.echoAll(5000);
             int totalReady = 0;
             Console.Out.WriteLine("");
             //For every RAIDA check its results
@@ -204,12 +204,12 @@ namespace CloudCoinCE
                 if (RAIDA_Status.failsEcho[i])
                 {
                     Console.BackgroundColor = ConsoleColor.Red;
-                    Console.Out.Write(strPad + countries[i]);
+                    Console.Out.Write(strPad + countries[i]+"N");
                 }
                 else
                 {
                     Console.BackgroundColor = ConsoleColor.Green;
-                    Console.Out.Write(strPad + countries[i]);
+                    Console.Out.Write(strPad + countries[i] +"Y");
                     totalReady++;
                 }
                 //if (RAIDA_Status.failsEcho[i])
@@ -222,9 +222,9 @@ namespace CloudCoinCE
             Console.ForegroundColor = ConsoleColor.White;
             Console.Out.WriteLine("");
             Console.Out.WriteLine("");
-            Console.Out.Write("  RAIDA Health: " + totalReady + " / 25: ");//"RAIDA Health: " + totalReady );
+            Console.Out.Write("---  RAIDA Health: " + totalReady + " / 25: ----");//"RAIDA Health: " + totalReady );
             this.Dispatcher.Invoke(() => {
-                updateLEDs();
+                updateLEDs(RAIDA_Status.failsEcho);
             });
             if (totalReady < 16)//
             {

@@ -44,7 +44,7 @@ namespace Founders
 
 
 
-        public bool[] echoAll(int milliSecondsToTimeOut)
+        public Response[] echoAll(int milliSecondsToTimeOut)
         {
 
 
@@ -82,7 +82,7 @@ namespace Founders
                 CoreLogger.Log("echo:" + i + " " + responseArray[i].fullResponse);
 
             
-            return RAIDA_Status.failsEcho;
+            return results;
         }//end echo
 
 
