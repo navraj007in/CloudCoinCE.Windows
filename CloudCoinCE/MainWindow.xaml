@@ -5,14 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CloudCoinCE"
         xmlns:uc1="clr-namespace:LedControl"
-        mc:Ignorable="d" WindowState="Maximized" Background="#393C7F"
+        mc:Ignorable="d" WindowState="Maximized" Background="#393C7F" 
         Title="CloudCoin Consumers Edition 1.0" Height="800" Width="600">
-    <Grid ShowGridLines="False">
+    <Grid ShowGridLines="True">
         <Image Grid.Row="3" Stretch="Fill" Grid.RowSpan="2" HorizontalAlignment="Left"  Source="Images/Footer.png" 
                />
-        <StackPanel Orientation="Horizontal"  >
+        <StackPanel Orientation="Horizontal" Background="#4A4EA9" >
             <Image Source="Images/Logopart1.png" Stretch="Fill"></Image>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,20">
+            <Border CornerRadius="20,20,20,20" Height="30" Background="#3F438D"  HorizontalAlignment="Right" Margin="0,0,0,20" BorderThickness="2,2,2,2">
+            <StackPanel Orientation="Horizontal"  >
                 
             <uc1:Led x:Name="raida1" MaxWidth="25" Margin="5" MaxHeight="25" Flashing="True" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
                 <uc1:Led x:Name="raida2" MaxWidth="25" Margin="5" MaxHeight="25" Flashing="True" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
@@ -43,7 +44,7 @@
                 <uc1:Led x:Name="raida25" MaxWidth="25" MaxHeight="25" Margin="5" Flashing="False" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
 
             </StackPanel>
-
+</Border>
         </StackPanel>
         <Grid  Grid.Row="1" Margin="20,10,10,10" ShowGridLines="False">
             <Grid.RowDefinitions></Grid.RowDefinitions>
@@ -60,7 +61,171 @@
                 </RichTextBox.Resources>
             </RichTextBox>
             <StackPanel Grid.Column="1" Orientation="Vertical">
-                <StackPanel Height="40" Orientation="Horizontal">
+                <StackPanel Height="50" Orientation="Horizontal"  Background="#4C50AB">
+                    <Border CornerRadius="50,50,0,0" >
+                        
+                    <Button Width="200" Height="50" >
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="#4C50AB"/>
+                                <Setter Property="Foreground">
+                                    <Setter.Value>
+                                        #FFFFFF
+                                    </Setter.Value>
+                                </Setter>
+
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#22DF9F"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Images/Addicon.png" HorizontalAlignment="Left" Width="20" Height="20"/>
+                            <TextBlock Text="POWN NEW"   Margin="20"  VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    </Border>
+
+                    <Button Width="200" Height="50" x:Name="cmdBackup" Click="cmdBackup_Click">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="#4C50AB"/>
+                                <Setter Property="Foreground">
+                                    <Setter.Value>
+                                        #FFFFFF
+                                    </Setter.Value>
+                                </Setter>
+
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#22DF9F"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <StackPanel Orientation="Horizontal" >
+                            <Image Source="Images/Backupicon.png" HorizontalAlignment="Left" Width="20" Height="20"/>
+                            <TextBlock Text="BACKUP" Margin="20" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+
+                    <Button Width="200" Height="50" x:Name="cmdRefresh" Click="cmdRefresh_Click">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="#4C50AB"/>
+                                <Setter Property="Foreground">
+                                    <Setter.Value>
+                                        #FFFFFF
+                                    </Setter.Value>
+                                </Setter>
+
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#22DF9F"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <StackPanel Orientation="Horizontal" >
+                            <Image Source="Images/Refreshicon.png" HorizontalAlignment="Left" Width="20" Height="20"/>
+                            <TextBlock Text="REFRESH" Margin="20" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+
+                    <Button Width="200" Height="50" x:Name="cmdShowFolders" Click="cmdShowFolders_Click">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="#4C50AB"/>
+                                <Setter Property="Foreground">
+                                    <Setter.Value>
+                                        #FFFFFF
+                                        </Setter.Value>
+                                </Setter>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#22DF9F"/>
+                                    </Trigger>
+
+                                    
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <StackPanel Orientation="Horizontal"  >
+                            <Image Source="Images/Foldericon.png" HorizontalAlignment="Left" Width="20" Height="20"/>
+                            <TextBlock Margin="20" Text="SHOW FOLDERS"  VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+
+                    <Button Width="200" Height="50" x:Name="cmdChangeWorkspace" Click="cmdChangeWorkspace_Click">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="#4C50AB"/>
+                                <Setter Property="Foreground">
+                                    <Setter.Value>
+                                        #FFFFFF
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#22DF9F"/>
+                                    </Trigger>
+
+
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <StackPanel Orientation="Horizontal"  >
+                            <Image Source="Images/Foldericon.png" HorizontalAlignment="Left" Width="20" Height="20"/>
+                            <TextBlock Margin="20" Text="WORKSPACE"  VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
 
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">

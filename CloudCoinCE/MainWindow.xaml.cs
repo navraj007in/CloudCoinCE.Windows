@@ -16,6 +16,9 @@ using System.IO;
 using Founders;
 using System.ComponentModel;
 using System.Threading;
+using System.Diagnostics;
+using System.Reflection;
+using CloudCoinIE;
 
 namespace CloudCoinCE
 {
@@ -28,9 +31,29 @@ namespace CloudCoinCE
 
         public static string[] countries = new String[] { "Australia", "Macedonia", "Philippines", "Serbia", "Bulgaria", "Russia", "Switzerland", "United Kingdom", "Punjab", "India", "Croatia", "USA", "India", "Taiwan", "Moscow", "St.Petersburg", "Columbia", "Singapore", "Germany", "Canada", "Venezuela", "Hyperbad", "USA", "Ukraine", "Luxenburg" };
 
+        public static String rootFolder = AppDomain.CurrentDomain.BaseDirectory;
+        public static String importFolder = rootFolder + "Import" + System.IO.Path.DirectorySeparatorChar;
+        public static String importedFolder = rootFolder + "Imported" + System.IO.Path.DirectorySeparatorChar;
+        public static String trashFolder = rootFolder + "Trash" + System.IO.Path.DirectorySeparatorChar;
+        public static String suspectFolder = rootFolder + "Suspect" + System.IO.Path.DirectorySeparatorChar;
+        public static String frackedFolder = rootFolder + "Fracked" + System.IO.Path.DirectorySeparatorChar;
+        public static String bankFolder = rootFolder + "Bank" + System.IO.Path.DirectorySeparatorChar;
+        public static String templateFolder = rootFolder + "Templates" + System.IO.Path.DirectorySeparatorChar;
+        public static String counterfeitFolder = rootFolder + "Counterfeit" + System.IO.Path.DirectorySeparatorChar;
+        public static String directoryFolder = rootFolder + "Directory" + System.IO.Path.DirectorySeparatorChar;
+        public static String exportFolder = rootFolder + "Export" + System.IO.Path.DirectorySeparatorChar;
+        public static String languageFolder = rootFolder + "Language" + System.IO.Path.DirectorySeparatorChar;
+        public static String partialFolder = rootFolder + "Partial" + System.IO.Path.DirectorySeparatorChar;
+
+        FileUtils fileUtils = FileUtils.GetInstance(rootFolder);
+
         public MainWindow()
         {
+            showDisclaimer();
+            setupFolders();
+
             InitializeComponent();
+            fileUtils.CreateDirectoryStructure();
             loadJson();
             noteOne.NoteCount = "1";
             noteFive.NoteCount = "5";
@@ -90,9 +113,9 @@ namespace CloudCoinCE
             raida24.Flashing = true;
             raida25.Flashing = true;
 
-            new Thread(delegate () {
-                echoRaida();
-            }).Start();
+            //new Thread(delegate () {
+            //    echoRaida();
+            //}).Start();
 
             worker.DoWork += Worker_DoWork; ;
             worker.RunWorkerCompleted += Worker_RunWorkerCompleted; ;
@@ -128,6 +151,33 @@ namespace CloudCoinCE
             raida24.Flashing = false;
             raida25.Flashing = false;
 
+        }
+
+        private void showDisclaimer()
+        {
+            //Properties.Settings.Default["FirstRun"] = false;
+
+            bool firstRun = (bool)Properties.Settings.Default["FirstRun"];
+            if (firstRun == false)
+            {
+                //First application run
+                //Update setting
+                Properties.Settings.Default["FirstRun"] = true;
+                //Save setting
+                Properties.Settings.Default.Save();
+
+                Disclaimer disclaimer = new Disclaimer();
+                disclaimer.ShowDialog();
+
+                //Create new instance of Dialog you want to show
+                //FirstDialogForm fdf = new FirstDialogForm();
+                //Show the dialog
+                //fdf.ShowDialog();
+            }
+            else
+            {
+                //Not first time of running application.
+            }
         }
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
@@ -241,5 +291,197 @@ namespace CloudCoinCE
         }//End echo
 
 
+            public void export(string backupDir)
+            {
+
+
+                Banker bank = new Banker(fileUtils);
+                int[] bankTotals = bank.countCoins(fileUtils.bankFolder);
+                int[] frackedTotals = bank.countCoins(fileUtils.frackedFolder);
+                int[] partialTotals = bank.countCoins(fileUtils.partialFolder);
+
+                //updateLog("  Your Bank Inventory:");
+                int grandTotal = (bankTotals[0] + frackedTotals[0] + partialTotals[0]);
+                // state how many 1, 5, 25, 100 and 250
+                int exp_1 = bankTotals[1] + frackedTotals[1] + partialTotals[1];
+                int exp_5 = bankTotals[2] + frackedTotals[2] + partialTotals[2];
+                int exp_25 = bankTotals[3] + frackedTotals[3] + partialTotals[3];
+                int exp_100 = bankTotals[4] + frackedTotals[4] + partialTotals[4];
+                int exp_250 = bankTotals[5] + frackedTotals[5] + partialTotals[5];
+                //Warn if too many coins
+
+                if (exp_1 + exp_5 + exp_25 + exp_100 + exp_250 == 0)
+                {
+                    Console.WriteLine("Can not export 0 coins");
+                    return;
+                }
+
+                //updateLog(Convert.ToString(bankTotals[1] + frackedTotals[1] + bankTotals[2] + frackedTotals[2] + bankTotals[3] + frackedTotals[3] + bankTotals[4] + frackedTotals[4] + bankTotals[5] + frackedTotals[5] + partialTotals[1] + partialTotals[2] + partialTotals[3] + partialTotals[4] + partialTotals[5]));
+
+                if (((bankTotals[1] + frackedTotals[1]) + (bankTotals[2] + frackedTotals[2]) + (bankTotals[3] + frackedTotals[3]) + (bankTotals[4] + frackedTotals[4]) + (bankTotals[5] + frackedTotals[5]) + partialTotals[1] + partialTotals[2] + partialTotals[3] + partialTotals[4] + partialTotals[5]) > 1000)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Out.WriteLine("Warning: You have more than 1000 Notes in your bank. Stack files should not have more than 1000 Notes in them.");
+                    Console.Out.WriteLine("Do not export stack files with more than 1000 notes. .");
+                    //updateLog("Warning: You have more than 1000 Notes in your bank. Stack files should not have more than 1000 Notes in them.");
+                    //updateLog("Do not export stack files with more than 1000 notes. .");
+
+                    Console.ForegroundColor = ConsoleColor.White;
+                }//end if they have more than 1000 coins
+
+                Console.Out.WriteLine("  Do you want to export your CloudCoin to (1)jpgs or (2) stack (JSON) file?");
+                Exporter exporter = new Exporter(fileUtils);
+
+                String tag = "backup";// reader.readString();
+                                      //Console.Out.WriteLine(("Exporting to:" + exportFolder));
+
+                exporter.writeJSONFile(exp_1, exp_5, exp_25, exp_100, exp_250, tag, 1, backupDir);
+
+
+                // end if type jpge or stack
+
+
+
+
+                //MessageBox.Show("Export completed.", "Cloudcoins", MessageBoxButtons.OK);
+            }// end export One
+
+
+        private void cmdBackup_Click(object sender, RoutedEventArgs e)
+        {
+            backup();
+        }
+        private void backup()
+        {
+            Banker bank = new Banker(fileUtils);
+            int[] bankTotals = bank.countCoins(fileUtils.bankFolder);
+            int[] frackedTotals = bank.countCoins(fileUtils.frackedFolder);
+            int[] partialTotals = bank.countCoins(fileUtils.partialFolder);
+
+
+            using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+            {
+
+                System.Windows.Forms.DialogResult result = dialog.ShowDialog();
+                if (result == System.Windows.Forms.DialogResult.OK)
+                {
+                    export(dialog.SelectedPath);
+                    //copyFolders(dialog.SelectedPath);
+                    MessageBox.Show("Backup completed successfully.");
+                }
+            }
+
+        }
+
+        private void cmdShowFolders_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(MainWindow.rootFolder);
+        }
+
+        private void cmdRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                worker.DoWork += Worker_DoWork; ;
+                worker.RunWorkerCompleted += Worker_RunWorkerCompleted; ;
+                worker.RunWorkerAsync();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public void setupFolders()
+        {
+            rootFolder = getWorkspace();
+
+            importFolder = rootFolder + "Import" + System.IO.Path.DirectorySeparatorChar;
+            importedFolder = rootFolder + "Imported" + System.IO.Path.DirectorySeparatorChar;
+            trashFolder = rootFolder + "Trash" + System.IO.Path.DirectorySeparatorChar;
+            suspectFolder = rootFolder + "Suspect" + System.IO.Path.DirectorySeparatorChar;
+            frackedFolder = rootFolder + "Fracked" + System.IO.Path.DirectorySeparatorChar;
+            bankFolder = rootFolder + "Bank" + System.IO.Path.DirectorySeparatorChar;
+            templateFolder = rootFolder + "Templates" + System.IO.Path.DirectorySeparatorChar;
+            counterfeitFolder = rootFolder + "Counterfeit" + System.IO.Path.DirectorySeparatorChar;
+            directoryFolder = rootFolder + "Directory" + System.IO.Path.DirectorySeparatorChar;
+            exportFolder = rootFolder + "Export" + System.IO.Path.DirectorySeparatorChar;
+            languageFolder = rootFolder + "Language" + System.IO.Path.DirectorySeparatorChar;
+            partialFolder = rootFolder + "Partial" + System.IO.Path.DirectorySeparatorChar;
+
+            fileUtils = FileUtils.GetInstance(MainWindow.rootFolder);
+
+
+        }
+        public string getWorkspace()
+        {
+            string workspace = "";
+            if (Properties.Settings.Default.WorkSpace != null && Properties.Settings.Default.WorkSpace.Length > 0)
+                workspace = Properties.Settings.Default.WorkSpace;
+            else
+                workspace = AppDomain.CurrentDomain.BaseDirectory;
+            Properties.Settings.Default.WorkSpace = workspace;
+            return workspace;
+        }
+
+        private void cmdChangeWorkspace_Click(object sender, RoutedEventArgs e)
+        {
+            using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+            {
+                System.Windows.Forms.DialogResult result = dialog.ShowDialog();
+                if (result == System.Windows.Forms.DialogResult.OK)
+                {
+                    string sMessageBoxText = "Do you want to Change CloudCoin Folder?";
+                    string sCaption = "Change Directory";
+
+                    MessageBoxButton btnMessageBox = MessageBoxButton.YesNoCancel;
+                    MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
+
+                    MessageBoxResult rsltMessageBox = MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+
+                    switch (rsltMessageBox)
+                    {
+                        case MessageBoxResult.Yes:
+                            /* ... */
+                           // lblDirectory.Text = dialog.SelectedPath;
+                            Properties.Settings.Default.WorkSpace = dialog.SelectedPath + System.IO.Path.DirectorySeparatorChar;
+                            Properties.Settings.Default.Save();
+                            FileUtils fileUtils = FileUtils.GetInstance(Properties.Settings.Default.WorkSpace);
+                            fileUtils.CreateDirectoryStructure();
+                            string[] fileNames = Assembly.GetExecutingAssembly().GetManifestResourceNames();
+                            foreach (String fileName in fileNames)
+                            {
+                                if (fileName.Contains("jpeg"))
+                                {
+                                    try
+                                    {
+                                        string outputpath = Properties.Settings.Default.WorkSpace + "Templates" + System.IO.Path.DirectorySeparatorChar + fileName.Substring(22);
+                                        using (FileStream fileStream = File.Create(outputpath))
+                                        {
+                                            Assembly.GetExecutingAssembly().GetManifestResourceStream(fileName).CopyTo(fileStream);
+                                        }
+                                    }
+                                    catch (Exception ex)
+                                    {
+
+                                    }
+                                }
+                            }
+                            System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+                            Application.Current.Shutdown();
+                            break;
+
+                        case MessageBoxResult.No:
+                            /* ... */
+                            break;
+
+                        case MessageBoxResult.Cancel:
+                            /* ... */
+                            break;
+                    }
+                }
+            }
+
+        }
     }
 }

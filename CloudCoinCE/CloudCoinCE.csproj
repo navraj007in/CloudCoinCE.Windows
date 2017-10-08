@@ -59,6 +59,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -98,11 +99,18 @@
     <Compile Include="CloudcoinCore\RAIDA_Status.cs" />
     <Compile Include="CloudcoinCore\Response.cs" />
     <Compile Include="CloudcoinCore\Stack.cs" />
+    <Compile Include="Disclaimer.xaml.cs">
+      <DependentUpon>Disclaimer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ColorToSCBrushConverter.cs" />
     <Compile Include="UserControls\Led.xaml.cs">
       <DependentUpon>Led.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\WidthToBorderThickConverter.cs" />
+    <Page Include="Disclaimer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -198,6 +206,19 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Backupicon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Addicon.png" />
+    <Resource Include="Images\Membershipicon.png" />
+    <Resource Include="Images\Privacyicon.png" />
+    <Resource Include="Images\Refreshicon.png" />
+    <Resource Include="Images\Settingsicon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Foldericon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\SkiaSharp.1.59.1\build\net45\SkiaSharp.targets" Condition="Exists('..\packages\SkiaSharp.1.59.1\build\net45\SkiaSharp.targets')" />
