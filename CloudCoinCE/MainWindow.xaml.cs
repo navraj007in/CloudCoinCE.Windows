@@ -19,6 +19,7 @@ using System.Threading;
 using System.Diagnostics;
 using System.Reflection;
 using CloudCoinIE;
+using Microsoft.Win32;
 
 namespace CloudCoinCE
 {
@@ -28,6 +29,7 @@ namespace CloudCoinCE
     public partial class MainWindow : Window
     {
         private readonly BackgroundWorker worker = new BackgroundWorker();
+        public EventHandler RefreshCoins;
 
         public static string[] countries = new String[] { "Australia", "Macedonia", "Philippines", "Serbia", "Bulgaria", "Russia", "Switzerland", "United Kingdom", "Punjab", "India", "Croatia", "USA", "India", "Taiwan", "Moscow", "St.Petersburg", "Columbia", "Singapore", "Germany", "Canada", "Venezuela", "Hyperbad", "USA", "Ukraine", "Luxenburg" };
 
@@ -44,6 +46,15 @@ namespace CloudCoinCE
         public static String exportFolder = rootFolder + "Export" + System.IO.Path.DirectorySeparatorChar;
         public static String languageFolder = rootFolder + "Language" + System.IO.Path.DirectorySeparatorChar;
         public static String partialFolder = rootFolder + "Partial" + System.IO.Path.DirectorySeparatorChar;
+
+        public static int exportOnes = 0;
+        public static int exportFives = 0;
+        public static int exportTens = 0;
+        public static int exportQtrs = 0;
+        public static int exportHundreds = 0;
+        public static int exportTwoFifties = 0;
+        public static int exportJpegStack = 2;
+        public static string exportTag = "";
 
         FileUtils fileUtils = FileUtils.GetInstance(rootFolder);
 
@@ -124,9 +135,211 @@ namespace CloudCoinCE
             showCoins();
         }
 
+        private void Refresh(object sender, EventArgs e)
+        {
+            showCoins();
+            showCoins();
+        }
+
+        private void resumeImport()
+        {
+
+            int count = Directory.GetFiles(MainWindow.suspectFolder).Length;
+            if (count > 0)
+            {
+                //cmdImport.IsEnabled = false;
+                //cmdRestore.IsEnabled = false;
+               // progressBar.Visibility = Visibility.Visible;
+
+                //Notifier notifier = new Notifier(cfg =>
+                //{
+                //    cfg.PositionProvider = new WindowPositionProvider(
+                //        parentWindow: Application.Current.MainWindow,
+                //        corner: Corner.TopRight,
+                //        offsetX: 10,
+                //        offsetY: 10);
+
+                //    cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+                //        notificationLifetime: TimeSpan.FromSeconds(3),
+                //        maximumNotificationCount: MaximumNotificationCount.FromCount(5));
+
+                //    cfg.Dispatcher = Application.Current.Dispatcher;
+                //});
+
+                //notifier.ShowInformation("Unimported Coins found. Resuming import operation.");
+
+                new Thread(() =>
+                {
+
+                    Thread.CurrentThread.IsBackground = true;
+
+                    echoRaida();
+
+                    int totalRAIDABad = 0;
+                    for (int i = 0; i < 25; i++)
+                    {
+                        if (RAIDA_Status.failsEcho[i])
+                        {
+                            totalRAIDABad += 1;
+                        }
+                    }
+                    if (totalRAIDABad > 8)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Out.WriteLine("You do not have enough RAIDA to perform an import operation.");
+                        Console.Out.WriteLine("Check to make sure your internet is working.");
+                        Console.Out.WriteLine("Make sure no routers at your work are blocking access to the RAIDA.");
+                        Console.Out.WriteLine("Try to Echo RAIDA and see if the status has changed.");
+                        Console.ForegroundColor = ConsoleColor.White;
+
+                        insufficientRAIDA();
+                        return;
+                    }
+                    else
+                        import();
+
+                    /* run your code here */
+                }).Start();
+
+            }
+        }
+
+        public void import(int resume = 0)
+        {
+
+            //Check RAIDA Status
+
+            //CHECK TO SEE IF THERE ARE UN DETECTED COINS IN THE SUSPECT FOLDER
+            String[] suspectFileNames = new DirectoryInfo(fileUtils.suspectFolder).GetFiles().Select(o => o.Name).ToArray();//Get all files in suspect folder
+            if (suspectFileNames.Length > 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Out.WriteLine("  Finishing importing coins from last time...");//
+                updateLog("  Finishing importing coins from last time...");
+
+                Console.ForegroundColor = ConsoleColor.White;
+                detect();
+                Console.Out.WriteLine("  Now looking in import folder for new coins...");// "Now looking in import folder for new coins...");
+                updateLog("  Now looking in import folder for new coins...");
+            } //end if there are files in the suspect folder that need to be imported
+
+
+            Console.Out.WriteLine("");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Out.WriteLine("  Loading all CloudCoins in your import folder: ");// "Loading all CloudCoins in your import folder: " );
+            Console.Out.WriteLine(fileUtils.importFolder);
+            updateLog("  Loading all CloudCoins in your import folder: ");
+            updateLog(fileUtils.importFolder);
+
+            Console.ForegroundColor = ConsoleColor.White;
+            Importer importer = new Importer(fileUtils);
+            if (!importer.importAll() && resume == 0)//Moves all CloudCoins from the Import folder into the Suspect folder. 
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Out.WriteLine("  No coins in import folder.");// "No coins in import folder.");
+                updateLog("No coins in import Folder");
+
+                Console.ForegroundColor = ConsoleColor.White;
+                App.Current.Dispatcher.Invoke(delegate
+                {
+
+                    //cmdRestore.IsEnabled = true;
+                    //cmdImport.IsEnabled = true;
+                });
+
+            }
+            else
+            {
+                detect(1);
+            }//end if coins to import
+        }   // end import
+
+        public void detect(int resume =0)
+        {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            Console.Out.WriteLine("");
+            updateLog("  Detecting Authentication of Suspect Coins");
+
+            Console.Out.WriteLine("  Detecting Authentication of Suspect Coins");// "Detecting Authentication of Suspect Coins");
+            Detector detector = new Detector(fileUtils, timeout);
+
+            detector.OnUpdateStatus += Detector_OnUpdateStatus; ;
+            detector.txtLogs = txtLogs;
+            int[] detectionResults = detector.detectAll();
+            Console.Out.WriteLine("  Total imported to bank: " + detectionResults[0]);//"Total imported to bank: "
+            //Console.Out.WriteLine("  Total imported to fracked: " + detectionResults[2]);//"Total imported to fracked: "
+            updateLog("  Total imported to bank: " + detectionResults[0]);
+            //updateLog("  Total imported to fracked: " + detectionResults[2]);
+            // And the bank and the fractured for total
+            Console.Out.WriteLine("  Total Counterfeit: " + detectionResults[1]);//"Total Counterfeit: "
+            Console.Out.WriteLine("  Total Kept in suspect folder: " + detectionResults[3]);//"Total Kept in suspect folder: " 
+            updateLog("  Total Counterfeit: " + detectionResults[1]);
+            updateLog("  Total Kept in suspect folder: " + detectionResults[3]);
+            updateLog("  Total Notes imported to Bank: " + detector.totalImported);
+
+            //            showCoins();
+            stopwatch.Stop();
+            Console.Out.WriteLine(stopwatch.Elapsed + " ms");
+            updateLog("Time to import " + detectionResults[0] + " Coins: " + stopwatch.Elapsed.ToCustomString() + "");
+
+            string messageBoxText = "Finished Importing Coins.";
+            string caption = "Coins";
+            RefreshCoins?.Invoke(this, new EventArgs());
+
+            MessageBoxButton button = MessageBoxButton.OK;
+            MessageBoxImage icon = MessageBoxImage.Information;
+            if(resume>0)
+                MessageBox.Show(messageBoxText, caption, button, icon);
+            App.Current.Dispatcher.Invoke(delegate
+            {
+                //cmdRestore.IsEnabled = true;
+                //cmdImport.IsEnabled = true;
+                //progressBar.Value = 100;
+                showCoins();
+            });
+        }//end detect
+
+        private void Detector_OnUpdateStatus(object sender, ProgressEventArgs e)
+        {
+            App.Current.Dispatcher.Invoke(delegate
+            {
+                //progressBar.Value = e.percentage;
+                //if (e.percentage > 0)
+                 //   lblStatus.Content = String.Format("{0} % of Coins Scanned.", Convert.ToString(e.percentage));
+
+            });
+        }
+
+        private void insufficientRAIDA()
+        {
+            App.Current.Dispatcher.Invoke(delegate
+            {
+                txtLogs.AppendText("You do not have enough RAIDA to perform an import operation.");
+                txtLogs.AppendText("Check to make sure your internet is working.");
+                txtLogs.AppendText("Make sure no routers at your work are blocking access to the RAIDA.");
+                txtLogs.AppendText("Try to Echo RAIDA and see if the status has changed.");
+
+                
+                //cmdImport.IsEnabled = true;
+                //cmdRestore.IsEnabled = true;
+            });
+
+        }
+        private void updateLog(string logLine)
+        {
+            App.Current.Dispatcher.Invoke(delegate
+            {
+                txtLogs.AppendText(logLine + Environment.NewLine);
+            });
+
+        }
+
+
         int[] bankTotals ;
         int[] frackedTotals ;
         int[] partialTotals ;
+        public int timeout = 5000;
 
         public void showCoins()
         {
@@ -269,7 +482,7 @@ namespace CloudCoinCE
             FileStream fStream;
             if (File.Exists(fileName))
             {
-                range = new TextRange(txtOutput.Document.ContentStart, txtOutput.Document.ContentEnd);
+                range = new TextRange(txtLogs.Document.ContentStart, txtLogs.Document.ContentEnd);
                 fStream = new FileStream(fileName, FileMode.OpenOrCreate);
                 range.Load(fStream, DataFormats.Text);
                 fStream.Close();
@@ -563,5 +776,104 @@ namespace CloudCoinCE
             }
 
         }
+
+        private void cmdPown_Click(object sender, RoutedEventArgs e)
+        {
+            int count = Directory.GetFiles(MainWindow.importFolder).Length;
+            if (count == 0)
+            {
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = "Cloudcoins (*.stack, *.jpg,*.jpeg)|*.stack;*.jpg;*.jpeg|Stack files (*.stack)|*.stack|Jpeg files (*.jpg)|*.jpg|All files (*.*)|*.*";
+                openFileDialog.InitialDirectory = fileUtils.importFolder;
+                openFileDialog.Multiselect = true;
+
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    foreach (string filename in openFileDialog.FileNames)
+                    {
+                        try
+                        {
+                            if (!File.Exists(fileUtils.importFolder + System.IO.Path.DirectorySeparatorChar + System.IO.Path.GetFileName(filename)))
+                                File.Move(filename, fileUtils.importFolder + System.IO.Path.DirectorySeparatorChar + System.IO.Path.GetFileName(filename));
+                            else
+                            {
+                                string msg = "File " + filename + " already exists. Do you want to overwrite it?";
+                                MessageBoxResult result =
+                                  MessageBox.Show(
+                                    msg,
+                                    "CloudCoins",
+                                    MessageBoxButton.YesNo,
+                                    MessageBoxImage.Warning);
+                                if (result == MessageBoxResult.Yes)
+                                {
+                                    try
+                                    {
+                                        File.Delete(fileUtils.importFolder + System.IO.Path.DirectorySeparatorChar + System.IO.Path.GetFileName(filename));
+                                        File.Move(filename, fileUtils.importFolder + System.IO.Path.DirectorySeparatorChar + System.IO.Path.GetFileName(filename));
+                                    }
+                                    catch (Exception ex)
+                                    {
+
+                                    }
+                                }
+                            }
+
+                        }
+                        catch (Exception ex)
+                        {
+                            updateLog(ex.Message);
+                        }
+                    }
+                }
+                else
+                    return;
+            }
+
+            int totalRAIDABad = 0;
+            for (int i = 0; i < 25; i++)
+            {
+                if (RAIDA_Status.failsEcho[i])
+                {
+                    totalRAIDABad += 1;
+                }
+            }
+            if (totalRAIDABad > 8)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Out.WriteLine("You do not have enough RAIDA to perform an import operation.");
+                Console.Out.WriteLine("Check to make sure your internet is working.");
+                Console.Out.WriteLine("Make sure no routers at your work are blocking access to the RAIDA.");
+                Console.Out.WriteLine("Try to Echo RAIDA and see if the status has changed.");
+                Console.ForegroundColor = ConsoleColor.White;
+
+                insufficientRAIDA();
+
+                return;
+            }
+            //cmdImport.IsEnabled = false;
+            //cmdRestore.IsEnabled = false;
+            //progressBar.Visibility = Visibility.Visible;
+            new Thread(() =>
+            {
+                Thread.CurrentThread.IsBackground = true;
+                import();
+
+                /* run your code here */
+            }).Start();
+
+        }
+
+        private void txtLogs_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            txtLogs.ScrollToEnd();
+        }
     }
+    public static class MyExtensions
+    {
+        public static string ToCustomString(this TimeSpan span)
+        {
+            return string.Format("{0:00}:{1:00}:{2:00}", span.Hours, span.Minutes, span.Seconds);
+        }
+    }
+
 }

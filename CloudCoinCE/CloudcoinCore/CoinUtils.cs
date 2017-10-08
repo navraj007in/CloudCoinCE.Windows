@@ -1,6 +1,8 @@
 ﻿
+using CloudCoinCE;
 using System;
 using System.Security.Cryptography;
+using System.Windows.Controls;
 
 namespace Founders
 {
@@ -19,6 +21,44 @@ namespace Founders
         public Folder folder;
         public String[] gradeStatus = new String[3];// What passed, what failed, what was undetected
 
+        public RichTextBox txtLogs;
+
+        public delegate void StatusUpdateHandler(object sender, ProgressEventArgs e);
+        public event StatusUpdateHandler OnUpdateStatus;
+        private void UpdateStatus(string status)
+        {
+            // Make sure someone is listening to event
+            if (OnUpdateStatus == null) return;
+
+            ProgressEventArgs args = new ProgressEventArgs(status);
+            OnUpdateStatus(this, args);
+        }
+        private void updateLog(string logLine)
+        {
+            try
+            {
+                App.Current.Dispatcher.Invoke(delegate
+                {
+                    try
+                    {
+                        txtLogs.AppendText(logLine + Environment.NewLine);
+                    }
+                    catch (Exception e)
+                    {
+
+                    }
+                });
+            }
+            catch (Exception e)
+            {
+
+            }
+            //txtLogs.SelectionStart = txtLogs.TextLength;
+            //txtLogs.SelectionLength = 0;
+            //txtLogs.ScrollToCaret();
+            // Running on the UI thread
+
+        }
 
         //CONSTRUCTORS
         public CoinUtils( CloudCoin cc )
@@ -440,26 +480,34 @@ namespace Founders
             }
             // end RAIDA other errors and unknowns
             // Coin will go to bank, counterfeit or fracked
+            String coinStatus = "";
+
             if (other > 12)
             {
                 // not enough RAIDA to have a quorum
                 folder = Folder.Suspect;
+                coinStatus = "Suspect";
             }
             else if (failed > passed)
             {
                 // failed out numbers passed with a quorum: Counterfeit
                 folder = Folder.Counterfeit;
+                coinStatus = "Counterfeit";
             }
             else if (failed > 0)
             {
                 // The quorum majority said the coin passed but some disagreed: fracked. 
                 folder = Folder.Fracked;
+                coinStatus = "Fracked";
             }
             else
             {
                 // No fails, all passes: bank
                 folder = Folder.Bank;
+                coinStatus = "Authentic";
             }
+
+            updateLog("Coin status :" + coinStatus);
 
             gradeStatus[0] = passedDesc;
             gradeStatus[1] = failedDesc;

@@ -1,6 +1,8 @@
-﻿using System;
+﻿using CloudCoinCE;
+using System;
 using System.IO;
 using System.Linq;
+using System.Windows.Controls;
 
 namespace Founders
 {
@@ -10,7 +12,22 @@ namespace Founders
         public RAIDA raida;
         public FileUtils fileUtils;
         public int detectTime = 5000;
-        
+        public RichTextBox txtLogs;
+        public int totalImported = 0;
+
+
+        public delegate void StatusUpdateHandler(object sender, ProgressEventArgs e);
+        public event StatusUpdateHandler OnUpdateStatus;
+
+        private void UpdateStatus(string status, int percentage = 0)
+        {
+            // Make sure someone is listening to event
+            if (OnUpdateStatus == null) return;
+
+            ProgressEventArgs args = new ProgressEventArgs(status, percentage);
+            OnUpdateStatus(this, args);
+        }
+
 
 
         /*  CONSTRUCTOR */
@@ -56,9 +73,14 @@ namespace Founders
                     {
                         newCC = this.fileUtils.loadOneCloudCoinFromJsonFile(this.fileUtils.suspectFolder + suspectFileNames[j]);
                         CoinUtils cu = new CoinUtils(newCC);
+                        cu.OnUpdateStatus += Cu_OnUpdateStatus;
+                        cu.txtLogs = txtLogs;
+
                         Console.Out.WriteLine("Now scanning coin " + (j + 1) + " of " + suspectFileNames.Length + " for counterfeit. SN " + string.Format("{0:n0}", newCC.sn) + ", Denomination: " + cu.getDenomination());
                         CoreLogger.Log("Now scanning coin " + (j + 1) + " of " + suspectFileNames.Length + " for counterfeit. SN " + string.Format("{0:n0}", newCC.sn) + ", Denomination: " + cu.getDenomination());
                         Console.Out.WriteLine("");
+
+                        updateLog("Now scanning coin " + (j + 1) + " of " + suspectFileNames.Length + " for counterfeit. SN " + string.Format("{0:n0}", newCC.sn) + ", Denomination: " + cu.getDenomination());
 
                         CoinUtils detectedCC = this.raida.detectCoin(cu, detectTime);
                         cu.calcExpirationDate();
@@ -133,6 +155,21 @@ namespace Founders
             results[3] = totalValueToKeptInSuspect;
             return results;
         }//Detect All
+
+        private void updateLog(string logLine)
+        {
+            App.Current.Dispatcher.Invoke(delegate
+            {
+                txtLogs.AppendText(logLine + Environment.NewLine);
+            });
+
+            // Running on the UI thread
+        }
+
+        private void Cu_OnUpdateStatus(object sender, ProgressEventArgs e)
+        {
+            UpdateStatus(e.Status);
+        }
 
         public int[] partialDetectAll()
         {

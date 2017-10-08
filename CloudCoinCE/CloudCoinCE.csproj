@@ -95,6 +95,7 @@
     <Compile Include="CloudcoinCore\KeyboardReader.cs" />
     <Compile Include="CloudcoinCore\Logger.cs" />
     <Compile Include="CloudcoinCore\MindStorage.cs" />
+    <Compile Include="CloudcoinCore\ProgressEventArgs.cs" />
     <Compile Include="CloudcoinCore\RAIDA.cs" />
     <Compile Include="CloudcoinCore\RAIDA_Status.cs" />
     <Compile Include="CloudcoinCore\Response.cs" />

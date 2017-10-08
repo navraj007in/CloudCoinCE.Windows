@@ -84,8 +84,8 @@
                 <ColumnDefinition Width="4*"></ColumnDefinition>
                 <ColumnDefinition Width="10*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <RichTextBox Grid.Column="0" 
-                         Foreground="White" x:Name="txtOutput" VerticalScrollBarVisibility="Visible" Width="350" Background="Transparent">
+            <RichTextBox Grid.Column="0"  TextChanged="txtLogs_TextChanged"
+                         Foreground="White" x:Name="txtLogs" VerticalScrollBarVisibility="Visible" Width="350" Background="Transparent">
                 <RichTextBox.Resources>
                     <Style TargetType="{x:Type ScrollBar}">
                         <Setter Property="Background" Value="#393C7F"/>
@@ -96,7 +96,7 @@
                 <StackPanel Height="50" Orientation="Horizontal"  Background="#4C50AB">
                     <Border CornerRadius="50,50,0,0" >
                         
-                    <Button Width="200" Height="50" >
+                    <Button Width="200" Height="50" x:Name="cmdPown" Click="cmdPown_Click">
                         <Button.Style>
                             <Style TargetType="{x:Type Button}">
                                 <Setter Property="Background" Value="#4C50AB"/>
