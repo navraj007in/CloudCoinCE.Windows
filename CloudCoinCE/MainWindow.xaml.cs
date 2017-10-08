@@ -121,7 +121,81 @@ namespace CloudCoinCE
             worker.RunWorkerCompleted += Worker_RunWorkerCompleted; ;
             worker.RunWorkerAsync();
 
+            showCoins();
         }
+
+        int[] bankTotals ;
+        int[] frackedTotals ;
+        int[] partialTotals ;
+
+        public void showCoins()
+        {
+
+            Console.Out.WriteLine("");
+            // This is for consol apps.
+            Banker bank = new Banker(fileUtils);
+            bankTotals = bank.countCoins(fileUtils.bankFolder);
+            frackedTotals = bank.countCoins(fileUtils.frackedFolder);
+            partialTotals = bank.countCoins(fileUtils.partialFolder);
+            // int[] counterfeitTotals = bank.countCoins( counterfeitFolder );
+
+            //setLabelText(lblOnesCount, Convert.ToString(bankTotals[1] + frackedTotals[1] + partialTotals[1]));
+            //setLabelText(lblFivesCount, Convert.ToString(bankTotals[2] + frackedTotals[2] + partialTotals[2]));
+            //setLabelText(lblQtrCount, Convert.ToString(bankTotals[3] + frackedTotals[3] + partialTotals[3]));
+            //setLabelText(lblHundredCount, Convert.ToString(bankTotals[4] + frackedTotals[4] + partialTotals[4]));
+            //setLabelText(lblTwoFiftiesCount, Convert.ToString(bankTotals[5] + frackedTotals[5] + partialTotals[5]));
+
+            //setLabelText(lblOnesValue, Convert.ToString(bankTotals[1] + frackedTotals[1] + partialTotals[1]));
+            //setLabelText(lblFivesValue, Convert.ToString((bankTotals[2] + frackedTotals[2] + partialTotals[2]) * 5));
+            //setLabelText(lblQtrValue, Convert.ToString((bankTotals[3] + frackedTotals[3] + partialTotals[3]) * 25));
+            //setLabelText(lblHundredValue, Convert.ToString((bankTotals[4] + frackedTotals[4] + partialTotals[4]) * 100));
+            //setLabelText(lblTwoFiftiesValue, Convert.ToString((bankTotals[5] + frackedTotals[5] + partialTotals[5]) * 250));
+            //setLabelText(lblTotalCoins, "Total Coins in Bank : " + Convert.ToString(bankTotals[0] + frackedTotals[0] + partialTotals[0]));
+
+            setLabelText(lblNotesTotal, Convert.ToString(bankTotals[1] + frackedTotals[1] + partialTotals[1]
+                + bankTotals[2] + frackedTotals[2] + partialTotals[2]
+                + bankTotals[3] + frackedTotals[3] + partialTotals[3]
+                + bankTotals[4] + frackedTotals[4] + partialTotals[4]
+                + bankTotals[5] + frackedTotals[5] + partialTotals[5]));
+
+            setLabelText(lblNotesTotal, Convert.ToString(bankTotals[0] + frackedTotals[0] + partialTotals[0]));
+            updateNotes();
+
+        }// end show
+
+        private void updateNotes()
+        {
+            App.Current.Dispatcher.Invoke(delegate
+            {
+                noteOne.lblNoteCount.Content = Convert.ToString(bankTotals[1] + frackedTotals[1] + partialTotals[1]);
+                noteFive.lblNoteCount.Content = Convert.ToString(bankTotals[2] + frackedTotals[2] + partialTotals[2]);
+                noteQtr.lblNoteCount.Content = Convert.ToString(bankTotals[3] + frackedTotals[3] + partialTotals[3]);
+                noteHundred.lblNoteCount.Content = Convert.ToString(bankTotals[4] + frackedTotals[4] + partialTotals[4]);
+                noteTwoFifty.lblNoteCount.Content = Convert.ToString(bankTotals[5] + frackedTotals[5] + partialTotals[5]);
+
+            });
+
+        }
+        private void setLabelText(Label lbl, string text)
+        {
+            App.Current.Dispatcher.Invoke(delegate
+            {
+                if (lbl != null)
+                    lbl.Content = text;
+            });
+
+        }
+
+        private void setLabelText(TextBlock lbl, string text)
+        {
+            App.Current.Dispatcher.Invoke(delegate
+            {
+                if (lbl != null)
+                    lbl.Text = text;
+            });
+
+        }
+
 
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -153,6 +227,9 @@ namespace CloudCoinCE
 
         }
 
+        /*
+         *Shows disclaimer for a first time Run 
+         */
         private void showDisclaimer()
         {
             //Properties.Settings.Default["FirstRun"] = false;
@@ -199,6 +276,11 @@ namespace CloudCoinCE
             }
         }
 
+        /*
+         * Updates LED controls based on the status of failsEcho Array
+         * Green for Echo Passed 
+         * Red for Echo Failed
+         */
         private void updateLEDs(bool[] failsEcho)
         {
             raida1.ColorOn = !failsEcho[0] ? Colors.Green : Colors.Red;
@@ -250,17 +332,13 @@ namespace CloudCoinCE
                 {
                     strPad += " ";
                 }//end for padding
-                 // Console.Out.Write(RAIDA_Status.failsEcho[i]);
                 if (RAIDA_Status.failsEcho[i])
                 {
-                    Console.BackgroundColor = ConsoleColor.Red;
                     Console.Out.Write(strPad + countries[i]+"N");
                 }
                 else
                 {
-                    Console.BackgroundColor = ConsoleColor.Green;
                     Console.Out.Write(strPad + countries[i] +"Y");
-                    totalReady++;
                 }
                 //if (RAIDA_Status.failsEcho[i])
                 //    raidas[i].Background = Brushes.Red;
@@ -269,6 +347,8 @@ namespace CloudCoinCE
 
                 if (i == 4 || i == 9 || i == 14 || i == 19) { Console.WriteLine(); }
             }//end for
+
+            totalReady = RAIDA_Status.failsEcho.Where(c => !c).Count();
             Console.ForegroundColor = ConsoleColor.White;
             Console.Out.WriteLine("");
             Console.Out.WriteLine("");
