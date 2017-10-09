@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CloudCoinCE"
         xmlns:uc1="clr-namespace:LedControl"
+        xmlns:uc="clr-namespace:CloudCoinCE.UserControls"
+
         mc:Ignorable="d" WindowState="Maximized" Background="#393C7F" 
         Title="CloudCoin Consumers Edition 1.0" Height="800" Width="600">
     <Grid ShowGridLines="True">
@@ -268,6 +270,50 @@
                     <local:NoteUserControl x:Name="noteHundred"  NoteCount="100" Note="Images\Jpeg100.png" Symbol="Images\Layer_100.png" Margin="20" Width="150" ></local:NoteUserControl>
                     <local:NoteUserControl x:Name="noteTwoFifty"   NoteCount="250" Note="Images\Jpeg250.png" Symbol="Images\Layer_250.png" Margin="20" Width="150" ></local:NoteUserControl>
 
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Height="30">
+                    <uc:UpDownControl x:Name="updOne" OnExportChanged="updOne_OnExportChanged" Margin="30,0"></uc:UpDownControl>
+                    <uc:UpDownControl x:Name="updFive" OnExportChanged="updOne_OnExportChanged" Margin="30,0"></uc:UpDownControl>
+                    <uc:UpDownControl x:Name="updQtr" OnExportChanged="updOne_OnExportChanged" Margin="30,0"></uc:UpDownControl>
+                    <uc:UpDownControl x:Name="updHundred" OnExportChanged="updOne_OnExportChanged" Margin="30,0"></uc:UpDownControl>
+                    <uc:UpDownControl x:Name="updTwoFifty" Margin="30,0" OnExportChanged="updOne_OnExportChanged"></uc:UpDownControl>
+                    <RadioButton x:Name="rdbStack" Content="Stack"></RadioButton>
+                    <RadioButton x:Name="rdbJpeg" Content="Jpeg"></RadioButton>
+                    <TextBox x:Name="txtTag" MinWidth="60"></TextBox>
+                    <Button Width="200" Height="40" x:Name="cmdExport">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="#22DF9F"/>
+                                <Setter Property="Foreground">
+                                    <Setter.Value>
+                                        #FFFFFF
+                                    </Setter.Value>
+                                </Setter>
+
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#22DF9F"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Images/Addicon.png" HorizontalAlignment="Left" Width="20" Height="20"/>
+                            <TextBlock Text="0"  x:Name="lblExportTotal" Margin="20"  VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
                 </StackPanel>
             </StackPanel>
         </Grid>

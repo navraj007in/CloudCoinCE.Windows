@@ -149,7 +149,7 @@ namespace CloudCoinCE
             {
                 //cmdImport.IsEnabled = false;
                 //cmdRestore.IsEnabled = false;
-               // progressBar.Visibility = Visibility.Visible;
+                // progressBar.Visibility = Visibility.Visible;
 
                 //Notifier notifier = new Notifier(cfg =>
                 //{
@@ -254,7 +254,7 @@ namespace CloudCoinCE
             }//end if coins to import
         }   // end import
 
-        public void detect(int resume =0)
+        public void detect(int resume = 0)
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -289,7 +289,7 @@ namespace CloudCoinCE
 
             MessageBoxButton button = MessageBoxButton.OK;
             MessageBoxImage icon = MessageBoxImage.Information;
-            if(resume>0)
+            if (resume > 0)
                 MessageBox.Show(messageBoxText, caption, button, icon);
             App.Current.Dispatcher.Invoke(delegate
             {
@@ -306,7 +306,7 @@ namespace CloudCoinCE
             {
                 //progressBar.Value = e.percentage;
                 //if (e.percentage > 0)
-                 //   lblStatus.Content = String.Format("{0} % of Coins Scanned.", Convert.ToString(e.percentage));
+                //   lblStatus.Content = String.Format("{0} % of Coins Scanned.", Convert.ToString(e.percentage));
 
             });
         }
@@ -320,7 +320,7 @@ namespace CloudCoinCE
                 txtLogs.AppendText("Make sure no routers at your work are blocking access to the RAIDA.");
                 txtLogs.AppendText("Try to Echo RAIDA and see if the status has changed.");
 
-                
+
                 //cmdImport.IsEnabled = true;
                 //cmdRestore.IsEnabled = true;
             });
@@ -336,9 +336,9 @@ namespace CloudCoinCE
         }
 
 
-        int[] bankTotals ;
-        int[] frackedTotals ;
-        int[] partialTotals ;
+        int[] bankTotals;
+        int[] frackedTotals;
+        int[] partialTotals;
         public int timeout = 5000;
 
         public void showCoins()
@@ -547,11 +547,11 @@ namespace CloudCoinCE
                 }//end for padding
                 if (RAIDA_Status.failsEcho[i])
                 {
-                    Console.Out.Write(strPad + countries[i]+"N");
+                    Console.Out.Write(strPad + countries[i] + "N");
                 }
                 else
                 {
-                    Console.Out.Write(strPad + countries[i] +"Y");
+                    Console.Out.Write(strPad + countries[i] + "Y");
                 }
                 //if (RAIDA_Status.failsEcho[i])
                 //    raidas[i].Background = Brushes.Red;
@@ -584,60 +584,60 @@ namespace CloudCoinCE
         }//End echo
 
 
-            public void export(string backupDir)
+        public void export(string backupDir)
+        {
+
+
+            Banker bank = new Banker(fileUtils);
+            int[] bankTotals = bank.countCoins(fileUtils.bankFolder);
+            int[] frackedTotals = bank.countCoins(fileUtils.frackedFolder);
+            int[] partialTotals = bank.countCoins(fileUtils.partialFolder);
+
+            //updateLog("  Your Bank Inventory:");
+            int grandTotal = (bankTotals[0] + frackedTotals[0] + partialTotals[0]);
+            // state how many 1, 5, 25, 100 and 250
+            int exp_1 = bankTotals[1] + frackedTotals[1] + partialTotals[1];
+            int exp_5 = bankTotals[2] + frackedTotals[2] + partialTotals[2];
+            int exp_25 = bankTotals[3] + frackedTotals[3] + partialTotals[3];
+            int exp_100 = bankTotals[4] + frackedTotals[4] + partialTotals[4];
+            int exp_250 = bankTotals[5] + frackedTotals[5] + partialTotals[5];
+            //Warn if too many coins
+
+            if (exp_1 + exp_5 + exp_25 + exp_100 + exp_250 == 0)
             {
+                Console.WriteLine("Can not export 0 coins");
+                return;
+            }
+
+            //updateLog(Convert.ToString(bankTotals[1] + frackedTotals[1] + bankTotals[2] + frackedTotals[2] + bankTotals[3] + frackedTotals[3] + bankTotals[4] + frackedTotals[4] + bankTotals[5] + frackedTotals[5] + partialTotals[1] + partialTotals[2] + partialTotals[3] + partialTotals[4] + partialTotals[5]));
+
+            if (((bankTotals[1] + frackedTotals[1]) + (bankTotals[2] + frackedTotals[2]) + (bankTotals[3] + frackedTotals[3]) + (bankTotals[4] + frackedTotals[4]) + (bankTotals[5] + frackedTotals[5]) + partialTotals[1] + partialTotals[2] + partialTotals[3] + partialTotals[4] + partialTotals[5]) > 1000)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Out.WriteLine("Warning: You have more than 1000 Notes in your bank. Stack files should not have more than 1000 Notes in them.");
+                Console.Out.WriteLine("Do not export stack files with more than 1000 notes. .");
+                //updateLog("Warning: You have more than 1000 Notes in your bank. Stack files should not have more than 1000 Notes in them.");
+                //updateLog("Do not export stack files with more than 1000 notes. .");
+
+                Console.ForegroundColor = ConsoleColor.White;
+            }//end if they have more than 1000 coins
+
+            Console.Out.WriteLine("  Do you want to export your CloudCoin to (1)jpgs or (2) stack (JSON) file?");
+            Exporter exporter = new Exporter(fileUtils);
+
+            String tag = "backup";// reader.readString();
+                                  //Console.Out.WriteLine(("Exporting to:" + exportFolder));
+
+            exporter.writeJSONFile(exp_1, exp_5, exp_25, exp_100, exp_250, tag, 1, backupDir);
 
 
-                Banker bank = new Banker(fileUtils);
-                int[] bankTotals = bank.countCoins(fileUtils.bankFolder);
-                int[] frackedTotals = bank.countCoins(fileUtils.frackedFolder);
-                int[] partialTotals = bank.countCoins(fileUtils.partialFolder);
-
-                //updateLog("  Your Bank Inventory:");
-                int grandTotal = (bankTotals[0] + frackedTotals[0] + partialTotals[0]);
-                // state how many 1, 5, 25, 100 and 250
-                int exp_1 = bankTotals[1] + frackedTotals[1] + partialTotals[1];
-                int exp_5 = bankTotals[2] + frackedTotals[2] + partialTotals[2];
-                int exp_25 = bankTotals[3] + frackedTotals[3] + partialTotals[3];
-                int exp_100 = bankTotals[4] + frackedTotals[4] + partialTotals[4];
-                int exp_250 = bankTotals[5] + frackedTotals[5] + partialTotals[5];
-                //Warn if too many coins
-
-                if (exp_1 + exp_5 + exp_25 + exp_100 + exp_250 == 0)
-                {
-                    Console.WriteLine("Can not export 0 coins");
-                    return;
-                }
-
-                //updateLog(Convert.ToString(bankTotals[1] + frackedTotals[1] + bankTotals[2] + frackedTotals[2] + bankTotals[3] + frackedTotals[3] + bankTotals[4] + frackedTotals[4] + bankTotals[5] + frackedTotals[5] + partialTotals[1] + partialTotals[2] + partialTotals[3] + partialTotals[4] + partialTotals[5]));
-
-                if (((bankTotals[1] + frackedTotals[1]) + (bankTotals[2] + frackedTotals[2]) + (bankTotals[3] + frackedTotals[3]) + (bankTotals[4] + frackedTotals[4]) + (bankTotals[5] + frackedTotals[5]) + partialTotals[1] + partialTotals[2] + partialTotals[3] + partialTotals[4] + partialTotals[5]) > 1000)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.Out.WriteLine("Warning: You have more than 1000 Notes in your bank. Stack files should not have more than 1000 Notes in them.");
-                    Console.Out.WriteLine("Do not export stack files with more than 1000 notes. .");
-                    //updateLog("Warning: You have more than 1000 Notes in your bank. Stack files should not have more than 1000 Notes in them.");
-                    //updateLog("Do not export stack files with more than 1000 notes. .");
-
-                    Console.ForegroundColor = ConsoleColor.White;
-                }//end if they have more than 1000 coins
-
-                Console.Out.WriteLine("  Do you want to export your CloudCoin to (1)jpgs or (2) stack (JSON) file?");
-                Exporter exporter = new Exporter(fileUtils);
-
-                String tag = "backup";// reader.readString();
-                                      //Console.Out.WriteLine(("Exporting to:" + exportFolder));
-
-                exporter.writeJSONFile(exp_1, exp_5, exp_25, exp_100, exp_250, tag, 1, backupDir);
-
-
-                // end if type jpge or stack
+            // end if type jpge or stack
 
 
 
 
-                //MessageBox.Show("Export completed.", "Cloudcoins", MessageBoxButtons.OK);
-            }// end export One
+            //MessageBox.Show("Export completed.", "Cloudcoins", MessageBoxButtons.OK);
+        }// end export One
 
 
         private void cmdBackup_Click(object sender, RoutedEventArgs e)
@@ -679,7 +679,7 @@ namespace CloudCoinCE
                 worker.RunWorkerCompleted += Worker_RunWorkerCompleted; ;
                 worker.RunWorkerAsync();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -736,7 +736,7 @@ namespace CloudCoinCE
                     {
                         case MessageBoxResult.Yes:
                             /* ... */
-                           // lblDirectory.Text = dialog.SelectedPath;
+                            // lblDirectory.Text = dialog.SelectedPath;
                             Properties.Settings.Default.WorkSpace = dialog.SelectedPath + System.IO.Path.DirectorySeparatorChar;
                             Properties.Settings.Default.Save();
                             FileUtils fileUtils = FileUtils.GetInstance(Properties.Settings.Default.WorkSpace);
@@ -866,6 +866,19 @@ namespace CloudCoinCE
         private void txtLogs_TextChanged(object sender, TextChangedEventArgs e)
         {
             txtLogs.ScrollToEnd();
+        }
+
+        private void updOne_OnExportChanged(object sender, EventArgs e)
+        {
+            updateExportTotal();
+        }
+        int exportTotal = 0;
+        public void updateExportTotal()
+        {
+            exportTotal = updOne.val + (updFive.val *5) + (updQtr.val*25) + (updHundred.val*100) 
+                + (updTwoFifty.val*250);
+            lblExportTotal.Text = exportTotal.ToString();
+            txtTag.Text = exportTotal.ToString();
         }
     }
     public static class MyExtensions

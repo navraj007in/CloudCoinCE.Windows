@@ -104,8 +104,14 @@
       <DependentUpon>Disclaimer.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ColorToSCBrushConverter.cs" />
+    <Compile Include="UserControls\IncrementUserControl.xaml.cs">
+      <DependentUpon>IncrementUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Led.xaml.cs">
       <DependentUpon>Led.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UpDownControl.xaml.cs">
+      <DependentUpon>UpDownControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\WidthToBorderThickConverter.cs" />
     <Page Include="Disclaimer.xaml">
@@ -128,9 +134,21 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\IncrementUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Led.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\UpDownControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -220,6 +238,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Foldericon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\down.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\SkiaSharp.1.59.1\build\net45\SkiaSharp.targets" Condition="Exists('..\packages\SkiaSharp.1.59.1\build\net45\SkiaSharp.targets')" />
