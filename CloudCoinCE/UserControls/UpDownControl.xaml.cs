@@ -67,6 +67,7 @@ namespace CloudCoinCE.UserControls
                 lblValue.Content = Convert.ToInt16(lblValue.Content) - 1;
                 val--;
             }
+            
 
         }
 
