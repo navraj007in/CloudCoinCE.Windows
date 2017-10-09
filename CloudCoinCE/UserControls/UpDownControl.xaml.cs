@@ -67,9 +67,20 @@ namespace CloudCoinCE.UserControls
                 lblValue.Content = Convert.ToInt16(lblValue.Content) - 1;
                 val--;
             }
-            
+            OnThresholdReached(EventArgs.Empty);
 
         }
+
+        protected virtual void OnThresholdReached(EventArgs e)
+        {
+            EventHandler handler = ThresholdReached;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+
+        public event EventHandler ThresholdReached;
 
         private void cmdUp_Click(object sender, RoutedEventArgs e)
         {
@@ -77,6 +88,7 @@ namespace CloudCoinCE.UserControls
             {
                 lblValue.Content = Convert.ToInt16(lblValue.Content) + 1;
                 val++;
+                OnThresholdReached(EventArgs.Empty);
             }
 
         }

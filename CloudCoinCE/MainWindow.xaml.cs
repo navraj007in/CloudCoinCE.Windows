@@ -373,7 +373,6 @@ namespace CloudCoinCE
 
             setLabelText(lblNotesTotal, Convert.ToString(bankTotals[0] + frackedTotals[0] + partialTotals[0]));
             updateNotes();
-
         }// end show
 
         private void updateNotes()
@@ -385,6 +384,14 @@ namespace CloudCoinCE
                 noteQtr.lblNoteCount.Content = Convert.ToString(bankTotals[3] + frackedTotals[3] + partialTotals[3]);
                 noteHundred.lblNoteCount.Content = Convert.ToString(bankTotals[4] + frackedTotals[4] + partialTotals[4]);
                 noteTwoFifty.lblNoteCount.Content = Convert.ToString(bankTotals[5] + frackedTotals[5] + partialTotals[5]);
+
+                updOne.Max = (bankTotals[1] + frackedTotals[1] + partialTotals[1]);
+                updFive.Max = (bankTotals[2] + frackedTotals[2] + partialTotals[2]);
+                updQtr.Max = (bankTotals[3] + frackedTotals[3] + partialTotals[3]);
+                updHundred.Max = (bankTotals[4] + frackedTotals[4] + partialTotals[4]);
+                updTwoFifty.Max = (bankTotals[5] + frackedTotals[5] + partialTotals[5]);
+
+
 
             });
 
@@ -863,6 +870,86 @@ namespace CloudCoinCE
 
         }
 
+        public void export()
+        {
+            if (rdbJpeg.IsChecked == true)
+                exportJpegStack = 1;
+            else
+                exportJpegStack = 2;
+
+            Banker bank = new Banker(fileUtils);
+            int[] bankTotals = bank.countCoins(fileUtils.bankFolder);
+            int[] frackedTotals = bank.countCoins(fileUtils.frackedFolder);
+            int[] partialTotals = bank.countCoins(fileUtils.partialFolder);
+
+            //updateLog("  Your Bank Inventory:");
+            int grandTotal = (bankTotals[0] + frackedTotals[0] + partialTotals[0]);
+            // state how many 1, 5, 25, 100 and 250
+            int exp_1 = Convert.ToInt16(updOne.Value);
+            int exp_5 = Convert.ToInt16(updFive.Value);
+            int exp_25 = Convert.ToInt16(updQtr.Value);
+            int exp_100 = Convert.ToInt16(updHundred.Value);
+            int exp_250 = Convert.ToInt16(updTwoFifty.Value);
+            //Warn if too many coins
+
+            if (exp_1 + exp_5 + exp_25 + exp_100 + exp_250 == 0)
+            {
+                Console.WriteLine("Can not export 0 coins");
+                return;
+            }
+
+            //updateLog(Convert.ToString(bankTotals[1] + frackedTotals[1] + bankTotals[2] + frackedTotals[2] + bankTotals[3] + frackedTotals[3] + bankTotals[4] + frackedTotals[4] + bankTotals[5] + frackedTotals[5] + partialTotals[1] + partialTotals[2] + partialTotals[3] + partialTotals[4] + partialTotals[5]));
+
+            if (((bankTotals[1] + frackedTotals[1]) + (bankTotals[2] + frackedTotals[2]) + (bankTotals[3] + frackedTotals[3]) + (bankTotals[4] + frackedTotals[4]) + (bankTotals[5] + frackedTotals[5]) + partialTotals[1] + partialTotals[2] + partialTotals[3] + partialTotals[4] + partialTotals[5]) > 1000)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Out.WriteLine("Warning: You have more than 1000 Notes in your bank. Stack files should not have more than 1000 Notes in them.");
+                Console.Out.WriteLine("Do not export stack files with more than 1000 notes. .");
+                //updateLog("Warning: You have more than 1000 Notes in your bank. Stack files should not have more than 1000 Notes in them.");
+                //updateLog("Do not export stack files with more than 1000 notes. .");
+
+                Console.ForegroundColor = ConsoleColor.White;
+            }//end if they have more than 1000 coins
+
+            Console.Out.WriteLine("  Do you want to export your CloudCoin to (1)jpgs or (2) stack (JSON) file?");
+            int file_type = 0; //reader.readInt(1, 2);
+
+
+
+
+
+            Exporter exporter = new Exporter(fileUtils);
+            exporter.OnUpdateStatus += Exporter_OnUpdateStatus; ;
+            file_type = exportJpegStack;
+
+            String tag = txtTag.Text;// reader.readString();
+            //Console.Out.WriteLine(("Exporting to:" + exportFolder));
+
+            if (file_type == 1)
+            {
+                exporter.writeJPEGFiles(exp_1, exp_5, exp_25, exp_100, exp_250, tag);
+                // stringToFile( json, "test.txt");
+            }
+            else
+            {
+                exporter.writeJSONFile(exp_1, exp_5, exp_25, exp_100, exp_250, tag);
+            }
+
+
+            // end if type jpge or stack
+
+            RefreshCoins?.Invoke(this, new EventArgs());
+            //updateLog("Exporting CloudCoins Completed.");
+            showCoins();
+            Process.Start(fileUtils.exportFolder);
+            //MessageBox.Show("Export completed.", "Cloudcoins", MessageBoxButtons.OK);
+        }// end export One
+
+        private void Exporter_OnUpdateStatus(object sender, ProgressEventArgs e)
+        {
+
+        }
+
         private void txtLogs_TextChanged(object sender, TextChangedEventArgs e)
         {
             txtLogs.ScrollToEnd();
@@ -879,6 +966,11 @@ namespace CloudCoinCE
                 + (updTwoFifty.val*250);
             lblExportTotal.Text = exportTotal.ToString();
             txtTag.Text = exportTotal.ToString();
+        }
+
+        private void cmdExport_Click(object sender, RoutedEventArgs e)
+        {
+            export();
         }
     }
     public static class MyExtensions

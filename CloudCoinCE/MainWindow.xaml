@@ -272,15 +272,15 @@
 
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Height="30">
-                    <uc:UpDownControl x:Name="updOne" OnExportChanged="updOne_OnExportChanged" Margin="30,0"></uc:UpDownControl>
-                    <uc:UpDownControl x:Name="updFive" OnExportChanged="updOne_OnExportChanged" Margin="30,0"></uc:UpDownControl>
-                    <uc:UpDownControl x:Name="updQtr" OnExportChanged="updOne_OnExportChanged" Margin="30,0"></uc:UpDownControl>
-                    <uc:UpDownControl x:Name="updHundred" OnExportChanged="updOne_OnExportChanged" Margin="30,0"></uc:UpDownControl>
-                    <uc:UpDownControl x:Name="updTwoFifty" Margin="30,0" OnExportChanged="updOne_OnExportChanged"></uc:UpDownControl>
+                    <uc:UpDownControl x:Name="updOne" ThresholdReached="updOne_OnExportChanged" OnExportChanged="updOne_OnExportChanged" Margin="30,0"></uc:UpDownControl>
+                    <uc:UpDownControl x:Name="updFive" ThresholdReached="updOne_OnExportChanged"  OnExportChanged="updOne_OnExportChanged" Margin="30,0"></uc:UpDownControl>
+                    <uc:UpDownControl x:Name="updQtr" ThresholdReached="updOne_OnExportChanged"  OnExportChanged="updOne_OnExportChanged" Margin="30,0"></uc:UpDownControl>
+                    <uc:UpDownControl x:Name="updHundred" ThresholdReached="updOne_OnExportChanged"  OnExportChanged="updOne_OnExportChanged" Margin="30,0"></uc:UpDownControl>
+                    <uc:UpDownControl x:Name="updTwoFifty" ThresholdReached="updOne_OnExportChanged"  Margin="30,0" OnExportChanged="updOne_OnExportChanged"></uc:UpDownControl>
                     <RadioButton x:Name="rdbStack" Content="Stack"></RadioButton>
                     <RadioButton x:Name="rdbJpeg" Content="Jpeg"></RadioButton>
                     <TextBox x:Name="txtTag" MinWidth="60"></TextBox>
-                    <Button Width="200" Height="40" x:Name="cmdExport">
+                    <Button Width="200" Height="40" x:Name="cmdExport" Click="cmdExport_Click">
                         <Button.Style>
                             <Style TargetType="{x:Type Button}">
                                 <Setter Property="Background" Value="#22DF9F"/>

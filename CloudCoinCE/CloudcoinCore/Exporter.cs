@@ -19,6 +19,18 @@ namespace Founders
             this.fileUtils = fileUtils;
         }
 
+        public delegate void StatusUpdateHandler(object sender, ProgressEventArgs e);
+        public event StatusUpdateHandler OnUpdateStatus;
+
+        private void UpdateStatus(string status, int percentage = 0)
+        {
+            // Make sure someone is listening to event
+            if (OnUpdateStatus == null) return;
+
+            ProgressEventArgs args = new ProgressEventArgs(status, percentage);
+            OnUpdateStatus(this, args);
+        }
+
         /* PUBLIC METHODS */
         public void writeJPEGFiles(int m1, int m5, int m25, int m100, int m250, String tag)
         {
