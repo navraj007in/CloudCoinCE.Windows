@@ -536,7 +536,7 @@ namespace CloudCoinCE
 
 
             RAIDA_Status.resetEcho();
-            RAIDA raida1 = new RAIDA(15000);
+            RAIDA raida1 = new RAIDA();
             Response[] results = raida1.echoAll(5000);
             int totalReady = 0;
             Console.Out.WriteLine("");
@@ -944,6 +944,37 @@ namespace CloudCoinCE
             Process.Start(fileUtils.exportFolder);
             //MessageBox.Show("Export completed.", "Cloudcoins", MessageBoxButtons.OK);
         }// end export One
+
+        public  void multi_detect()
+        {
+            Console.Out.WriteLine("");
+            Console.Out.WriteLine("  Detecting Authentication of Suspect Coins");// "Detecting Authentication of Suspect Coins");
+            MultiDetect multi_detector = new MultiDetect(fileUtils);
+
+            //Calculate timeout
+            int detectTime = 20000;
+            if (RAIDA_Status.getLowest21() > detectTime)
+            {
+                detectTime = RAIDA_Status.getLowest21() + 200;
+            }//Slow connection
+
+            multi_detector.detectMulti(detectTime);
+
+        }//end multi detect
+
+        public  void grade()
+        {
+            Console.Out.WriteLine("");
+            Console.Out.WriteLine("  Grading Authenticated Coins");// "Detecting Authentication of Suspect Coins");
+            Grader grader = new Grader(fileUtils);
+            int[] detectionResults = grader.gradeAll(5000, 2000);
+            Console.Out.WriteLine("  Total imported to bank: " + detectionResults[0]);//"Total imported to bank: "
+            Console.Out.WriteLine("  Total imported to fracked: " + detectionResults[1]);//"Total imported to fracked: "                                                                       // And the bank and the fractured for total
+            Console.Out.WriteLine("  Total Counterfeit: " + detectionResults[2]);//"Total Counterfeit: "
+            Console.Out.WriteLine("  Total Kept in suspect folder: " + detectionResults[3]);//"Total Kept in suspect folder: " 
+            Console.Out.WriteLine("  Total moved to Lost folder: " + detectionResults[4]);//"Total Kept in suspect folder: " 
+
+        }//end detect
 
         private void Exporter_OnUpdateStatus(object sender, ProgressEventArgs e)
         {

@@ -91,10 +91,12 @@
     <Compile Include="CloudcoinCore\FileUtils.cs" />
     <Compile Include="CloudcoinCore\FixitHelper.cs" />
     <Compile Include="CloudcoinCore\Frack_Fixer.cs" />
+    <Compile Include="CloudcoinCore\Grader.cs" />
     <Compile Include="CloudcoinCore\Importer.cs" />
     <Compile Include="CloudcoinCore\KeyboardReader.cs" />
     <Compile Include="CloudcoinCore\Logger.cs" />
     <Compile Include="CloudcoinCore\MindStorage.cs" />
+    <Compile Include="CloudcoinCore\MultiDetect.cs" />
     <Compile Include="CloudcoinCore\ProgressEventArgs.cs" />
     <Compile Include="CloudcoinCore\RAIDA.cs" />
     <Compile Include="CloudcoinCore\RAIDA_Status.cs" />
