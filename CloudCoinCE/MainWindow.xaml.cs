@@ -46,6 +46,7 @@ namespace CloudCoinCE
         public static String exportFolder = rootFolder + "Export" + System.IO.Path.DirectorySeparatorChar;
         public static String languageFolder = rootFolder + "Language" + System.IO.Path.DirectorySeparatorChar;
         public static String partialFolder = rootFolder + "Partial" + System.IO.Path.DirectorySeparatorChar;
+        public static String detectedFolder = rootFolder + "Detected" + System.IO.Path.DirectorySeparatorChar;
 
         public static int exportOnes = 0;
         public static int exportFives = 0;
@@ -148,27 +149,6 @@ namespace CloudCoinCE
             int count = Directory.GetFiles(MainWindow.suspectFolder).Length;
             if (count > 0)
             {
-                //cmdImport.IsEnabled = false;
-                //cmdRestore.IsEnabled = false;
-                // progressBar.Visibility = Visibility.Visible;
-
-                //Notifier notifier = new Notifier(cfg =>
-                //{
-                //    cfg.PositionProvider = new WindowPositionProvider(
-                //        parentWindow: Application.Current.MainWindow,
-                //        corner: Corner.TopRight,
-                //        offsetX: 10,
-                //        offsetY: 10);
-
-                //    cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
-                //        notificationLifetime: TimeSpan.FromSeconds(3),
-                //        maximumNotificationCount: MaximumNotificationCount.FromCount(5));
-
-                //    cfg.Dispatcher = Application.Current.Dispatcher;
-                //});
-
-                //notifier.ShowInformation("Unimported Coins found. Resuming import operation.");
-
                 new Thread(() =>
                 {
 
