@@ -1,4 +1,5 @@
 
+using CloudCoinCE;
 using System;
 using System.Linq;
 using System.Security.Cryptography;
@@ -379,11 +380,23 @@ namespace Founders
                 folder = Folder.Bank;
             }
 
+            updateLog("Moving Coin "+ cc.sn +", denm.-"+  getDenomination() +" to " + folder);
+
             gradeStatus[0] = passedDesc;
             gradeStatus[1] = failedDesc;
             gradeStatus[2] = otherDesc;
             return this.gradeStatus;
         }// end gradeStatus
+
+        private void updateLog(string logLine)
+        {
+            App.Current.Dispatcher.Invoke(delegate
+            {
+                txtLogs.AppendText(logLine + Environment.NewLine);
+            });
+
+        }
+
 
         public bool isGradablePass()
         {

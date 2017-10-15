@@ -133,6 +133,7 @@ namespace CloudCoinCE
             worker.RunWorkerAsync();
 
             showCoins();
+            resumeImport();
         }
 
         private void Refresh(object sender, EventArgs e)
@@ -218,7 +219,7 @@ namespace CloudCoinCE
                 updateLog("  Finishing importing coins from last time...");
 
                 Console.ForegroundColor = ConsoleColor.White;
-                detect();
+                multi_detect();
                 Console.Out.WriteLine("  Now looking in import folder for new coins...");// "Now looking in import folder for new coins...");
                 updateLog("  Now looking in import folder for new coins...");
             } //end if there are files in the suspect folder that need to be imported
@@ -951,6 +952,7 @@ namespace CloudCoinCE
             Console.Out.WriteLine("");
             Console.Out.WriteLine("  Detecting Authentication of Suspect Coins");// "Detecting Authentication of Suspect Coins");
             MultiDetect multi_detector = new MultiDetect(fileUtils);
+            multi_detector.txtLogs = txtLogs;
 
             //Calculate timeout
             int detectTime = 20000;

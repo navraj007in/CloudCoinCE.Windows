@@ -1,8 +1,9 @@
 
+using CloudCoinCE;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
+using System.Windows.Controls;
 
 namespace Founders
 {
@@ -13,6 +14,7 @@ namespace Founders
         //public CloudCoin returnCoin;
         public Response[] responseArray = new Response[25];
         public Response[,] responseArrayMulti;
+        public RichTextBox txtLogs;
 
         private int[] working_triad = { 0, 1, 2 };//place holder
         public bool[] raidaIsDetecting = { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true };
@@ -272,13 +274,16 @@ namespace Founders
                     {
                         cu[i].setPastStatus(responseArrayMulti[j, i].outcome, j);
                         CoreLogger.Log(cu[i].cc.sn + " detect:" + j + " " + responseArrayMulti[j, i].fullResponse);
+                        //updateLog(cu[i].cc.sn + " detect:" + j + " " + responseArrayMulti[j, i].fullResponse);
+
                     }
                     else
                     {
                         cu[i].setPastStatus("undetected", j);
+
                     };// should be pass, fail, error or undetected, or No response. 
                 }//end for each coin checked
-
+                cu[i].txtLogs = txtLogs;
                 cu[i].setAnsToPansIfPassed();
                 cu[i].calculateHP();
                 cu[i].calcExpirationDate();
@@ -356,6 +361,14 @@ namespace Founders
 
         }//end get ticket
 
+        private void updateLog(string logLine)
+        {
+            App.Current.Dispatcher.Invoke(delegate
+            {
+                txtLogs.AppendText(logLine + Environment.NewLine);
+            });
+
+        }
 
         public void get_Tickets(int[] triad, String[] ans, int nn, int sn, int denomination, int millisecondsToTimeout)
         {

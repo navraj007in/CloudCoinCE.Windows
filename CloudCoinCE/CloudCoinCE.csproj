@@ -100,6 +100,8 @@
     <Compile Include="CloudcoinCore\ProgressEventArgs.cs" />
     <Compile Include="CloudcoinCore\RAIDA.cs" />
     <Compile Include="CloudcoinCore\RAIDA_Status.cs" />
+    <Compile Include="CloudcoinCore\Receipt.cs" />
+    <Compile Include="CloudcoinCore\ReceitDetail.cs" />
     <Compile Include="CloudcoinCore\Response.cs" />
     <Compile Include="CloudcoinCore\Stack.cs" />
     <Compile Include="Disclaimer.xaml.cs">

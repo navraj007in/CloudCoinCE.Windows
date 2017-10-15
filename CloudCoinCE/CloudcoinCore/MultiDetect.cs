@@ -1,7 +1,8 @@
+using CloudCoinCE;
 using System;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
+using System.Windows.Controls;
 
 namespace Founders
 {
@@ -10,6 +11,7 @@ namespace Founders
         /*  INSTANCE VARIABLES */
         private RAIDA raida;
         private FileUtils fileUtils;
+        public RichTextBox txtLogs;
 
 
 
@@ -47,11 +49,13 @@ namespace Founders
                     {
                         Console.Out.WriteLine(ex);
                         CoreLogger.Log(ex.ToString());
+                        updateLog(ex.ToString());
                     }
                     catch (IOException ioex)
                     {
                         Console.Out.WriteLine(ioex);
                         CoreLogger.Log(ioex.ToString());
+                        updateLog(ioex.ToString());
                     }// end try catch
                 }// end for each coin to see if in bank
 
@@ -75,7 +79,9 @@ namespace Founders
                 //BUILD AN ARRAY OF COINS FROM THE FILE NAMES - UPTO 200
                 CloudCoin[] cloudCoin = new CloudCoin[coinNames];
                 CoinUtils[] cu = new CoinUtils[coinNames];
+                //Receipt receipt = createReceipt(coinNames, receiptFile);
 
+                raida.txtLogs = txtLogs;
 
                 for (int i = 0; i < coinNames; i++)//for up to 200 coins in the suspect folder
                 {
@@ -84,19 +90,33 @@ namespace Founders
                     {
                             cloudCoin[i] = this.fileUtils.loadOneCloudCoinFromJsonFile(this.fileUtils.suspectFolder + suspectFileNames[i]);
                             cu[i] = new CoinUtils(cloudCoin[i]);
-                            Console.Out.WriteLine("  Now scanning coin " + (i + 1) + " of " + suspectFileNames.Length + " for counterfeit. SN " + string.Format("{0:n0}", cloudCoin[i].sn) + ", Denomination: " + cu[i].getDenomination());
+
+                        Console.Out.WriteLine("  Now scanning coin " + (i + 1) + " of " + suspectFileNames.Length + " for counterfeit. SN " + string.Format("{0:n0}", cloudCoin[i].sn) + ", Denomination: " + cu[i].getDenomination());
+
                             CoreLogger.Log("  Now scanning coin " + (i + 1) + " of " + suspectFileNames.Length + " for counterfeit. SN " + string.Format("{0:n0}", cloudCoin[i].sn) + ", Denomination: " + cu[i].getDenomination());
+
+                        ReceitDetail detail = new ReceitDetail();
+                        detail.sn = cloudCoin[i].sn;
+                        detail.nn = cloudCoin[i].nn;
+                        detail.status = "suspect";
+                        detail.pown = "uuuuuuuuuuuuuuuuuuuuuuuuu";
+                        detail.note = "Waiting";
+                       // receipt.rd[i] = detail;
+
+                        updateLog("  Now scanning coin " + (i + 1) + " of " + suspectFileNames.Length + " for counterfeit. SN " + string.Format("{0:n0}", cloudCoin[i].sn) + ", Denomination: " + cu[i].getDenomination());
 
                     }
                     catch (FileNotFoundException ex)
                     {
                         Console.Out.WriteLine(ex);
                         CoreLogger.Log(ex.ToString());
+                        updateLog(ex.ToString());
                     }
                     catch (IOException ioex)
                     {
                         Console.Out.WriteLine(ioex);
                         CoreLogger.Log(ioex.ToString());
+                        updateLog(ioex.ToString());
                     }// end try catch
                 }// end for each coin to import
 
@@ -108,12 +128,23 @@ namespace Founders
                 //Write the coins to the detected folder delete from the suspect
                 for (int c = 0; c < detectedCC.Length; c++)
                 {
+                    detectedCC[c].txtLogs = txtLogs;
                     fileUtils.writeTo( fileUtils.detectedFolder, detectedCC[c].cc );
                     File.Delete( fileUtils.suspectFolder + suspectFileNames[c] );//Delete the coin out of the suspect folder
                 }
             }//end while still have suspect
             return coinNames;
         }//End detectMulti All
+
+        private void updateLog(string logLine)
+        {
+            App.Current.Dispatcher.Invoke(delegate
+            {
+                txtLogs.AppendText(logLine + Environment.NewLine);
+            });
+
+        }
+
 
 
         private void coinExists(String suspectFileName)
@@ -127,6 +158,25 @@ namespace Founders
             Console.ForegroundColor = ConsoleColor.White;
         }//end coin exists
 
-
+        Receipt createReceipt(int length, string id)
+        {
+            DateTime dt = DateTime.Now;
+            TimeSpan tz = TimeZoneInfo.Local.GetUtcOffset(dt);
+            string plus = "";
+            if (tz > new TimeSpan(0))
+            { plus = "+"; }
+            else { plus = "-"; }
+            Receipt receipt = new Receipt();
+            receipt.time = dt.ToString("yyyy-MM-dd h:mm:tt");
+            receipt.timezone = "UTC" + plus + tz.ToString("%h");
+            receipt.bank_server = "localhost";
+            receipt.total_authentic = 0;
+            receipt.total_fracked = 0;
+            receipt.total_counterfeit = 0;
+            receipt.total_lost = 0;
+            receipt.receipt_id = id;
+            receipt.rd = new ReceitDetail[length];
+            return receipt;
+        }
     }//end class
 }//end namespace
