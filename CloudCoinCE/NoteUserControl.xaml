@@ -11,8 +11,8 @@
         <Image Source="{Binding Path=Source,ElementName=myNote}" x:Name="imgNote"></Image>
         <Image Source="Images\Moneyband_0.png" MaxHeight="50" Stretch="Fill" VerticalAlignment="Bottom" Margin="0,0,0,30"/>
         <Image Source="Images\Layer_1.png" MaxWidth="30" VerticalAlignment="Bottom" Margin="10,0,0,40" HorizontalAlignment="Left" x:Name="imgSymbol" Height="60"></Image>
-        <Label Content="X"  FontSize="22"  HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,35" />
-        <Label Content="0"  FontSize="22" x:Name="lblNoteCount"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,35" />
+        <Label Content="X"  FontSize="22"  HorizontalAlignment="Center" Foreground="#A499FF" VerticalAlignment="Bottom" Margin="0,0,0,35" />
+        <Label Content="0"  FontSize="22" x:Name="lblNoteCount" Foreground="#24DF9B"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,35" />
 
     </Grid>
 </UserControl>

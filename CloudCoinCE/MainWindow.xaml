@@ -6,80 +6,84 @@
         xmlns:local="clr-namespace:CloudCoinCE"
         xmlns:uc1="clr-namespace:LedControl"
         xmlns:uc="clr-namespace:CloudCoinCE.UserControls"
-
         mc:Ignorable="d" WindowState="Maximized" Background="#393C7F" 
         Title="CloudCoin Consumers Edition 1.0" Height="800" Width="600">
-    <Grid ShowGridLines="True">
-        <Image Grid.Row="3" Stretch="Fill" Grid.RowSpan="2" HorizontalAlignment="Left"  Source="Images/Footer.png" 
-               />
-        <StackPanel Orientation="Horizontal" Background="#4A4EA9" >
-            <Image Source="Images/Logopart1.png" Stretch="Fill"></Image>
-            <Border CornerRadius="20,20,20,20" Height="30" Background="#3F438D"  HorizontalAlignment="Right" Margin="0,0,0,20" BorderThickness="2,2,2,2">
-            <StackPanel Orientation="Horizontal"  >
-                
-            <uc1:Led x:Name="raida1" MaxWidth="25" Margin="5" MaxHeight="25" Flashing="True" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
-                <uc1:Led x:Name="raida2" MaxWidth="25" Margin="5" MaxHeight="25" Flashing="True" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
-                <uc1:Led x:Name="raida3" MaxWidth="25" Margin="5" MaxHeight="25" Flashing="True" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
-                <uc1:Led x:Name="raida4" MaxWidth="25" Margin="5" MaxHeight="25" Flashing="True" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
-                <uc1:Led x:Name="raida5" MaxWidth="25" Margin="5"  MaxHeight="25" Flashing="True" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
-                <uc1:Led x:Name="raida6" MaxWidth="25" Margin="5" MaxHeight="25" Flashing="True" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
-                <uc1:Led x:Name="raida7" MaxWidth="25" Margin="5" MaxHeight="25" Flashing="False" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
-                <uc1:Led x:Name="raida8" MaxWidth="25" Margin="5" MaxHeight="25" Flashing="False" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
-                <uc1:Led x:Name="raida9" MaxWidth="25" Margin="5" MaxHeight="25" Flashing="False" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
-                <uc1:Led x:Name="raida10" MaxWidth="25" Margin="5" MaxHeight="25" Flashing="False" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
-
-                <uc1:Led x:Name="raida11" MaxWidth="25" Margin="5" MaxHeight="25" Flashing="False" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
-                <uc1:Led x:Name="raida12" MaxWidth="25" Margin="5" MaxHeight="25" Flashing="False" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
-                <uc1:Led x:Name="raida13" MaxWidth="25" Margin="5" MaxHeight="25" Flashing="False" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
-                <uc1:Led x:Name="raida14" MaxWidth="25" MaxHeight="25" Margin="5" Flashing="False" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
-                <uc1:Led x:Name="raida15" MaxWidth="25" MaxHeight="25" Margin="5" Flashing="False" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
-                <uc1:Led x:Name="raida16" MaxWidth="25" MaxHeight="25" Margin="5" Flashing="False" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
-                <uc1:Led x:Name="raida17" MaxWidth="25" MaxHeight="25" Margin="5" Flashing="False" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
-                <uc1:Led x:Name="raida18" MaxWidth="25" MaxHeight="25" Margin="5" Flashing="False" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
-                <uc1:Led x:Name="raida19" MaxWidth="25" MaxHeight="25" Margin="5" Flashing="False" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
-                <uc1:Led x:Name="raida20" MaxWidth="25" MaxHeight="25" Margin="5" Flashing="False" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
-
-                <uc1:Led x:Name="raida21" MaxWidth="25" MaxHeight="25" Margin="5" Flashing="False" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
-                <uc1:Led x:Name="raida22" MaxWidth="25" MaxHeight="25" Margin="5" Flashing="False" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
-                <uc1:Led x:Name="raida23" MaxWidth="25" MaxHeight="25" Margin="5" Flashing="False" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
-                <uc1:Led x:Name="raida24" MaxWidth="25" MaxHeight="25" Margin="5" Flashing="False" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
-                <uc1:Led x:Name="raida25" MaxWidth="25" MaxHeight="25" Margin="5" Flashing="False" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
-
-            </StackPanel>
-</Border>
-            <Button Width="200" Height="50" >
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="#22DF9F"/>
-                        <Setter Property="Foreground">
-                            <Setter.Value>
-                                #FFFFFF
-                            </Setter.Value>
-                        </Setter>
-
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border Background="{TemplateBinding Background}">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#22DF9F"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="Images/Addicon.png" HorizontalAlignment="Left" Width="20" Height="20"/>
-                    <TextBlock Text="0"  x:Name="lblNotesTotal" Margin="20"  VerticalAlignment="Center" />
-                </StackPanel>
-            </Button>
+    <Grid ShowGridLines="True" HorizontalAlignment="Stretch">
+        <Border Padding="0,5,25,10">
             
-        </StackPanel>
+        <DockPanel  Background="#4A4EA9" HorizontalAlignment="Stretch">
+            <Image DockPanel.Dock="Left" Source="Images/cloudcoinheader.png" Stretch="Fill"></Image>
+                    <Border VerticalAlignment="Center"  CornerRadius="20,20,20,20" Height="30" Background="#3F438D"  HorizontalAlignment="Right" Margin="0,0,0,20" BorderThickness="2,2,2,2" >
+                        <StackPanel Orientation="Horizontal"  >
+                            <StackPanel Orientation="Horizontal">
+
+                                <uc1:Led x:Name="raida1" MaxWidth="25" Margin="5" MaxHeight="25" Flashing="True" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
+                                <uc1:Led x:Name="raida2" MaxWidth="25" Margin="5" MaxHeight="25" Flashing="True" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
+                                <uc1:Led x:Name="raida3" MaxWidth="25" Margin="5" MaxHeight="25" Flashing="True" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
+                                <uc1:Led x:Name="raida4" MaxWidth="25" Margin="5" MaxHeight="25" Flashing="True" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
+                                <uc1:Led x:Name="raida5" MaxWidth="25" Margin="5"  MaxHeight="25" Flashing="True" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
+                                <uc1:Led x:Name="raida6" MaxWidth="25" Margin="5" MaxHeight="25" Flashing="True" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
+                                <uc1:Led x:Name="raida7" MaxWidth="25" Margin="5" MaxHeight="25" Flashing="False" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
+                                <uc1:Led x:Name="raida8" MaxWidth="25" Margin="5" MaxHeight="25" Flashing="False" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
+                                <uc1:Led x:Name="raida9" MaxWidth="25" Margin="5" MaxHeight="25" Flashing="False" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
+                                <uc1:Led x:Name="raida10" MaxWidth="25" Margin="5" MaxHeight="25" Flashing="False" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
+
+                                <uc1:Led x:Name="raida11" MaxWidth="25" Margin="5" MaxHeight="25" Flashing="False" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
+                                <uc1:Led x:Name="raida12" MaxWidth="25" Margin="5" MaxHeight="25" Flashing="False" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
+                                <uc1:Led x:Name="raida13" MaxWidth="25" Margin="5" MaxHeight="25" Flashing="False" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
+                                <uc1:Led x:Name="raida14" MaxWidth="25" MaxHeight="25" Margin="5" Flashing="False" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
+                                <uc1:Led x:Name="raida15" MaxWidth="25" MaxHeight="25" Margin="5" Flashing="False" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
+                                <uc1:Led x:Name="raida16" MaxWidth="25" MaxHeight="25" Margin="5" Flashing="False" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
+                                <uc1:Led x:Name="raida17" MaxWidth="25" MaxHeight="25" Margin="5" Flashing="False" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
+                                <uc1:Led x:Name="raida18" MaxWidth="25" MaxHeight="25" Margin="5" Flashing="False" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
+                                <uc1:Led x:Name="raida19" MaxWidth="25" MaxHeight="25" Margin="5" Flashing="False" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
+                                <uc1:Led x:Name="raida20" MaxWidth="25" MaxHeight="25" Margin="5" Flashing="False" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
+
+                                <uc1:Led x:Name="raida21" MaxWidth="25" MaxHeight="25" Margin="5" Flashing="False" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
+                                <uc1:Led x:Name="raida22" MaxWidth="25" MaxHeight="25" Margin="5" Flashing="False" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
+                                <uc1:Led x:Name="raida23" MaxWidth="25" MaxHeight="25" Margin="5" Flashing="False" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
+                                <uc1:Led x:Name="raida24" MaxWidth="25" MaxHeight="25" Margin="5" Flashing="False" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
+                                <uc1:Led x:Name="raida25" MaxWidth="25" MaxHeight="25" Margin="5" Flashing="False" FlashingPeriod="500" ColorNull="Gray" ColorOn="Green" ColorOff="Red"  />
+                            </StackPanel>
+
+                        </StackPanel>
+                    </Border>
+                    <Button HorizontalAlignment="Right" Width="200" Height="50" DockPanel.Dock="Right">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="#22DF9F"/>
+                                <Setter Property="Foreground">
+                                    <Setter.Value>
+                                        #FFFFFF
+                                    </Setter.Value>
+                                </Setter>
+
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#22DF9F"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Images/dollar.png" HorizontalAlignment="Left" Width="20" Height="20"/>
+                            <TextBlock Text="0" FontSize="28" x:Name="lblNotesTotal"   VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+
+            
+        </DockPanel>
+        </Border>
+
         <Grid  Grid.Row="1" Margin="20,10,10,10" ShowGridLines="False">
             <Grid.RowDefinitions></Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -94,7 +98,7 @@
                     </Style>
                 </RichTextBox.Resources>
             </RichTextBox>
-            <StackPanel Grid.Column="1" Orientation="Vertical">
+            <StackPanel VerticalAlignment="Stretch" Grid.Column="1" Orientation="Vertical">
                 <StackPanel Height="50" Orientation="Horizontal"  Background="#4C50AB">
                     <Border CornerRadius="50,50,0,0" >
                         
@@ -266,9 +270,9 @@
 
                     <local:NoteUserControl x:Name="noteOne" NoteCount="10" Note="Images\Jpeg1.png" Symbol="Images\Layer_1.png" Margin="20" Width="150" ></local:NoteUserControl>
                     <local:NoteUserControl x:Name="noteFive"  NoteCount="5" Note="Images\Jpeg5.png" Symbol="Images\Layer_5.png" Margin="20" Width="150" ></local:NoteUserControl>
-                    <local:NoteUserControl x:Name="noteQtr"  NoteCount="25" Note="Images\Jpeg25.png" Symbol="Images\Layer_25_0.png" Margin="20" Width="150" ></local:NoteUserControl>
-                    <local:NoteUserControl x:Name="noteHundred"  NoteCount="100" Note="Images\Jpeg100.png" Symbol="Images\Layer_100.png" Margin="20" Width="150" ></local:NoteUserControl>
-                    <local:NoteUserControl x:Name="noteTwoFifty"   NoteCount="250" Note="Images\Jpeg250.png" Symbol="Images\Layer_250.png" Margin="20" Width="150" ></local:NoteUserControl>
+                    <local:NoteUserControl x:Name="noteQtr"  NoteCount="25" Note="Images\Jpeg25.png" Symbol="Images\c25.png" Margin="20" Width="150" ></local:NoteUserControl>
+                    <local:NoteUserControl x:Name="noteHundred"  NoteCount="100" Note="Images\Jpeg100.png" Symbol="Images\c100.png" Margin="20" Width="150" ></local:NoteUserControl>
+                    <local:NoteUserControl x:Name="noteTwoFifty"   NoteCount="250" Note="Images\Jpeg250.png" Symbol="Images\c250.png" Margin="20" Width="150" ></local:NoteUserControl>
 
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Height="30">
@@ -313,15 +317,14 @@
                     </Button>
 
                 </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                </StackPanel>
             </StackPanel>
         </Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="10*"></RowDefinition>
-            <RowDefinition Height="*" ></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions></Grid.ColumnDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
     </Grid>
 </Window>

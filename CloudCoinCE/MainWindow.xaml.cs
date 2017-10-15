@@ -250,7 +250,8 @@ namespace CloudCoinCE
             }
             else
             {
-                detect(1);
+                multi_detect();
+                //detect(1);
             }//end if coins to import
         }   // end import
 
