@@ -678,6 +678,31 @@ namespace CloudCoinCE
 
         private void cmdRefresh_Click(object sender, RoutedEventArgs e)
         {
+            raida1.Flashing = true;
+            raida2.Flashing = true;
+            raida3.Flashing = true;
+            raida4.Flashing = true;
+            raida5.Flashing = true;
+            raida6.Flashing = true;
+            raida7.Flashing = true;
+            raida8.Flashing = true;
+            raida9.Flashing = true;
+            raida10.Flashing = true;
+            raida11.Flashing = true;
+            raida12.Flashing = true;
+            raida13.Flashing = true;
+            raida14.Flashing = true;
+            raida15.Flashing = true;
+            raida16.Flashing = true;
+            raida17.Flashing = true;
+            raida18.Flashing = true;
+            raida19.Flashing = true;
+            raida20.Flashing = true;
+            raida21.Flashing = true;
+            raida22.Flashing = true;
+            raida23.Flashing = true;
+            raida24.Flashing = true;
+            raida25.Flashing = true;
             try
             {
                 worker.DoWork += Worker_DoWork; ;
