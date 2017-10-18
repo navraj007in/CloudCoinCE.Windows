@@ -140,7 +140,6 @@ namespace CloudCoinCE
         private void Refresh(object sender, EventArgs e)
         {
             showCoins();
-            showCoins();
         }
 
         private void resumeImport()
@@ -231,7 +230,24 @@ namespace CloudCoinCE
             }
             else
             {
+                DateTime before = DateTime.Now;
+                DateTime after;
+                TimeSpan ts = new TimeSpan();
+                //Console.Out.WriteLine("  IMPORT DONE> NOW DETECTING MULTI. Do you want to start detecting?");// "No coins in import folder.");
+                // Console.In.ReadLine();
                 multi_detect();
+                // Console.Out.WriteLine("  DETCATION DONE> NOW GRADING. Do you want to start Grading?");// "No coins in import folder.");
+                // Console.In.ReadLine();
+                after = DateTime.Now;
+                ts = after.Subtract(before);//end the timer
+
+                grade();
+                // Console.Out.WriteLine("  GRADING DONE NOW SHOWING. Do you wnat to show");// "No coins in import folder.");
+                // Console.In.ReadLine();
+                Console.Out.WriteLine("Time in ms to multi detect pown " + ts.TotalMilliseconds);
+                RAIDA_Status.showMultiMs();
+                showCoins();
+               // multi_detect();
                 //detect(1);
             }//end if coins to import
         }   // end import
@@ -942,15 +958,23 @@ namespace CloudCoinCE
             }//Slow connection
 
             multi_detector.detectMulti(detectTime);
+           // grade();
+           // showCoins();
 
         }//end multi detect
 
         public  void grade()
         {
             Console.Out.WriteLine("");
+            updateLog("  Grading Authenticated Coins");
             Console.Out.WriteLine("  Grading Authenticated Coins");// "Detecting Authentication of Suspect Coins");
             Grader grader = new Grader(fileUtils);
             int[] detectionResults = grader.gradeAll(5000, 2000);
+            updateLog("  Total imported to bank: " + detectionResults[0]);
+            updateLog("  Total imported to fracked: " + detectionResults[1]);
+            updateLog("  Total Counterfeit: " + detectionResults[2]);
+            updateLog("  Total moved to Lost folder: " + detectionResults[4]);
+
             Console.Out.WriteLine("  Total imported to bank: " + detectionResults[0]);//"Total imported to bank: "
             Console.Out.WriteLine("  Total imported to fracked: " + detectionResults[1]);//"Total imported to fracked: "                                                                       // And the bank and the fractured for total
             Console.Out.WriteLine("  Total Counterfeit: " + detectionResults[2]);//"Total Counterfeit: "

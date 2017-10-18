@@ -126,9 +126,9 @@ namespace Founders
                 CoinUtils[] detectedCC = raida.detectMultiCoin(cu, detectTime);
                 var bankCoins = detectedCC.Where(o => o.folder == CoinUtils.Folder.Bank);
 
-                foreach (CoinUtils cc in bankCoins)
+                foreach (CoinUtils ccc in bankCoins)
                 {
-                    fileUtils.writeTo(fileUtils.bankFolder, cc.cc);
+                    fileUtils.writeTo(fileUtils.bankFolder, ccc.cc);
                 }
 
                 //Write the coins to the detected folder delete from the suspect
