@@ -6,22 +6,67 @@
              xmlns:local="clr-namespace:CloudCoinCE.UserControls"
              mc:Ignorable="d" 
              >
+    <UserControl.Resources>
+
+        <Style x:Key="btnUp" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <StackPanel>
+                            <Image Name="PART_ImgNormal" Height="40" Source="..\Images\btnUpDown2.png" />
+                            <Image Name="PART_ImgPressed" Height="40" Visibility="Collapsed" Source="..\Images\btnUpDown1.png" />
+                        </StackPanel>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="PART_ImgNormal" Property="Visibility" Value="Collapsed"></Setter>
+                                <Setter TargetName="PART_ImgPressed" Property="Visibility" Value="Visible"></Setter>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                            </Trigger>
+                            <Trigger Property="AllowDrop" Value="True">
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <Style x:Key="btnDown" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <StackPanel>
+                            <Image Name="PART_ImgNormal" Height="40" Source="..\Images\btnUpDown4.png" />
+                            <Image Name="PART_ImgPressed" Height="40" Visibility="Collapsed" Source="..\Images\btnUpDown3.png" />
+                        </StackPanel>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="PART_ImgNormal" Property="Visibility" Value="Collapsed"></Setter>
+                                <Setter TargetName="PART_ImgPressed" Property="Visibility" Value="Visible"></Setter>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                            </Trigger>
+                            <Trigger Property="AllowDrop" Value="True">
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+
+    </UserControl.Resources>
     <Grid>
         <StackPanel Orientation="Horizontal" >
             <StackPanel Orientation="Vertical">
-                <Button x:Name="cmdUp" Click="cmdUp_Click"  >
-                    <StackPanel>
-                        <Image Source="..\Images\up.png" MaxHeight="20" ></Image>
-
-                    </StackPanel>
-                </Button>
-                <Button x:Name="cmdDown" Click="cmdDown_Click">
-                    <StackPanel>
-                        <Image Source="..\Images\down.png" MaxHeight="20" ></Image>
-                    </StackPanel>
-                </Button>
+                <Button x:Name="cmdUp" Click="cmdUp_Click" Style="{StaticResource btnUp}" />
+                <Button x:Name="cmdDown" Margin="0,-2,0,0" Click="cmdDown_Click" Style="{StaticResource btnDown}"/>
             </StackPanel>
-            <Label Content="0" x:Name="lblValue" VerticalAlignment="Center"></Label>
-        </StackPanel>  
+            <Label Content="0" x:Name="lblValue" Margin="20,0,0,0" VerticalAlignment="Center" Width="42" HorizontalAlignment="Center" Foreground="#6c65ac" FontSize="30"></Label>
+        </StackPanel>
     </Grid>
 </UserControl>

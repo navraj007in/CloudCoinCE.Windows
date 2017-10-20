@@ -4,6 +4,13 @@
              xmlns:local="clr-namespace:CloudCoinCE"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/CloudCoinCE;component/Dictionaries/RadioButtonDictionary.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/CloudCoinCE;component/Dictionaries/ScrollBarDictionary.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/CloudCoinCE;component/Dictionaries/RichTextBoxDictionary.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/CloudCoinCE;component/Dictionaries/TextBoxDictionary.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>       
     </Application.Resources>
 </Application>

@@ -47,6 +47,7 @@ namespace CloudCoinCE
         public static String languageFolder = rootFolder + "Language" + System.IO.Path.DirectorySeparatorChar;
         public static String partialFolder = rootFolder + "Partial" + System.IO.Path.DirectorySeparatorChar;
         public static String detectedFolder = rootFolder + "Detected" + System.IO.Path.DirectorySeparatorChar;
+        public static String logsFolder = rootFolder + "Logs" + System.IO.Path.DirectorySeparatorChar;
 
         public static int exportOnes = 0;
         public static int exportFives = 0;
@@ -247,7 +248,7 @@ namespace CloudCoinCE
                 Console.Out.WriteLine("Time in ms to multi detect pown " + ts.TotalMilliseconds);
                 RAIDA_Status.showMultiMs();
                 showCoins();
-               // multi_detect();
+                // multi_detect();
                 //detect(1);
             }//end if coins to import
         }   // end import
@@ -383,12 +384,11 @@ namespace CloudCoinCE
                 noteHundred.lblNoteCount.Content = Convert.ToString(bankTotals[4] + frackedTotals[4] + partialTotals[4]);
                 noteTwoFifty.lblNoteCount.Content = Convert.ToString(bankTotals[5] + frackedTotals[5] + partialTotals[5]);
 
-                updOne.Max = (bankTotals[1] + frackedTotals[1] + partialTotals[1]);
-                updFive.Max = (bankTotals[2] + frackedTotals[2] + partialTotals[2]);
+				updOne.Max = (bankTotals[1] + frackedTotals[1] + partialTotals[1]);
+				updFive.Max = (bankTotals[2] + frackedTotals[2] + partialTotals[2]);
                 updQtr.Max = (bankTotals[3] + frackedTotals[3] + partialTotals[3]);
                 updHundred.Max = (bankTotals[4] + frackedTotals[4] + partialTotals[4]);
                 updTwoFifty.Max = (bankTotals[5] + frackedTotals[5] + partialTotals[5]);
-
 
 
             });
@@ -409,7 +409,7 @@ namespace CloudCoinCE
             App.Current.Dispatcher.Invoke(delegate
             {
                 if (lbl != null)
-                    lbl.Text = text;
+                    lbl.Text = "₡ " + text;
             });
 
         }
@@ -678,33 +678,35 @@ namespace CloudCoinCE
 
         private void cmdRefresh_Click(object sender, RoutedEventArgs e)
         {
-            raida1.Flashing = true;
-            raida2.Flashing = true;
-            raida3.Flashing = true;
-            raida4.Flashing = true;
-            raida5.Flashing = true;
-            raida6.Flashing = true;
-            raida7.Flashing = true;
-            raida8.Flashing = true;
-            raida9.Flashing = true;
-            raida10.Flashing = true;
-            raida11.Flashing = true;
-            raida12.Flashing = true;
-            raida13.Flashing = true;
-            raida14.Flashing = true;
-            raida15.Flashing = true;
-            raida16.Flashing = true;
-            raida17.Flashing = true;
-            raida18.Flashing = true;
-            raida19.Flashing = true;
-            raida20.Flashing = true;
-            raida21.Flashing = true;
-            raida22.Flashing = true;
-            raida23.Flashing = true;
-            raida24.Flashing = true;
-            raida25.Flashing = true;
+
             try
             {
+                raida1.Flashing = true;
+                raida2.Flashing = true;
+                raida3.Flashing = true;
+                raida4.Flashing = true;
+                raida5.Flashing = true;
+                raida6.Flashing = true;
+                raida7.Flashing = true;
+                raida8.Flashing = true;
+                raida9.Flashing = true;
+                raida10.Flashing = true;
+                raida11.Flashing = true;
+                raida12.Flashing = true;
+                raida13.Flashing = true;
+                raida14.Flashing = true;
+                raida15.Flashing = true;
+                raida16.Flashing = true;
+                raida17.Flashing = true;
+                raida18.Flashing = true;
+                raida19.Flashing = true;
+                raida20.Flashing = true;
+                raida21.Flashing = true;
+                raida22.Flashing = true;
+                raida23.Flashing = true;
+                raida24.Flashing = true;
+                raida25.Flashing = true;
+
                 worker.DoWork += Worker_DoWork; ;
                 worker.RunWorkerCompleted += Worker_RunWorkerCompleted; ;
                 worker.RunWorkerAsync();
@@ -731,6 +733,7 @@ namespace CloudCoinCE
             exportFolder = rootFolder + "Export" + System.IO.Path.DirectorySeparatorChar;
             languageFolder = rootFolder + "Language" + System.IO.Path.DirectorySeparatorChar;
             partialFolder = rootFolder + "Partial" + System.IO.Path.DirectorySeparatorChar;
+            detectedFolder = rootFolder + "Detected" + System.IO.Path.DirectorySeparatorChar;
 
             fileUtils = FileUtils.GetInstance(MainWindow.rootFolder);
 
@@ -890,7 +893,6 @@ namespace CloudCoinCE
 
                 /* run your code here */
             }).Start();
-
         }
 
         public void export()
@@ -965,10 +967,11 @@ namespace CloudCoinCE
             //updateLog("Exporting CloudCoins Completed.");
             showCoins();
             Process.Start(fileUtils.exportFolder);
+            cmdExport.Content = "₡0";
             //MessageBox.Show("Export completed.", "Cloudcoins", MessageBoxButtons.OK);
         }// end export One
 
-        public  void multi_detect()
+        public void multi_detect()
         {
             Console.Out.WriteLine("");
             Console.Out.WriteLine("  Detecting Authentication of Suspect Coins");// "Detecting Authentication of Suspect Coins");
@@ -983,12 +986,12 @@ namespace CloudCoinCE
             }//Slow connection
 
             multi_detector.detectMulti(detectTime);
-           // grade();
-           // showCoins();
+            // grade();
+            // showCoins();
 
         }//end multi detect
 
-        public  void grade()
+        public void grade()
         {
             Console.Out.WriteLine("");
             updateLog("  Grading Authenticated Coins");
@@ -1007,6 +1010,7 @@ namespace CloudCoinCE
             Console.Out.WriteLine("  Total moved to Lost folder: " + detectionResults[4]);//"Total Kept in suspect folder: " 
 
         }//end detect
+
 
         private void Exporter_OnUpdateStatus(object sender, ProgressEventArgs e)
         {
@@ -1027,13 +1031,76 @@ namespace CloudCoinCE
         {
             exportTotal = updOne.val + (updFive.val *5) + (updQtr.val*25) + (updHundred.val*100) 
                 + (updTwoFifty.val*250);
-            lblExportTotal.Text = exportTotal.ToString();
-            txtTag.Text = exportTotal.ToString();
+			cmdExport.Content = exportTotal.ToString();
+
+			//lblExportTotal.Text = exportTotal.ToString();
+            cmdExport.Content = "₡ " + exportTotal.ToString();
+            
         }
 
         private void cmdExport_Click(object sender, RoutedEventArgs e)
         {
             export();
+        }
+
+        private void cmdWorkspace_Click(object sender, RoutedEventArgs e)
+        {
+            using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+            {
+                System.Windows.Forms.DialogResult result = dialog.ShowDialog();
+                if (result == System.Windows.Forms.DialogResult.OK)
+                {
+                    string sMessageBoxText = "Do you want to Change CloudCoin Folder?";
+                    string sCaption = "Change Directory";
+
+                    MessageBoxButton btnMessageBox = MessageBoxButton.YesNoCancel;
+                    MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
+
+                    MessageBoxResult rsltMessageBox = MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+
+                    switch (rsltMessageBox)
+                    {
+                        case MessageBoxResult.Yes:
+                            /* ... */
+                            // lblDirectory.Text = dialog.SelectedPath;
+                            Properties.Settings.Default.WorkSpace = dialog.SelectedPath + System.IO.Path.DirectorySeparatorChar;
+                            Properties.Settings.Default.Save();
+                            FileUtils fileUtils = FileUtils.GetInstance(Properties.Settings.Default.WorkSpace);
+                            fileUtils.CreateDirectoryStructure();
+                            string[] fileNames = Assembly.GetExecutingAssembly().GetManifestResourceNames();
+                            foreach (String fileName in fileNames)
+                            {
+                                if (fileName.Contains("jpeg"))
+                                {
+                                    try
+                                    {
+                                        string outputpath = Properties.Settings.Default.WorkSpace + "Templates" + System.IO.Path.DirectorySeparatorChar + fileName.Substring(22);
+                                        using (FileStream fileStream = File.Create(outputpath))
+                                        {
+                                            Assembly.GetExecutingAssembly().GetManifestResourceStream(fileName).CopyTo(fileStream);
+                                        }
+                                    }
+                                    catch (Exception ex)
+                                    {
+
+                                    }
+                                }
+                            }
+                            System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+                            Application.Current.Shutdown();
+                            break;
+
+                        case MessageBoxResult.No:
+                            /* ... */
+                            break;
+
+                        case MessageBoxResult.Cancel:
+                            /* ... */
+                            break;
+                    }
+                }
+            }
+
         }
     }
     public static class MyExtensions

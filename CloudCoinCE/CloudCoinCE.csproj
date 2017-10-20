@@ -108,6 +108,7 @@
       <DependentUpon>Disclaimer.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ColorToSCBrushConverter.cs" />
+    <Compile Include="UserControls\ImageButton.cs" />
     <Compile Include="UserControls\IncrementUserControl.xaml.cs">
       <DependentUpon>IncrementUserControl.xaml</DependentUpon>
     </Compile>
@@ -118,6 +119,22 @@
       <DependentUpon>UpDownControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\WidthToBorderThickConverter.cs" />
+    <Page Include="Dictionaries\ImageButtonDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dictionaries\RadioButtonDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dictionaries\RichTextBoxDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dictionaries\ScrollBarDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Disclaimer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -135,6 +152,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="NoteUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dictionaries\TextBoxDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\generic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -176,12 +201,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Design\projectGuides.guides" />
     <None Include="nodes.json" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Resource Include="Resources\RalewayBold.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -247,9 +274,6 @@
     <Resource Include="Images\up.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\down.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\dollar.PNG" />
   </ItemGroup>
   <ItemGroup>
@@ -259,6 +283,39 @@
     <Resource Include="Images\c100.PNG" />
     <Resource Include="Images\c25.PNG" />
     <Resource Include="Images\c250.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Addicon_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Addicon_yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Backupicon_white.png" />
+    <Resource Include="Images\Backupicon_yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Foldericon_white.png" />
+    <Resource Include="Images\Foldericon_yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Refreshicon_white.png" />
+    <Resource Include="Images\Refreshicon_yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\btnUpDown1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\btnUpDown2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\btnUpDown3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\btnUpDown4.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\SkiaSharp.1.59.1\build\net45\SkiaSharp.targets" Condition="Exists('..\packages\SkiaSharp.1.59.1\build\net45\SkiaSharp.targets')" />

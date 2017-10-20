@@ -31,6 +31,7 @@ namespace Founders
         public String receiptsFolder;
         public String dangerFolder;
         public String lostFolder;
+        public String logsFolder;
 
 
         public static FileUtils GetInstance(String rootFolder)
@@ -51,13 +52,14 @@ namespace Founders
             String receiptsFolder = rootFolder + "Reciepts" + Path.DirectorySeparatorChar;
             String dangerFolder = rootFolder + "Danger" + Path.DirectorySeparatorChar;
             String lostFolder = rootFolder + "Lost" + Path.DirectorySeparatorChar;
+            String logsFolder = rootFolder + "Logs" + Path.DirectorySeparatorChar;
 
-            FileUtils fileUtils = new FileUtils(rootFolder, importFolder, importedFolder, trashFolder, suspectFolder, frackedFolder, bankFolder, templateFolder, counterfeitFolder, directoryFolder, exportFolder, partialFolder, detectedFolder, receiptsFolder, dangerFolder, lostFolder);
+            FileUtils fileUtils = new FileUtils(rootFolder, importFolder, importedFolder, trashFolder, suspectFolder, frackedFolder, bankFolder, templateFolder, counterfeitFolder, directoryFolder, exportFolder, partialFolder, detectedFolder, receiptsFolder, dangerFolder, lostFolder,logsFolder);
 
             return fileUtils;
         }
         /* CONSTRUCTOR */
-        public FileUtils(String rootFolder, String importFolder, String importedFolder, String trashFolder, String suspectFolder, String frackedFolder, String bankFolder, String templateFolder, String counterfeitFolder, String directoryFolder, String exportFolder, String partialFolder, String detectedFolder, String receiptsFolder, String dangerFolder, String lostFolder)
+        public FileUtils(String rootFolder, String importFolder, String importedFolder, String trashFolder, String suspectFolder, String frackedFolder, String bankFolder, String templateFolder, String counterfeitFolder, String directoryFolder, String exportFolder, String partialFolder, String detectedFolder, String receiptsFolder, String dangerFolder, String lostFolder,String logsFolder)
         {
             //  initialise instance variables
             this.rootFolder = rootFolder;
@@ -76,6 +78,7 @@ namespace Founders
             this.receiptsFolder = receiptsFolder;
             this.dangerFolder = dangerFolder;
             this.lostFolder = lostFolder;
+            this.logsFolder = logsFolder;
 
         }  // End constructor
 
@@ -181,7 +184,8 @@ namespace Founders
             Directory.CreateDirectory(directoryFolder);
             Directory.CreateDirectory(exportFolder);
             Directory.CreateDirectory(partialFolder);
-
+            Directory.CreateDirectory(detectedFolder);
+            Directory.CreateDirectory(logsFolder);
             //            Directory.CreateDirectory(languageFolder);
 
         }
