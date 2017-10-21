@@ -49,13 +49,13 @@ namespace Founders
                     {
                         Console.Out.WriteLine(ex);
                         CoreLogger.Log(ex.ToString());
-                        updateLog(ex.ToString());
+                        //updateLog(ex.ToString());
                     }
                     catch (IOException ioex)
                     {
                         Console.Out.WriteLine(ioex);
                         CoreLogger.Log(ioex.ToString());
-                        updateLog(ioex.ToString());
+                        //updateLog(ioex.ToString());
                     }// end try catch
                 }// end for each coin to see if in bank
 
