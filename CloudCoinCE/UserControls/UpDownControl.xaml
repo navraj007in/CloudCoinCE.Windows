@@ -63,8 +63,8 @@
     <Grid>
         <StackPanel Orientation="Horizontal" >
             <StackPanel Orientation="Vertical">
-                <Button x:Name="cmdUp" Click="cmdUp_Click" Style="{StaticResource btnUp}" />
-                <Button x:Name="cmdDown" Margin="0,-2,0,0" Click="cmdDown_Click" Style="{StaticResource btnDown}"/>
+                <Button x:Name="cmdUp" Click="cmdDown_Click" Style="{StaticResource btnUp}" />
+                <Button x:Name="cmdDown" Margin="0,-2,0,0" Click="cmdUp_Click" Style="{StaticResource btnDown}"/>
             </StackPanel>
             <Label Content="0" x:Name="lblValue" Margin="20,0,0,0" VerticalAlignment="Center" Width="42" HorizontalAlignment="Center" Foreground="#6c65ac" FontSize="30"></Label>
         </StackPanel>

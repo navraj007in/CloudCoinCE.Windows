@@ -1008,16 +1008,16 @@ namespace CloudCoinCE
             Console.Out.WriteLine("  Grading Authenticated Coins");// "Detecting Authentication of Suspect Coins");
             Grader grader = new Grader(fileUtils);
             int[] detectionResults = grader.gradeAll(5000, 2000);
-            updateLog("  Total imported to bank: " + detectionResults[0]);
-            updateLog("  Total imported to fracked: " + detectionResults[1]);
-            updateLog("  Total Counterfeit: " + detectionResults[2]);
-            updateLog("  Total moved to Lost folder: " + detectionResults[4]);
+            //updateLog("  Total imported to bank: " + detectionResults[0]);
+            //updateLog("  Total imported to fracked: " + detectionResults[1]);
+            //updateLog("  Total Counterfeit: " + detectionResults[2]);
+            //updateLog("  Total moved to Lost folder: " + detectionResults[4]);
 
-            Console.Out.WriteLine("  Total imported to bank: " + detectionResults[0]);//"Total imported to bank: "
-            Console.Out.WriteLine("  Total imported to fracked: " + detectionResults[1]);//"Total imported to fracked: "                                                                       // And the bank and the fractured for total
-            Console.Out.WriteLine("  Total Counterfeit: " + detectionResults[2]);//"Total Counterfeit: "
-            Console.Out.WriteLine("  Total Kept in suspect folder: " + detectionResults[3]);//"Total Kept in suspect folder: " 
-            Console.Out.WriteLine("  Total moved to Lost folder: " + detectionResults[4]);//"Total Kept in suspect folder: " 
+            //Console.Out.WriteLine("  Total imported to bank: " + detectionResults[0]);//"Total imported to bank: "
+            //Console.Out.WriteLine("  Total imported to fracked: " + detectionResults[1]);//"Total imported to fracked: "                                                                       // And the bank and the fractured for total
+            //Console.Out.WriteLine("  Total Counterfeit: " + detectionResults[2]);//"Total Counterfeit: "
+            //Console.Out.WriteLine("  Total Kept in suspect folder: " + detectionResults[3]);//"Total Kept in suspect folder: " 
+            //Console.Out.WriteLine("  Total moved to Lost folder: " + detectionResults[4]);//"Total Kept in suspect folder: " 
 
         }//end detect
 
