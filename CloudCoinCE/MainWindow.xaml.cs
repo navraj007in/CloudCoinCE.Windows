@@ -67,7 +67,8 @@ namespace CloudCoinCE
 
             InitializeComponent();
             fileUtils.CreateDirectoryStructure();
-            loadJson();
+            //loadJson();
+            printWelcome();
             noteOne.NoteCount = "1";
             noteFive.NoteCount = "5";
             noteQtr.NoteCount = "10";
@@ -480,6 +481,13 @@ namespace CloudCoinCE
             echoRaida();
         }
 
+        private void printWelcome()
+        {
+            updateLog("CloudCoin Consumers Edition");
+            updateLog("Version " + DateTime.Now.ToShortDateString());
+            updateLog("Used to Authenticate ,Store,Payout CloudCoins");
+            updateLog("This Software is provided as is with all faults, defects and errors, and without warranty of any kind.Free from the CloudCoin Consortium.");
+        }
         private void loadJson()
         {
             string fileName = @"nodes.json";
@@ -777,11 +785,12 @@ namespace CloudCoinCE
                             string[] fileNames = Assembly.GetExecutingAssembly().GetManifestResourceNames();
                             foreach (String fileName in fileNames)
                             {
-                                if (fileName.Contains("jpeg"))
+                                if (fileName.Contains("jpeg") || fileName.Contains("jpg"))
                                 {
                                     try
                                     {
                                         string outputpath = Properties.Settings.Default.WorkSpace + "Templates" + System.IO.Path.DirectorySeparatorChar + fileName.Substring(22);
+                                        updateLog(outputpath);
                                         using (FileStream fileStream = File.Create(outputpath))
                                         {
                                             Assembly.GetExecutingAssembly().GetManifestResourceStream(fileName).CopyTo(fileStream);
@@ -793,8 +802,8 @@ namespace CloudCoinCE
                                     }
                                 }
                             }
-                            System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
-                            Application.Current.Shutdown();
+                            //System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+                            //Application.Current.Shutdown();
                             break;
 
                         case MessageBoxResult.No:

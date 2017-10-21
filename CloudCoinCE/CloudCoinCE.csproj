@@ -236,19 +236,29 @@
     <Resource Include="Images\Moneyband_3.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Templates\jpeg1.png" />
+    <EmbeddedResource Include="Templates\jpeg1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Templates\jpeg100.png" />
+    <EmbeddedResource Include="Templates\jpeg100.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Templates\jpeg25.png" />
+    <EmbeddedResource Include="Templates\jpeg25.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Templates\jpeg250.png" />
+    <EmbeddedResource Include="Templates\jpeg250.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Templates\jpeg5.png" />
+    <EmbeddedResource Include="Templates\jpeg5.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Logopart1.png" />
