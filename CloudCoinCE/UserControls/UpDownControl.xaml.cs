@@ -64,8 +64,8 @@ namespace CloudCoinCE.UserControls
         {
             if (val > pMin)
             {
-                lblValue.Content = Convert.ToInt16(lblValue.Content) - 1;
-                val--;
+                lblValue.Content = Convert.ToInt16(lblValue.Content) + 1;
+                val++;
             }
             OnThresholdReached(EventArgs.Empty);
 
@@ -86,8 +86,8 @@ namespace CloudCoinCE.UserControls
         {
             if (val < pMax)
             {
-                lblValue.Content = Convert.ToInt16(lblValue.Content) + 1;
-                val++;
+                lblValue.Content = Convert.ToInt16(lblValue.Content) - 1;
+                val--;
                 OnThresholdReached(EventArgs.Empty);
             }
 

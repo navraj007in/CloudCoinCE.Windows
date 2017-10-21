@@ -380,7 +380,7 @@ namespace Founders
                 folder = Folder.Bank;
             }
 
-            updateLog("Moving Coin "+ cc.sn +", denm.-"+  getDenomination() +" to " + folder);
+            updateLog("Moving a "+ getDenomination() + " CloudCoin Note ("+ cc.sn+")"+" to " + folder);
 
             gradeStatus[0] = passedDesc;
             gradeStatus[1] = failedDesc;

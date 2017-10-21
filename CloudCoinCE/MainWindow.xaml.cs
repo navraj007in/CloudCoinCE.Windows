@@ -928,6 +928,7 @@ namespace CloudCoinCE
 
             if (exp_1 + exp_5 + exp_25 + exp_100 + exp_250 == 0)
             {
+                MessageBox.Show("Can not export 0 Coins.","Export CloudCoins");
                 Console.WriteLine("Can not export 0 coins");
                 return;
             }
@@ -1049,7 +1050,20 @@ namespace CloudCoinCE
 
         private void cmdExport_Click(object sender, RoutedEventArgs e)
         {
-            export();
+            string sMessageBoxText = "Are you sure you want to export CloudCoins?";
+            string sCaption = "Export CloudCoins";
+
+            MessageBoxButton btnMessageBox = MessageBoxButton.YesNo;
+            MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
+
+            MessageBoxResult rsltMessageBox = MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+
+            switch (rsltMessageBox)
+            {
+                case MessageBoxResult.Yes:
+                    export();
+                    break;
+            }
         }
 
         private void cmdWorkspace_Click(object sender, RoutedEventArgs e)

@@ -13,7 +13,7 @@ namespace Founders
         private FileUtils fileUtils;
         public RichTextBox txtLogs;
 
-
+        public int totalImported = 0;
 
         /*  CONSTRUCTOR */
         public MultiDetect(FileUtils fileUtils)
@@ -82,7 +82,7 @@ namespace Founders
                 //Receipt receipt = createReceipt(coinNames, receiptFile);
 
                 raida.txtLogs = txtLogs;
-
+                totalImported = 0;
                 for (int i = 0; i < coinNames; i++)//for up to 200 coins in the suspect folder
                 {
 
@@ -103,8 +103,10 @@ namespace Founders
                         detail.note = "Waiting";
                        // receipt.rd[i] = detail;
 
-                        updateLog("  Now scanning coin " + (i + 1) + " of " + suspectFileNames.Length + " for counterfeit. SN " + string.Format("{0:n0}", cloudCoin[i].sn) + ", Denomination: " + cu[i].getDenomination());
+                        //updateLog("  Now scanning coin " + (i + 1) + " of " + suspectFileNames.Length + " for counterfeit. SN " + string.Format("{0:n0}", cloudCoin[i].sn) + ", Denomination: " + cu[i].getDenomination());
 
+                        updateLog("Authenticating a "+ cu[i].getDenomination() + 
+                            " CoinCoin note ("+ cloudCoin[i].sn+ "): " + (i + 1) + " of "+ coinNames);
                     }
                     catch (FileNotFoundException ex)
                     {
@@ -125,10 +127,20 @@ namespace Founders
 
                 CoinUtils[] detectedCC = raida.detectMultiCoin(cu, detectTime);
                 var bankCoins = detectedCC.Where(o => o.folder == CoinUtils.Folder.Bank);
+                var frackedCoins = detectedCC.Where(o => o.folder == CoinUtils.Folder.Fracked);
+                var counterfeitCoins = detectedCC.Where(o => o.folder == CoinUtils.Folder.Counterfeit);
 
+                totalImported = 0;
                 foreach (CoinUtils ccc in bankCoins)
                 {
                     fileUtils.writeTo(fileUtils.bankFolder, ccc.cc);
+                    totalImported++;
+                }
+
+                foreach (CoinUtils ccf in frackedCoins)
+                {
+                    fileUtils.writeTo(fileUtils.frackedFolder, ccf.cc);
+                    totalImported++;
                 }
 
                 //Write the coins to the detected folder delete from the suspect
@@ -140,7 +152,8 @@ namespace Founders
                 }
 
 
-
+                updateLog("Total Imported Coins - " +totalImported);
+                updateLog("Total Counterfeir detected - " + counterfeitCoins.ToArray().Length);
 
             }//end while still have suspect
             return coinNames;
