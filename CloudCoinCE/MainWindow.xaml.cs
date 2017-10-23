@@ -136,6 +136,11 @@ namespace CloudCoinCE
             worker.RunWorkerAsync();
 
             showCoins();
+
+            new Thread(delegate () {
+                fix();
+            }).Start();
+
             resumeImport();
         }
 
@@ -143,6 +148,42 @@ namespace CloudCoinCE
         {
             showCoins();
         }
+
+        public void fix()
+        {
+            //Check RAIDA Status
+            int totalRAIDABad = 0;
+            for (int i = 0; i < 25; i++)
+            {
+                if (RAIDA_Status.failsEcho[i])
+                {
+                    totalRAIDABad += 1;
+                }
+            }
+            if (totalRAIDABad > 8)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Out.WriteLine("You do not have enought RAIDA to perform a fix operation.");
+                Console.Out.WriteLine("Check to make sure your internet is working.");
+                Console.Out.WriteLine("Make sure no routers at your work are blocking access to the RAIDA.");
+                Console.Out.WriteLine("Try to Echo RAIDA and see if the status has changed.");
+                Console.ForegroundColor = ConsoleColor.White;
+                return;
+            }
+
+            Console.Out.WriteLine("  Fixing fracked coins can take many minutes.");
+            Console.Out.WriteLine("  If your coins are not completely fixed, fix fracked again.");
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            Console.Out.WriteLine("");
+            Console.Out.WriteLine("  Attempting to fix all fracked coins.");
+            Console.Out.WriteLine("");
+            Frack_Fixer fixer = new Frack_Fixer(fileUtils, timeout);
+            fixer.fixAll(timeout);
+            stopwatch.Stop();
+            Console.Out.WriteLine("  Fix Time: " + stopwatch.Elapsed + " ms");
+            Console.Out.WriteLine("  If your coins are not completely fixed, you may 'fix fracked' again.");
+        }//end fix
 
         private void resumeImport()
         {
@@ -339,7 +380,7 @@ namespace CloudCoinCE
         int[] bankTotals;
         int[] frackedTotals;
         int[] partialTotals;
-        public int timeout = 5000;
+        public int timeout = 10000;
 
         public void showCoins()
         {

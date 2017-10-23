@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudCoinCE", "CloudCoinCE\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudCoinCoreFramework", "CloudCoinCoreFramework\CloudCoinCoreFramework.csproj", "{260490D7-D37B-40E8-B2DA-C761C408B0BC}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "CloudCoinCE.Installer", "CloudCoinCE.Installer\CloudCoinCE.Installer.vdproj", "{E3D33C60-A501-4448-B4A5-3F7F0DB67197}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,8 @@ Global
 		{260490D7-D37B-40E8-B2DA-C761C408B0BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{260490D7-D37B-40E8-B2DA-C761C408B0BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{260490D7-D37B-40E8-B2DA-C761C408B0BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3D33C60-A501-4448-B4A5-3F7F0DB67197}.Debug|Any CPU.ActiveCfg = Debug
+		{E3D33C60-A501-4448-B4A5-3F7F0DB67197}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
