@@ -123,6 +123,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_29CB741360FB44E08DC519E2E965BDCE"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_2FE40307072575E6A201F52A062E195D"
         "OwnerKey" = "8:_71F04E4C607A4AD294BABFC36C1E4FD9"
         "MsmSig" = "8:_UNDEFINED"
@@ -285,6 +291,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_82AEF21D40AB4C688E70ADD628E36405"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_8574FE638C67B2BF71F440FF691BC00A"
         "OwnerKey" = "8:_71F04E4C607A4AD294BABFC36C1E4FD9"
         "MsmSig" = "8:_UNDEFINED"
@@ -317,6 +329,12 @@
         {
         "MsmKey" = "8:_8FD959C46D384DE8447AD01ECE9FAECB"
         "OwnerKey" = "8:_71F04E4C607A4AD294BABFC36C1E4FD9"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_945681A36C8746EDAA159F15545E8690"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -423,6 +441,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_CBD32F2A6CF2499390F4023646FAE533"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_D0F01ACD71B9479A0CF36E95DC5BF4A0"
         "OwnerKey" = "8:_71F04E4C607A4AD294BABFC36C1E4FD9"
         "MsmSig" = "8:_UNDEFINED"
@@ -465,6 +489,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_E95C1675ACE94323AB9D7472EDF5963F"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_EC97D6AB7880946B07B29ED5945AF168"
         "OwnerKey" = "8:_71F04E4C607A4AD294BABFC36C1E4FD9"
         "MsmSig" = "8:_UNDEFINED"
@@ -473,6 +503,12 @@
         {
         "MsmKey" = "8:_F03033307AF88EC708DF120E824A6769"
         "OwnerKey" = "8:_71F04E4C607A4AD294BABFC36C1E4FD9"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F1065C782FFC4E0091721D47A2A7A0B2"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1399,6 +1435,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_29CB741360FB44E08DC519E2E965BDCE"
+            {
+            "SourcePath" = "8:..\\CloudCoinCE\\bin\\Debug\\Templates\\jpeg25.jpg"
+            "TargetName" = "8:jpeg25.jpg"
+            "Tag" = "8:"
+            "Folder" = "8:_BEAB6B7F487A44C98E5B5AA5A585D801"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_2FE40307072575E6A201F52A062E195D"
             {
             "AssemblyRegister" = "3:1"
@@ -1946,6 +2002,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_82AEF21D40AB4C688E70ADD628E36405"
+            {
+            "SourcePath" = "8:..\\CloudCoinCE\\bin\\Debug\\Templates\\jpeg100.jpg"
+            "TargetName" = "8:jpeg100.jpg"
+            "Tag" = "8:"
+            "Folder" = "8:_BEAB6B7F487A44C98E5B5AA5A585D801"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_8574FE638C67B2BF71F440FF691BC00A"
             {
             "AssemblyRegister" = "3:1"
@@ -2088,6 +2164,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_945681A36C8746EDAA159F15545E8690"
+            {
+            "SourcePath" = "8:..\\CloudCoinCE\\bin\\Debug\\Templates\\jpeg250.jpg"
+            "TargetName" = "8:jpeg250.jpg"
+            "Tag" = "8:"
+            "Folder" = "8:_BEAB6B7F487A44C98E5B5AA5A585D801"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_949A5ADFC794BB4F55FFBAB9D1226974"
@@ -2462,6 +2558,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CBD32F2A6CF2499390F4023646FAE533"
+            {
+            "SourcePath" = "8:..\\CloudCoinCE\\bin\\Debug\\Templates\\jpeg1.jpg"
+            "TargetName" = "8:jpeg1.jpg"
+            "Tag" = "8:"
+            "Folder" = "8:_BEAB6B7F487A44C98E5B5AA5A585D801"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D0F01ACD71B9479A0CF36E95DC5BF4A0"
             {
             "AssemblyRegister" = "3:1"
@@ -2679,6 +2795,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E95C1675ACE94323AB9D7472EDF5963F"
+            {
+            "SourcePath" = "8:..\\CloudCoinCE\\bin\\Debug\\Templates\\jpeg5.jpg"
+            "TargetName" = "8:jpeg5.jpg"
+            "Tag" = "8:"
+            "Folder" = "8:_BEAB6B7F487A44C98E5B5AA5A585D801"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_EC97D6AB7880946B07B29ED5945AF168"
             {
             "AssemblyRegister" = "3:1"
@@ -2739,6 +2875,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F1065C782FFC4E0091721D47A2A7A0B2"
+            {
+            "SourcePath" = "8:..\\CloudCoinCE\\bin\\Debug\\Templates\\jpeg100.2.jpg"
+            "TargetName" = "8:jpeg100.2.jpg"
+            "Tag" = "8:"
+            "Folder" = "8:_BEAB6B7F487A44C98E5B5AA5A585D801"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F18E003ABF9C37B544D6A27D87053E2F"
@@ -2899,6 +3055,29 @@
         }
         "FileType"
         {
+            "{5EB83D71-FA18-4901-BE56-DE22E13CC478}:_87440476D2274D83BA9D42FAF97C7E17"
+            {
+            "Name" = "8:Stack.doc"
+            "Description" = "8:"
+            "Extensions" = "8:stack"
+            "MIME" = "8:"
+            "Icon" = "8:"
+            "IconIndex" = "3:0"
+                "Command"
+                {
+                "Command" = "8:_71F04E4C607A4AD294BABFC36C1E4FD9"
+                }
+                "Verbs"
+                {
+                    "{95C0C507-CBF0-42B8-B119-07219E384A4A}:_000359862FC34E25A16A2C071CFAB7BD"
+                    {
+                    "Command" = "8:&Open"
+                    "Verb" = "8:open"
+                    "Arguments" = "8:\"%1\""
+                    "Order" = "3:0"
+                    }
+                }
+            }
         }
         "Folder"
         {
@@ -2945,6 +3124,149 @@
             "Property" = "8:TARGETDIR"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_08D6ED8E8DE44068B37D1004EF8DE3D0"
+                    {
+                    "Name" = "8:Directory"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_302FE0E9474C4B268643A186EE581E5B"
+                        "Folders"
+                        {
+                        }
+                    }
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_344793CC534F4F3C92D6799640BF5111"
+                    {
+                    "Name" = "8:Trash"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_AE81015D924F4B35B13E5047B01273AA"
+                        "Folders"
+                        {
+                        }
+                    }
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_35A125CE1ED14424AA3032DCA1EE0DE0"
+                    {
+                    "Name" = "8:Suspect"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_C1E26EE1CAF44819A95E9184434EB115"
+                        "Folders"
+                        {
+                        }
+                    }
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_407EB6119A2445E9BD0C42021A95A43F"
+                    {
+                    "Name" = "8:Imported"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_FE2A95190E834CC88A70F2FF7321EAEF"
+                        "Folders"
+                        {
+                        }
+                    }
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_47B1D4191CDD438D9067DCE9046906C0"
+                    {
+                    "Name" = "8:Bank"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_C03F46F824DE42C6B724B08DAFE19216"
+                        "Folders"
+                        {
+                        }
+                    }
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_5977F044E88D4F8BB45BFA39333A3D6E"
+                    {
+                    "Name" = "8:Logs"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_ACCF5F5D1F3B4568B52DA42C3627123E"
+                        "Folders"
+                        {
+                        }
+                    }
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_85BC8CA0202C41E3B237B1B9ECE1CA84"
+                    {
+                    "Name" = "8:Counterfeit"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_56F668891035418A9CFE63BCC87A1346"
+                        "Folders"
+                        {
+                        }
+                    }
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_A2273771990347808E4A74B0E8C3D4BE"
+                    {
+                    "Name" = "8:Fracked"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_65E7873A2698441FB6C703EF8EFF3A4A"
+                        "Folders"
+                        {
+                        }
+                    }
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_AE668B79C3CD434E93512B681CCF88C4"
+                    {
+                    "Name" = "8:Partial"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_17F260E4AB0348C3A9E491007CE39C11"
+                        "Folders"
+                        {
+                        }
+                    }
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_B43D04275C634F02B9FC32184A129937"
+                    {
+                    "Name" = "8:Import"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_C0F3B27F122F497DA20DD9E3FE71A39A"
+                        "Folders"
+                        {
+                        }
+                    }
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_BEAB6B7F487A44C98E5B5AA5A585D801"
+                    {
+                    "Name" = "8:Templates"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_8C996C528EEF4A308E6F4C57A0765DE5"
+                        "Folders"
+                        {
+                        }
+                    }
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_D875758F0C9B44F4966FA51E8A99DBDA"
+                    {
+                    "Name" = "8:Detected"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_E29813306B1147548300D95EF26E9201"
+                        "Folders"
+                        {
+                        }
+                    }
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_F9E7F40C0D5E406CA3EB3A7B8D4C0B4D"
+                    {
+                    "Name" = "8:Export"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_5321830841634FB6A29C2C1B3B1C159B"
+                        "Folders"
+                        {
+                        }
+                    }
                 }
             }
         }
@@ -2964,7 +3286,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:CloudCoinCE"
         "ProductCode" = "8:{BF3A5297-0EFC-4767-8EDD-5008BA2078CB}"
-        "PackageCode" = "8:{584A0ECF-FBE5-4D27-97D9-54381F882E13}"
+        "PackageCode" = "8:{48876ECA-AD40-4198-BF76-818461D74A9E}"
         "UpgradeCode" = "8:{BEC967DA-F783-434C-A248-7E79E642E227}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
