@@ -186,6 +186,10 @@ namespace Founders
             Directory.CreateDirectory(partialFolder);
             Directory.CreateDirectory(detectedFolder);
             Directory.CreateDirectory(logsFolder);
+
+            Directory.CreateDirectory(receiptsFolder);
+            Directory.CreateDirectory(dangerFolder);
+            Directory.CreateDirectory(lostFolder);
             //            Directory.CreateDirectory(languageFolder);
 
         }
@@ -349,15 +353,22 @@ namespace Founders
 
             /* READ JPEG TEMPLATE*/
             byte[] jpegBytes = null;
-            switch (cu.getDenomination())
+            
+            try
             {
-                case 1: jpegBytes = readAllBytes(this.templateFolder + "jpeg1.jpg"); break;
-                case 5: jpegBytes = readAllBytes(this.templateFolder + "jpeg5.jpg"); break;
-                case 25: jpegBytes = readAllBytes(this.templateFolder + "jpeg25.jpg"); break;
-                case 100: jpegBytes = readAllBytes(this.templateFolder + "jpeg100.jpg"); break;
-                case 250: jpegBytes = readAllBytes(this.templateFolder + "jpeg250.jpg"); break;
-            }// end switch
-
+                switch (cu.getDenomination())
+                {
+                    case 1: jpegBytes = readAllBytes(this.templateFolder + "jpeg1.jpg"); break;
+                    case 5: jpegBytes = readAllBytes(this.templateFolder + "jpeg5.jpg"); break;
+                    case 25: jpegBytes = readAllBytes(this.templateFolder + "jpeg25.jpg"); break;
+                    case 100: jpegBytes = readAllBytes(this.templateFolder + "jpeg100.jpg"); break;
+                    case 250: jpegBytes = readAllBytes(this.templateFolder + "jpeg250.jpg"); break;
+                }// end switch
+            }catch(Exception e)
+            {
+                CoreLogger.Log("Grabing Templates from: " + this.templateFolder);
+                CoreLogger.Log(e.ToString());
+            }
 
             /* WRITE THE SERIAL NUMBER ON THE JPEG */
 
@@ -402,7 +413,13 @@ namespace Founders
             }
 
             string fileName = exportFolder + cu.fileName + tag + ".jpg";
-            File.WriteAllBytes(fileName, b1.ToArray());
+            try
+            {
+                File.WriteAllBytes(fileName, b1.ToArray());
+            }catch(Exception e)
+            {
+                CoreLogger.Log(e.ToString());
+            }
             Console.Out.WriteLine("Writing to " + fileName);
             CoreLogger.Log("Writing to " + fileName);
             return fileSavedSuccessfully;

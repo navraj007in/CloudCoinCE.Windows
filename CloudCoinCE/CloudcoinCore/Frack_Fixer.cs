@@ -1,6 +1,8 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace Founders
 {
@@ -12,6 +14,7 @@ namespace Founders
         private int totalValueToFractured;
         private int totalValueToCounterfeit;
         private RAIDA raida;
+        public RichTextBox txtLogs;
 
 
         /* CONSTRUCTORS */
@@ -25,7 +28,7 @@ namespace Founders
             totalValueToFractured = 0;
         }//constructor
 
-        public string fixOneGuidCorner(int raida_ID, CloudCoin cc, int corner, int[] trustedTriad, int millisecondsToTimeout)
+        public async Task<string> fixOneGuidCorner(int raida_ID, CloudCoin cc, int corner, int[] trustedTriad, int millisecondsToTimeout)
         {
             CoinUtils cu = new CoinUtils(cc);
 
@@ -109,7 +112,7 @@ namespace Founders
                     {
                         /*5.T YES, so REQUEST FIX*/
                         DetectionAgent da = new DetectionAgent(raida_ID);
-                        Response fixResponse = da.fix(trustedTriad, RAIDA_Status.tickets[trustedTriad[0]], RAIDA_Status.tickets[trustedTriad[1]], RAIDA_Status.tickets[trustedTriad[2]], cc.an[raida_ID]).Result;
+                        Response fixResponse = await da.fix(trustedTriad, RAIDA_Status.tickets[trustedTriad[0]], RAIDA_Status.tickets[trustedTriad[1]], RAIDA_Status.tickets[trustedTriad[2]], cc.an[raida_ID]);
                         /*6. DID THE FIX WORK?*/
                         if (fixResponse.success)
                         {
@@ -161,7 +164,7 @@ namespace Founders
 
 
         /* PUBLIC METHODS */
-        public int[] fixAll(int millisecondsToFixOne )
+        public async Task<int[]> fixAll(int millisecondsToFixOne )
         {
             int[] results = new int[3];
             String[] frackedFileNames = new DirectoryInfo(this.fileUtils.frackedFolder).GetFiles().Select(o => o.Name).ToArray();
@@ -188,7 +191,7 @@ namespace Founders
                     //  Console.WriteLine("Fracked Coin: ");
                     cu.consoleReport();
 
-                    CoinUtils fixedCC = fixCoin(frackedCC, millisecondsToFixOne); // Will attempt to unfrack the coin. 
+                    CoinUtils fixedCC = await fixCoin(frackedCC, millisecondsToFixOne); // Will attempt to unfrack the coin. 
 
                     cu.consoleReport();
                     switch (fixedCC.getFolder().ToLower())
@@ -260,7 +263,7 @@ namespace Founders
         }//end delete coin
 
 
-        public CoinUtils fixCoin(CloudCoin brokeCoin, int millisecondsToTimeout)
+        public async Task<CoinUtils> fixCoin(CloudCoin brokeCoin, int millisecondsToTimeout)
         {
             CoinUtils cu = new CoinUtils(brokeCoin);
 
@@ -308,7 +311,7 @@ namespace Founders
                     {
                         Console.Write(" Using corner " + corner + " ");
                         CoreLogger.Log(" Using corner " + corner + " ");
-                        fix_result = fixOneGuidCorner(raida_ID, brokeCoin, corner, fixer.currentTriad, millisecondsToTimeout);
+                        fix_result = await fixOneGuidCorner(raida_ID, brokeCoin, corner, fixer.currentTriad, millisecondsToTimeout);
                         // Console.WriteLine(" fix_result: " + fix_result + " for corner " + corner);
                         if (fix_result.Contains("success"))
                         {
@@ -354,7 +357,7 @@ namespace Founders
                     {
                         Console.Write(" Using corner " + corner + " ");
                         CoreLogger.Log(" Using corner " + corner + " ");
-                        fix_result = fixOneGuidCorner(raida_ID, brokeCoin, corner, fixer.currentTriad, millisecondsToTimeout);
+                        fix_result = await fixOneGuidCorner(raida_ID, brokeCoin, corner, fixer.currentTriad, millisecondsToTimeout);
                         // Console.WriteLine(" fix_result: " + fix_result + " for corner " + corner);
                         if (fix_result.Contains("success"))
                         {
@@ -386,7 +389,7 @@ namespace Founders
 
             cu.calculateHP();//how many fails did it get
                              //  cu.gradeCoin();// sets the grade and figures out what the file extension should be (bank, fracked, counterfeit, lost
-
+            cu.txtLogs = txtLogs;
             cu.grade();
             cu.calcExpirationDate();
             return cu;

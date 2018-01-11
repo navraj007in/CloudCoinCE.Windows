@@ -8,7 +8,7 @@
         xmlns:uc1="clr-namespace:LedControl"
         xmlns:uc="clr-namespace:CloudCoinCE.UserControls"
         mc:Ignorable="d" WindowState="Maximized" Background="#36347f" 
-        Title="CloudCoin Consumers Edition 1.0" Height="1080" Width="1920">
+        Title="CloudCoin Consumers Edition 1.0.2" Height="1080" Width="1920">
 
     <Window.Resources>
 
@@ -126,7 +126,7 @@
                 </DockPanel>
             </Border>
 
-            <RichTextBox Grid.Column="0" Margin="{StaticResource Margin.Main.Top}" Grid.Row="2" BorderBrush="#5a5fc9" BorderThickness="1" TextChanged="txtLogs_TextChanged" Foreground="White" x:Name="txtLogs" FontSize="18"  VerticalScrollBarVisibility="Visible" Width="645" MinWidth="400" Height="780" Background="{StaticResource LinearGradientBrush.TextBox}" Style="{DynamicResource RichTextBoxStyle_CloudCin}"/>
+            <RichTextBox Focusable="False"  Grid.Column="0" Margin="{StaticResource Margin.Main.Top}" Grid.Row="2" BorderBrush="#5a5fc9" BorderThickness="1" TextChanged="txtLogs_TextChanged" Foreground="White" x:Name="txtLogs" FontSize="18"  VerticalScrollBarVisibility="Visible" Width="645" MinWidth="400" Height="780" Background="{StaticResource LinearGradientBrush.TextBox}" Style="{DynamicResource RichTextBoxStyle_CloudCin}"/>
 
             <StackPanel  Margin="{StaticResource Margin.Main.Top}" Grid.Column="1" Grid.Row="2" Height="780" Orientation="Vertical">
                 <StackPanel Height="60" Orientation="Horizontal"  >
@@ -234,7 +234,7 @@
                                 </Style.Triggers>
                             </Style>
                         </Button.Style>
-                        ₡0
+                        ₡ 0
                     </Button>
                 </StackPanel>
 

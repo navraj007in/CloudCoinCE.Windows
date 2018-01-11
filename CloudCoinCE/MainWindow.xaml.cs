@@ -33,7 +33,7 @@ namespace CloudCoinCE
 
         public static string[] countries = new String[] { "Australia", "Macedonia", "Philippines", "Serbia", "Bulgaria", "Russia", "Switzerland", "United Kingdom", "Punjab", "India", "Croatia", "USA", "India", "Taiwan", "Moscow", "St.Petersburg", "Columbia", "Singapore", "Germany", "Canada", "Venezuela", "Hyperbad", "USA", "Ukraine", "Luxenburg" };
 
-        public static String rootFolder = AppDomain.CurrentDomain.BaseDirectory;
+        public static String rootFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +System.IO.Path.DirectorySeparatorChar + "CloudCoinCE" + System.IO.Path.DirectorySeparatorChar;
         public static String importFolder = rootFolder + "Import" + System.IO.Path.DirectorySeparatorChar;
         public static String importedFolder = rootFolder + "Imported" + System.IO.Path.DirectorySeparatorChar;
         public static String trashFolder = rootFolder + "Trash" + System.IO.Path.DirectorySeparatorChar;
@@ -179,7 +179,8 @@ namespace CloudCoinCE
             Console.Out.WriteLine("  Attempting to fix all fracked coins.");
             Console.Out.WriteLine("");
             Frack_Fixer fixer = new Frack_Fixer(fileUtils, timeout);
-            fixer.fixAll(timeout);
+            fixer.txtLogs = txtLogs;
+            fixer.fixAll(timeout).Wait();
             stopwatch.Stop();
             Console.Out.WriteLine("  Fix Time: " + stopwatch.Elapsed + " ms");
             Console.Out.WriteLine("  If your coins are not completely fixed, you may 'fix fracked' again.");
@@ -195,7 +196,7 @@ namespace CloudCoinCE
                 {
 
                     Thread.CurrentThread.IsBackground = true;
-
+                    
                     echoRaida();
 
                     int totalRAIDABad = 0;
@@ -219,7 +220,7 @@ namespace CloudCoinCE
                         return;
                     }
                     else
-                        import();
+                        import(1);
 
                     /* run your code here */
                 }).Start();
@@ -290,6 +291,11 @@ namespace CloudCoinCE
                 Console.Out.WriteLine("Time in ms to multi detect pown " + ts.TotalMilliseconds);
                 RAIDA_Status.showMultiMs();
                 showCoins();
+
+                new Thread(delegate () {
+                    fix();
+                }).Start();
+
                 // multi_detect();
                 //detect(1);
             }//end if coins to import
@@ -525,9 +531,9 @@ namespace CloudCoinCE
         private void printWelcome()
         {
             updateLog("CloudCoin Consumers Edition");
-            updateLog("Version " + DateTime.Now.ToShortDateString());
-            updateLog("Used to Authenticate ,Store,Payout CloudCoins");
-            updateLog("This Software is provided as is with all faults, defects and errors, and without warranty of any kind.Free from the CloudCoin Consortium.");
+            updateLog("Version 11/21/2017");
+            updateLog("Used to Authenticate, Store, and Payout CloudCoins");
+            updateLog("This Software is provided as is with all faults, defects, errors, and without a warranty of any kind. Free from the CloudCoin Consortium.");
         }
         private void loadJson()
         {
@@ -683,7 +689,7 @@ namespace CloudCoinCE
                                   //Console.Out.WriteLine(("Exporting to:" + exportFolder));
 
             exporter.writeJSONFile(exp_1, exp_5, exp_25, exp_100, exp_250, tag, 1, backupDir);
-
+            
 
             // end if type jpge or stack
 
@@ -700,6 +706,7 @@ namespace CloudCoinCE
         }
         private void backup()
         {
+            
             Banker bank = new Banker(fileUtils);
             int[] bankTotals = bank.countCoins(fileUtils.bankFolder);
             int[] frackedTotals = bank.countCoins(fileUtils.frackedFolder);
@@ -708,11 +715,13 @@ namespace CloudCoinCE
 
             using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
             {
-
+                updateLog("Backing up CloudCoins. This may take a while if you have many CloudCoin Notes.");
                 System.Windows.Forms.DialogResult result = dialog.ShowDialog();
                 if (result == System.Windows.Forms.DialogResult.OK)
                 {
+                    
                     export(dialog.SelectedPath);
+                    
                     //copyFolders(dialog.SelectedPath);
                     MessageBox.Show("Backup completed successfully.");
                 }
@@ -792,10 +801,25 @@ namespace CloudCoinCE
         {
             string workspace = "";
             if (Properties.Settings.Default.WorkSpace != null && Properties.Settings.Default.WorkSpace.Length > 0)
-                workspace = Properties.Settings.Default.WorkSpace;
+            { workspace = Properties.Settings.Default.WorkSpace;
+                
+            }
             else
-                workspace = AppDomain.CurrentDomain.BaseDirectory;
-            Properties.Settings.Default.WorkSpace = workspace;
+            {
+
+                workspace = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + System.IO.Path.DirectorySeparatorChar + "CloudCoinCE" + System.IO.Path.DirectorySeparatorChar;
+                Properties.Settings.Default.WorkSpace = workspace;
+                string sMessageBoxText = "You need to Choose a Folder that will hold your CloudCoins.";
+                string sCaption = "";
+
+                MessageBoxButton btnMessageBox = MessageBoxButton.OK;
+                MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
+
+                MessageBoxResult rsltMessageBox = MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+                cmdChangeWorkspace_Click(this, null);
+                workspace = Properties.Settings.Default.WorkSpace;
+            }
+            
             return workspace;
         }
 
@@ -831,7 +855,7 @@ namespace CloudCoinCE
                                     try
                                     {
                                         string outputpath = Properties.Settings.Default.WorkSpace + "Templates" + System.IO.Path.DirectorySeparatorChar + fileName.Substring(22);
-                                        updateLog(outputpath);
+                                        //updateLog(outputpath);
                                         using (FileStream fileStream = File.Create(outputpath))
                                         {
                                             Assembly.GetExecutingAssembly().GetManifestResourceStream(fileName).CopyTo(fileStream);
@@ -839,7 +863,7 @@ namespace CloudCoinCE
                                     }
                                     catch (Exception ex)
                                     {
-
+                                        Console.WriteLine(ex.ToString());
                                     }
                                 }
                             }
@@ -1018,7 +1042,17 @@ namespace CloudCoinCE
             //updateLog("Exporting CloudCoins Completed.");
             showCoins();
             Process.Start(fileUtils.exportFolder);
-            cmdExport.Content = "₡0";
+            cmdExport.Content = "₡ 0";
+            updOne.lblValue.Text = "0";
+            updOne.val = 0;
+            updFive.lblValue.Text = "0";
+            updFive.val = 0;
+            updQtr.lblValue.Text = "0";
+            updQtr.val = 0;
+            updHundred.lblValue.Text = "0";
+            updHundred.val = 0;
+            updTwoFifty.lblValue.Text = "0";
+            updTwoFifty.val = 0;
             //MessageBox.Show("Export completed.", "Cloudcoins", MessageBoxButtons.OK);
         }// end export One
 
@@ -1045,10 +1079,12 @@ namespace CloudCoinCE
         public void grade()
         {
             Console.Out.WriteLine("");
-            updateLog("  Grading Authenticated Coins");
-            Console.Out.WriteLine("  Grading Authenticated Coins");// "Detecting Authentication of Suspect Coins");
+            // "Detecting Authentication of Suspect Coins");
             Grader grader = new Grader(fileUtils);
+            grader.txtLogs = txtLogs;
             int[] detectionResults = grader.gradeAll(5000, 2000);
+            updateLog("Finished Grading Authenticated Coins");
+            Console.Out.WriteLine("Finished Grading Authenticated Coins");
             //updateLog("  Total imported to bank: " + detectionResults[0]);
             //updateLog("  Total imported to fracked: " + detectionResults[1]);
             //updateLog("  Total Counterfeit: " + detectionResults[2]);
