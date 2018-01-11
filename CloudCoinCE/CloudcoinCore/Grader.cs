@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Windows.Controls;
 
 namespace Founders
 {
@@ -10,6 +11,7 @@ namespace Founders
         /*  INSTANCE VARIABLES */
         private FileUtils fileUtils;
         int[] results = new int[5]; // [0] Coins to bank, [1] Coins to fracked [2] Coins to Counterfeit [3] suspect [4] lost
+        public RichTextBox txtLogs;
 
         /*  CONSTRUCTOR */
         public Grader(FileUtils fileUtils)
@@ -42,15 +44,19 @@ namespace Founders
                 try
                 {
 
-                    if (File.Exists(this.fileUtils.bankFolder + detectedFileNames[j]))
+                    if (File.Exists(this.fileUtils.bankFolder + detectedFileNames[j]) || File.Exists(this.fileUtils.frackedFolder + detectedFileNames[j]))
                     {//Coin has already been imported. Delete it from import folder move to trash.
                         //THIS SHOULD NOT HAPPEN - THE COIN SHOULD HAVE BEEN CHECKED DURING IMPORT BEFORE DETECTION TO SEE IF IT WAS IN THE BANK FOLDER
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.Out.WriteLine("You tried to import a coin that has already been imported.");
                         CoreLogger.Log("You tried to import a coin that has already been imported.");
+                        updateLog("You tried to import a coin that has already been imported.");
+                        if (File.Exists(this.fileUtils.trashFolder + detectedFileNames[j]))
+                            File.Delete(this.fileUtils.trashFolder + detectedFileNames[j]);
                         File.Move(this.fileUtils.detectedFolder + detectedFileNames[j], this.fileUtils.trashFolder + detectedFileNames[j]);
                         Console.Out.WriteLine("Suspect CloudCoin was moved to Trash folder.");
                         CoreLogger.Log("Suspect CloudCoin was moved to Trash folder.");
+                        updateLog("Suspect CloudCoin was moved to Trash folder.");
                         Console.ForegroundColor = ConsoleColor.White;
                     }
                     else
@@ -102,14 +108,15 @@ namespace Founders
                                 Console.ForegroundColor = ConsoleColor.White;
                                 Console.Out.WriteLine("  Now fixing fracked for " + (j + 1) + " of " + detectedFileNames.Length + " . SN " + string.Format("{0:n0}", newCC.sn) + ", Denomination: " + cu.getDenomination());
                                 CoreLogger.Log("  Now fixing fracked for " + (j + 1) + " of " + detectedFileNames.Length + " . SN " + string.Format("{0:n0}", newCC.sn) + ", Denomination: " + cu.getDenomination());
-
+                                updateLog("Some of your CloudCoins are still being processed. This should take just a moment.");
                                 Frack_Fixer ff = new Frack_Fixer(fileUtils, msToFixDangerousFracked);
+                                ff.txtLogs = txtLogs;
                                 RAIDA raida = new RAIDA();
                                 Console.WriteLine("folder is " + cu.getFolder().ToLower());
                                 while (cu.getFolder().ToLower() == "dangerous")
                                 {// keep fracking fixing until all fixed or no more improvments possible. 
                                     Console.WriteLine("   calling fix Coin");
-                                    cu = ff.fixCoin(cu.cc, msToFixDangerousFracked);
+                                    cu = ff.fixCoin(cu.cc, msToFixDangerousFracked).Result;
                                     Console.WriteLine("   sorting after fixing");
                                     cu.sortFoldersAfterFixingDangerous();
                                 }//while folder still dangerous
@@ -163,5 +170,14 @@ namespace Founders
             return results;
         }//Detect All
 
+
+        private void updateLog(string logLine)
+        {
+            CloudCoinCE.App.Current.Dispatcher.Invoke(delegate
+            {
+                txtLogs.AppendText(logLine + Environment.NewLine);
+            });
+
+        }
     }// end class
 }// end namespace

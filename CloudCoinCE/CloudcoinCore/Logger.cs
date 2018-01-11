@@ -21,8 +21,7 @@ namespace Founders
     }
     public class CoreLogger
     {
-        static string assemblyFile = (
-    new System.Uri(Assembly.GetExecutingAssembly().CodeBase)).AbsolutePath;
+        static string assemblyFile = CloudCoinCE.MainWindow.rootFolder;
 
       
         //Fields 

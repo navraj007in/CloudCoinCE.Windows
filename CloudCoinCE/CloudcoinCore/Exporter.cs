@@ -53,6 +53,7 @@ namespace Founders
             // Look at all the money files and choose the ones that are needed.
             for (int i = 0; i < bankedFileNames.Length; i++)
             {
+                CoreLogger.Log("Exporting as JPEG: " + bankedFileNames[i]);
                 String bankFileName = (this.fileUtils.bankFolder + bankedFileNames[i]);
                 String frackedFileName = (this.fileUtils.frackedFolder + bankedFileNames[i]);
                 String partialFileName = (this.fileUtils.partialFolder + bankedFileNames[i]);

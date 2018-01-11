@@ -199,7 +199,7 @@ namespace Founders
                     {
                         tempCoins = this.fileUtils.loadManyCloudCoinFromJsonFile(this.fileUtils.importFolder + fileName, incomeJson);
                     }
-                    catch (JsonReaderException e) {
+                    catch (JsonSerializationException e) {
                         //Console.WriteLine("Moving corrupted file to trash: " + fileName);
                         Console.WriteLine("Error reading " + fileName + ". Moving to trash.");
                         CoreLogger.Log("Error reading " + fileName + ". Moving to trash.");

@@ -287,7 +287,7 @@ namespace Founders
                 cu[i].setAnsToPansIfPassed();
                 cu[i].calculateHP();
                 cu[i].calcExpirationDate();
-                cu[i].grade();
+                cu[i].sortToFolder();
             }//end for each detection agent
 
             return cu;//Return the array of coins detected
@@ -347,7 +347,7 @@ namespace Founders
             cu.calculateHP();
             // cu.gradeCoin(); // sets the grade and figures out what the file extension should be (bank, fracked, counterfeit, lost
             cu.calcExpirationDate();
-            cu.grade();
+            cu.sortToFolder();
 
             return cu;
         }//end detect coin
@@ -380,7 +380,7 @@ namespace Founders
             var t02 = get_Ticket(2, triad[02], nn, sn, ans[02], denomination, millisecondsToTimeout);
 
             var taskList = new List<Task> { t00, t01, t02 };
-            Task.WaitAll(taskList.ToArray(), millisecondsToTimeout);
+            Task.WaitAll(taskList.ToArray());
             try
             {
                 CoreLogger.Log(sn + " get ticket:" + triad[00] + " " + responseArray[triad[00]].fullResponse);
