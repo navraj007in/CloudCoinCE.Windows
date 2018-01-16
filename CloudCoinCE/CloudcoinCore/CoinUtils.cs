@@ -447,7 +447,7 @@ namespace Founders
         {
             //The coin is considered fracked if it has any fails
             bool returnTruth = false;
-            if (charCount(cc.pown, 'f') > 0 || charCount(cc.pown, 'n') > 0) {
+            if (charCount(cc.pown, 'f') > 0) {
                 returnTruth = true;
                 Console.Out.WriteLine("isFracked");
             }
