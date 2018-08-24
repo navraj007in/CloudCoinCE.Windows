@@ -38,6 +38,9 @@
   <PropertyGroup>
     <ApplicationIcon>android-chrome-512x512_131495165950459079.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -57,11 +60,15 @@
     <Reference Include="PInvoke.Windows.Core, Version=0.3.0.0, Culture=neutral, PublicKeyToken=9e300f9f87f04a7a, processorArchitecture=MSIL">
       <HintPath>..\packages\PInvoke.Windows.Core.0.3.2\lib\portable-net45+win+wpa81+MonoAndroid10+xamarinios10+MonoTouch10\PInvoke.Windows.Core.dll</HintPath>
     </Reference>
+    <Reference Include="QRCoder, Version=1.3.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QRCoder.1.3.3\lib\net40\QRCoder.dll</HintPath>
+    </Reference>
     <Reference Include="SkiaSharp, Version=1.59.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
       <HintPath>..\packages\SkiaSharp.1.59.1\lib\net45\SkiaSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -72,44 +79,57 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QRCoder.1.3.3\lib\net40\UnityEngine.dll</HintPath>
+    </Reference>
     <Reference Include="Validation, Version=2.2.0.0, Culture=neutral, PublicKeyToken=2fc06f0d701809a7, processorArchitecture=MSIL">
       <HintPath>..\packages\Validation.2.2.8\lib\dotnet\Validation.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="zxing, Version=0.16.4.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.4\lib\net45\zxing.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.presentation, Version=0.16.4.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.4\lib\net45\zxing.presentation.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CloudcoinCore\Banker.cs" />
-    <Compile Include="CloudcoinCore\CloudCoin.cs" />
-    <Compile Include="CloudcoinCore\CoinUtils.cs" />
-    <Compile Include="CloudcoinCore\DetectionAgent.cs" />
-    <Compile Include="CloudcoinCore\Detector.cs" />
-    <Compile Include="CloudcoinCore\Dumper.cs" />
-    <Compile Include="CloudcoinCore\Exporter.cs" />
-    <Compile Include="CloudcoinCore\FileUtils.cs" />
-    <Compile Include="CloudcoinCore\FixitHelper.cs" />
-    <Compile Include="CloudcoinCore\Frack_Fixer.cs" />
-    <Compile Include="CloudcoinCore\Grader.cs" />
-    <Compile Include="CloudcoinCore\Importer.cs" />
-    <Compile Include="CloudcoinCore\KeyboardReader.cs" />
-    <Compile Include="CloudcoinCore\Logger.cs" />
-    <Compile Include="CloudcoinCore\MindStorage.cs" />
-    <Compile Include="CloudcoinCore\MultiDetect.cs" />
-    <Compile Include="CloudcoinCore\ProgressEventArgs.cs" />
-    <Compile Include="CloudcoinCore\RAIDA.cs" />
-    <Compile Include="CloudcoinCore\RAIDA_Status.cs" />
-    <Compile Include="CloudcoinCore\Receipt.cs" />
-    <Compile Include="CloudcoinCore\ReceitDetail.cs" />
-    <Compile Include="CloudcoinCore\Response.cs" />
-    <Compile Include="CloudcoinCore\Stack.cs" />
+    <Compile Include="CoreClasses\CelebriumCoin.cs" />
+    <Compile Include="CoreClasses\Exporter.cs" />
+    <Compile Include="CoreClasses\FileSystem.cs" />
+    <Compile Include="CoreClasses\FixItHelper.cs" />
+    <Compile Include="CoreClasses\TrustedTradeSocket.cs" />
+    <Compile Include="Core\Banker.cs" />
+    <Compile Include="Core\BarcodeGenerator.cs" />
+    <Compile Include="Core\CloudCoin.cs" />
+    <Compile Include="Core\CoinUtils.cs" />
+    <Compile Include="Core\Config.cs" />
+    <Compile Include="Core\DetectEventArgs.cs" />
+    <Compile Include="Core\DetectResponse.cs" />
+    <Compile Include="Core\FileSystem.cs" />
+    <Compile Include="Core\FixitHelper.cs" />
+    <Compile Include="Core\Frack_Fixer.cs" />
+    <Compile Include="Core\IFileSystem.cs" />
+    <Compile Include="Core\Logger.cs" />
+    <Compile Include="Core\MultiDetectRequest.cs" />
+    <Compile Include="Core\Network.cs" />
+    <Compile Include="Core\Node.cs" />
+    <Compile Include="Core\ProgressChangedEventArgs.cs" />
+    <Compile Include="Core\RAIDA.cs" />
+    <Compile Include="Core\Response.cs" />
+    <Compile Include="Core\Stack.cs" />
+    <Compile Include="Core\Utils.cs" />
     <Compile Include="Disclaimer.xaml.cs">
       <DependentUpon>Disclaimer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ProgressEventArgs.cs" />
+    <Compile Include="SimpleLogger.cs" />
     <Compile Include="UserControls\ColorToSCBrushConverter.cs" />
     <Compile Include="UserControls\ImageButton.cs" />
     <Compile Include="UserControls\IncrementUserControl.xaml.cs">
@@ -122,6 +142,9 @@
       <DependentUpon>UpDownControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\WidthToBorderThickConverter.cs" />
+    <Compile Include="Utils.cs" />
+    <Compile Include="Utils\ConsoleTable.cs" />
+    <Compile Include="Utils\EchoResponse.cs" />
     <Page Include="Dictionaries\ImageButtonDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -204,7 +227,13 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="app.manifest">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Design\projectGuides.guides" />
+    <EmbeddedResource Include="directory.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <None Include="nodes.json" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -307,9 +336,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Templates\jpeg1.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Templates\jpeg100.2.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Templates\jpeg100.jpg">

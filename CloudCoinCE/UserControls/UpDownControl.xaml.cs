@@ -58,7 +58,7 @@ namespace CloudCoinCE.UserControls
         public int Value
         {
             get { return val; }
-            set { val = value; }
+            set { { val = value; lblValue.Content = val; } }
         }
         private void cmdDown_Click(object sender, RoutedEventArgs e)
         {
