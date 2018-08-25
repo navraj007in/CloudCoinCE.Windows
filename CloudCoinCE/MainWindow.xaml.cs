@@ -562,6 +562,7 @@ namespace CloudCoinCE
 
         private void cmdBackup_Click(object sender, RoutedEventArgs e)
         {
+            UpdateCELog("  User Input : Backup");
             backup();
         }
 
@@ -604,11 +605,15 @@ namespace CloudCoinCE
 
         private void cmdShowFolders_Click(object sender, RoutedEventArgs e)
         {
+            UpdateCELog("  User Input : Show Folders");
+
             Process.Start(FS.RootPath);
         }
 
         private void cmdRefresh_Click(object sender, RoutedEventArgs e)
         {
+            ShowCoins();
+            UpdateCELog("  User Input : Echo RAIDA");
             SetLEDFlashing(true);
           
             new Thread(async delegate () {
@@ -702,6 +707,7 @@ namespace CloudCoinCE
 
         private void cmdPown_Click(object sender, RoutedEventArgs e)
         {
+            UpdateCELog("  User Input : Deposit");
             int count = FS.LoadFolderCoins(FS.ImportFolder).Count();
 
             if (count == 0)
@@ -817,6 +823,7 @@ namespace CloudCoinCE
         }
         public void export()
         {
+            UpdateCELog("  User Input : Withdraw");
             if (rdbJpeg.IsChecked == true)
                 exportJpegStack = 1;
             else
@@ -914,7 +921,7 @@ namespace CloudCoinCE
                     }//end if file exists
 
                     FS.WriteCoinsToFile(exportCoins, filename, ".stack");
-                    Console.WriteLine("Coins exported as stack file to " + filename);
+                    updateLog("Coins exported as stack file to " + filename);
                     FS.RemoveCoins(exportCoins, FS.BankFolder);
                     FS.RemoveCoins(exportCoins, FS.FrackedFolder);
                 }
@@ -979,6 +986,7 @@ namespace CloudCoinCE
 
         private void cmdExport_Click(object sender, RoutedEventArgs e)
         {
+
             string sMessageBoxText = "Are you sure you want to export CloudCoins?";
             string sCaption = "Export CloudCoins";
 
@@ -986,7 +994,7 @@ namespace CloudCoinCE
             MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
 
             MessageBoxResult rsltMessageBox = MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
-
+            FS.LoadFileSystemForExport();
             switch (rsltMessageBox)
             {
                 case MessageBoxResult.Yes:
@@ -1015,6 +1023,8 @@ namespace CloudCoinCE
                         case MessageBoxResult.Yes:
                             /* ... */
                             // lblDirectory.Text = dialog.SelectedPath;
+                            UpdateCELog("  User Input : Change Workspace");
+
                             Properties.Settings.Default.WorkSpace = dialog.SelectedPath + System.IO.Path.DirectorySeparatorChar;
                             Properties.Settings.Default.Save();
                             FileSystem fileUtils = new FileSystem(Properties.Settings.Default.WorkSpace);

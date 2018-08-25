@@ -139,6 +139,16 @@ namespace CloudCoinClient.CoreClasses
 
         }
 
+        public void LoadFileSystemForExport()
+        {
+            //exportCoins = LoadFolderCoins(ExportFolder);
+            bankCoins = LoadFolderCoins(BankFolder);
+            frackedCoins = LoadFolderCoins(FrackedFolder);
+            //counterfeitCoins = LoadFolderCoins(CounterfeitFolder);
+
+        }
+
+
 
         public override void DetectPreProcessing()
         {
