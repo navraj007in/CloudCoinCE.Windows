@@ -200,6 +200,7 @@ namespace CloudCoinCore
 
             Debug.WriteLine("Detection Completed in : " + ts.TotalMilliseconds / 1000);
             updateLog("Detection Completed in : " + ts.TotalMilliseconds / 1000);
+            updateLog("****************************************************************************************************");
         }
 
 
@@ -305,10 +306,10 @@ namespace CloudCoinCore
             //detectedCoins.ForEach(x => x.pown= "ppppppppppppppppppppppppp");
 
             // Apply Sort to Folder to all detected coins at once.
-            updateLog("Starting Sort.....");
+            updateLog("Starting Grading Coins..");
             //detectedCoins.ForEach(x => x.doPostProcessing());
             detectedCoins.ForEach(x => x.SortToFolder());
-            updateLog("Ended Sort........");
+            updateLog("Grading Coins Completed.");
 
             var passedCoins = (from x in detectedCoins
                                where x.folder == FS.BankFolder
@@ -327,14 +328,14 @@ namespace CloudCoinCore
             var suspectCoins = (from x in detectedCoins
                                 where x.folder == FS.SuspectFolder
                                 select x).ToList();
+            var dangerousCoins = (from x in detectedCoins
+                                where x.folder == FS.DangerousFolder
+                                select x).ToList();
+
+
 
             Debug.WriteLine("Total Passed Coins - " + (passedCoins.Count() + frackedCoins.Count()));
             Debug.WriteLine("Total Failed Coins - " + failedCoins.Count());
-            updateLog("Coin Detection finished.");
-            updateLog("Total Passed Coins - " + (passedCoins.Count() + frackedCoins.Count()) + "");
-            updateLog("Total Failed Coins - " + failedCoins.Count() + "");
-            updateLog("Total Lost Coins - " + lostCoins.Count() + "");
-            updateLog("Total Suspect Coins - " + suspectCoins.Count() + "");
 
             // Move Coins to their respective folders after sort
             FS.MoveCoins(passedCoins, FS.DetectedFolder, FS.BankFolder);
@@ -358,6 +359,13 @@ namespace CloudCoinCore
             //Debug.WriteLine("Detection Completed in - " + ts.TotalMilliseconds / 1000);
             //updateLog("Detection Completed in - " + ts.TotalMilliseconds / 1000);
 
+            updateLog("Detection and Import of the CloudCoins completed.");
+            updateLog("Coin Detection finished.");
+            updateLog("Total Passed Coins - " + (passedCoins.Count() + frackedCoins.Count()) + "");
+            updateLog("Total Counterfeit Coins - " + failedCoins.Count() + "");
+            updateLog("Total Lost Coins - " + lostCoins.Count() + "");
+            updateLog("Total Suspect Coins - " + suspectCoins.Count() + "");
+            updateLog("Total Dangerous Coins - " + dangerousCoins.Count() + "");
 
             pge.MinorProgress = 100;
             Debug.WriteLine("Minor Progress- " + pge.MinorProgress);
