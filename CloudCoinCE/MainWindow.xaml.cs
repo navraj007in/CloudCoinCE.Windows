@@ -454,7 +454,8 @@ namespace CloudCoinCE
             //Properties.Settings.Default["FirstRun"] = false;
 
             bool firstRun = (bool)Properties.Settings.Default["FirstRun"];
-            if (firstRun == false)
+            //if (firstRun == false)
+            if(true)
             {
                 //First application run
                 //Update setting
@@ -483,7 +484,7 @@ namespace CloudCoinCE
             updateLog("CloudCoin Consumers Edition");
             updateLog("Version WinCE-" +  DateTime.Now.ToString("dd-MMM-yyyy") +"-v1.5");
             updateLog("Used to Authenticate ,Store,Payout CloudCoins.");
-            updateLog("This Software is provided as is, with all faults, defects, errors and without warranty of any kind.Free from the CloudCoin Consortium.");
+            updateLog("This Software is provided as is, with all faults, defects, errors and without warranty of any kind. Free from the CloudCoin Consortium.");
 
             printStarLine();
             UpdateCELog("                                                                  ");
@@ -556,11 +557,11 @@ namespace CloudCoinCE
             if (silent)
             {
                 updateLog("----------------------------------");
-                updateLog(String.Format("Starting Echo to RAIDA Network {0}", 1));
+                updateLog(String.Format("Starting Echo to RAIDA"));
                 updateLog("----------------------------------");
 
                 UpdateCELog("----------------------------------");
-                UpdateCELog(String.Format("Starting Echo to RAIDA Network {0}", 1));
+                UpdateCELog(String.Format("Starting Echo to RAIDA"));
                 UpdateCELog("----------------------------------");
 
             }
@@ -570,12 +571,12 @@ namespace CloudCoinCE
             await Task.WhenAll(echos.AsParallel().Select(async task => await task()));
             if (silent)
             {
-                updateLog("Ready Count - " + raida.ReadyCount);
-                updateLog("Not Ready Count - " + raida.NotReadyCount);
+                updateLog("Ready Count: " + raida.ReadyCount);
+                updateLog("Not Ready Count: " + raida.NotReadyCount);
                 updateLog("-----------------------------------");
 
-                UpdateCELog("Ready Count - " + raida.ReadyCount);
-                UpdateCELog("Not Ready Count - " + raida.NotReadyCount);
+                UpdateCELog("Ready Count: " + raida.ReadyCount);
+                UpdateCELog("Not Ready Count: " + raida.NotReadyCount);
                 UpdateCELog("-----------------------------------");
 
             }
@@ -1041,8 +1042,8 @@ namespace CloudCoinCE
         private void cmdExport_Click(object sender, RoutedEventArgs e)
         {
 
-            string sMessageBoxText = "Are you sure you want to export CloudCoins?";
-            string sCaption = "Export CloudCoins";
+            string sMessageBoxText = "Are you sure you want to withdraw CloudCoins?";
+            string sCaption = "Withdraw CloudCoins";
 
             MessageBoxButton btnMessageBox = MessageBoxButton.YesNo;
             MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
