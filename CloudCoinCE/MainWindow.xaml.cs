@@ -36,7 +36,7 @@ namespace CloudCoinCE
         public EventHandler RefreshCoins;
         public static RAIDA raida;
         public static string[] countries = new String[] { "Australia", "Macedonia", "Philippines", "Serbia", "Bulgaria", "Russia", "Switzerland", "United Kingdom", "Punjab", "India", "Croatia", "USA", "India", "Taiwan", "Moscow", "St.Petersburg", "Columbia", "Singapore", "Germany", "Canada", "Venezuela", "Hyperbad", "USA", "Ukraine", "Luxenburg" };
-
+        Frack_Fixer fixer;
         public static String rootFolder = AppDomain.CurrentDomain.BaseDirectory;
         
         public static int exportOnes = 0;
@@ -82,6 +82,7 @@ namespace CloudCoinCE
             FS.CreateDirectories();
             FS.LoadFileSystem();
             logger = new SimpleLogger(FS.LogsFolder + "logs" + DateTime.Now.ToString("yyyyMMdd").ToLower() + ".log", true);
+            fixer = new Frack_Fixer(FS, timeout);
             UpdateCELog("");
             printStarLine();
             UpdateCELog("Starting CloudCoin CE at "+ DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss"));
@@ -229,7 +230,7 @@ namespace CloudCoinCE
 
             UpdateCELog("  Attempting to fix all fracked coins.");
 
-            Frack_Fixer fixer = new Frack_Fixer(FS, timeout);
+            //Frack_Fixer fixer = new Frack_Fixer(FS, timeout);
             fixer.FixAll();
 
         }//end fix
@@ -454,12 +455,12 @@ namespace CloudCoinCE
             //Properties.Settings.Default["FirstRun"] = false;
 
             bool firstRun = (bool)Properties.Settings.Default["FirstRun"];
-            //if (firstRun == false)
-            if(true)
+            if (firstRun == true)
+            //if(true)
             {
                 //First application run
                 //Update setting
-                Properties.Settings.Default["FirstRun"] = true;
+                Properties.Settings.Default["FirstRun"] = false;
                 //Save setting
                 Properties.Settings.Default.Save();
 
@@ -476,13 +477,13 @@ namespace CloudCoinCE
 
         private static void printStarLine()
         {
-            logger.Info("****************************************************************************************************");
+            logger.Info("********************************************************************************");
 
         }
         private void printWelcome()
         {
             updateLog("CloudCoin Consumers Edition");
-            updateLog("Version WinCE-" +  DateTime.Now.ToString("dd-MMM-yyyy") +"-v1.5");
+            updateLog("Version WinCE-" +  DateTime.Now.ToString("dd-MMM-yyyy") +"-v1.5.0.3");
             updateLog("Used to Authenticate ,Store,Payout CloudCoins.");
             updateLog("This Software is provided as is, with all faults, defects, errors and without warranty of any kind. Free from the CloudCoin Consortium.");
 
@@ -809,6 +810,7 @@ namespace CloudCoinCE
             new Thread(async () =>
             {
                 Thread.CurrentThread.IsBackground = true;
+                fixer.continueExecution = false;
                 UpdateCELog("Starting Detect..");
                 printStarLine();
                 await RAIDA.ProcessCoins(true);
@@ -1060,22 +1062,23 @@ namespace CloudCoinCE
 
         private void cmdWorkspace_Click(object sender, RoutedEventArgs e)
         {
-            using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+            string sMessageBoxText = "Do you want to Change CloudCoin Workspace? This will change the working directory and you will see 0 coins. Your coins will not be lost however. You will be able to see them again when you revert to old workspace.";
+            string sCaption = "Change Workspace";
+
+            MessageBoxButton btnMessageBox = MessageBoxButton.YesNoCancel;
+            MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
+
+            MessageBoxResult rsltMessageBox = MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+
+            switch (rsltMessageBox)
+            {
+                case MessageBoxResult.Yes:
+                    using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
             {
                 System.Windows.Forms.DialogResult result = dialog.ShowDialog();
                 if (result == System.Windows.Forms.DialogResult.OK)
                 {
-                    string sMessageBoxText = "Do you want to Change CloudCoin Folder?";
-                    string sCaption = "Change Directory";
-
-                    MessageBoxButton btnMessageBox = MessageBoxButton.YesNoCancel;
-                    MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
-
-                    MessageBoxResult rsltMessageBox = MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
-
-                    switch (rsltMessageBox)
-                    {
-                        case MessageBoxResult.Yes:
+                    
                             /* ... */
                             // lblDirectory.Text = dialog.SelectedPath;
                             UpdateCELog("  User Input : Change Workspace");
@@ -1108,17 +1111,18 @@ namespace CloudCoinCE
                             }
                             System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
                             Application.Current.Shutdown();
-                            break;
-
-                        case MessageBoxResult.No:
-                            /* ... */
-                            break;
-
-                        case MessageBoxResult.Cancel:
-                            /* ... */
-                            break;
-                    }
+                            
                 }
+            }
+                    break;
+
+                case MessageBoxResult.No:
+                    /* ... */
+                    break;
+
+                case MessageBoxResult.Cancel:
+                    /* ... */
+                    break;
             }
 
         }
