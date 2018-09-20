@@ -483,7 +483,7 @@ namespace CloudCoinCE
         private void printWelcome()
         {
             updateLog("CloudCoin Consumers Edition");
-            updateLog("Version WinCE-" +  DateTime.Now.ToString("dd-MMM-yyyy") +"-v1.5.0.3");
+            updateLog("Version WinCE-" +  DateTime.Now.ToString("dd-MMM-yyyy") +"-v1.5.0.4");
             updateLog("Used to Authenticate ,Store,Payout CloudCoins.");
             updateLog("This Software is provided as is, with all faults, defects, errors and without warranty of any kind. Free from the CloudCoin Consortium.");
 
@@ -1082,7 +1082,8 @@ namespace CloudCoinCE
                             /* ... */
                             // lblDirectory.Text = dialog.SelectedPath;
                             UpdateCELog("  User Input : Change Workspace");
-
+                            //FS.RootPath = dialog.SelectedPath;
+                            //FS.CreateFolderStructure();
                             Properties.Settings.Default.WorkSpace = dialog.SelectedPath + System.IO.Path.DirectorySeparatorChar;
                             Properties.Settings.Default.Save();
                             printStarLine();
@@ -1105,7 +1106,7 @@ namespace CloudCoinCE
                                     }
                                     catch (Exception ex)
                                     {
-
+                                        logger.Error(ex.Message);
                                     }
                                 }
                             }
