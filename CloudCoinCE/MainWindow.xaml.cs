@@ -141,6 +141,16 @@ namespace CloudCoinCE
             }).Start();
 
             resumeImport();
+
+            this.PreviewKeyDown += MainWindow_PreviewKeyDown;
+        }
+
+        private void MainWindow_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab)
+            {
+                e.Handled = true;
+            }
         }
 
         public void SetLEDFlashing(bool LEDStatus)
